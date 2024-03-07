@@ -64,7 +64,7 @@ int(timer_test_int)(uint8_t time) {
                   if (msg.m_notify.interrupts & irq_set) { // como lidar com o interrupt
                       timer_int_handler(); //conta o n de interrupçoes que depois nos pode dar o tempo que passou
                       if((counter%60)==0){ //counter represents the elapsed time
-                      //timer estã programado para gerar um interrupt a cada 1/60s,logo quando o conter for 60 significa que ja passou um segundo
+                      //timer estã programado para gerar um interrupt a cada 1/freq min,logo quando o conter for 60 significa que ja passou um segundo
                         timer_print_elapsed_time(); //print the time that has passed
                         time--;
                       }
