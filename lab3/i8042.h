@@ -36,6 +36,16 @@
 #define WAIT_KBC    20000 /**< @brief Time it waits before retrying to read */
 #define KBC_RETRY_CNT 10 /**< @brief Number of times keyboard tries to read before giving up*/
 
+/* Keyboard driver functions */
+
+int (keyboard_get_conf)(uint8_t *st); /**< @brief Get kbc configuration byte */
+
+int (keyboard_subscribe_int)(uint8_t *bit_no); /**< @brief Susbscribe to keyboard interrupts */
+
+int (keyboard_unsubscribe_int)(); /**< @brief Unsubscribe to keyboard interrupts */
+
+void (kbc_ih)(); /**< @brief Keyboard interrupt handler */
+
 /**@}*/
 
 #endif /* _LCOM_I8042_H */

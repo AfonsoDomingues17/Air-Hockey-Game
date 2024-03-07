@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "keyboard.c"
+#include "i8042.h"
 
 extern uint8_t scancode;
 extern uint32_t cnt;
@@ -57,7 +57,6 @@ int(kbd_test_scan)() {
             kbc_ih();
             uint8_t size;
             uint8_t bytes[2];      
-            if (scancode == ESC_BREAK_CODE || error) break;
             if (scancode == TWO_BYTE_SCANCODE) {
               bytes[0] = scancode;
               twoByteCode = true;

@@ -3,8 +3,7 @@
 #include "i8042.h"
 
 int hook_id = KEYBOARD1_IRQ;
-uint8_t scancode;
-bool error = false;
+uint8_t scancode = 0;
 
 int (keyboard_get_conf)(uint8_t *st) {
   // Checking argument validity
@@ -17,7 +16,7 @@ int (keyboard_get_conf)(uint8_t *st) {
 int (keyboard_subscribe_int)(uint8_t *bit_no) {
   if (bit_no == NULL)
     return 1; // ERROR
-  *bit_no = BIT(hook_id); // timer_hook_id = 0 => BIT(0)
+  *bit_no = BIT(hook_id); // hook_id = 1 => BIT(1)
   return sys_irqsetpolicy(KEYBOARD1_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id);
 }
 
@@ -34,13 +33,11 @@ void (kbc_ih)() {
             if (util_sys_inb(KBC_OUT_BUF, &data)) continue;
             if ( (stat & (KBC_PAR_ERR | KBC_TO_ERR)) == 0 ) {
                 scancode = data;
-                error = false;
             }
             else {
-                error = true;
                 return;            
             }
         }
-        tickdelay(micros_to_ticks(WAIT_KBC));
+        //tickdelay(micros_to_ticks(WAIT_KBC));
     }
 }
