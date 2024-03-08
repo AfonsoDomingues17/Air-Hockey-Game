@@ -46,11 +46,11 @@ int(timer_test_time_base)(uint8_t timer, uint32_t freq) {
 }
 
 int(timer_test_int)(uint8_t time) {
-  uint8_t bit_no = 1; //identificador do interrupt
+  uint8_t bit_no = 0; //identificador do interrupt
   if(timer_subscribe_int(&bit_no) != 0) return 1;
   int r;
   int ipc_status;
-  uint32_t irq_set = BIT(bit_no); //usado para verificar se o interrupt está pending
+  uint32_t irq_set = BIT(TIMER0_IRQ); //usado para verificar se o interrupt está pending
  message msg;
  while(time>0) { 
      

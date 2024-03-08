@@ -8,6 +8,7 @@
 
 uint8_t scancode = 0;
 extern int counter;
+int counter_timer = 0;
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
@@ -35,9 +36,10 @@ int main(int argc, char *argv[]) {
 int(kbd_test_scan)() {
   
   uint8_t teclado_hook_id = 1;
-  int irq_set = BIT(teclado_hook_id); //which handler is activated
+  int irq_set = BIT(KEYBOARD_IRQ); //which handler is activated
   int r;
   int ipc_status;
+  uint8_t size;
   if(subscribe_KBC(&teclado_hook_id)) return 1;
   message msg;
   
@@ -52,8 +54,10 @@ int(kbd_test_scan)() {
               case HARDWARE: 			
                   if (msg.m_notify.interrupts & irq_set) { // como lidar com o interrupt
                     kbc_ih(); //reads the scancodes
-                    
-                    kbd_print_scancode(!(scancode & 0x80),scancode == TWO_BYTE_SCAN ? 2 : 1, &scancode);  //see if it is a make code, if the scancode is a two byte size, i am going to compare its MSB with the default value 0xE0 and use the scancode as an array
+                    if(scancode == TWO_BYTE_SCAN) size = 2;
+                    else size = 1;
+                    kbd_print_scancode(!(scancode & 0x80),size, &scancode);
+                      //see if it is a make code, if the scancode is a two byte size, i am going to compare its MSB with the default value 0xE0 and use the scancode as an array
                   }
                   break;
               default:
@@ -73,11 +77,13 @@ int(kbd_test_scan)() {
 int(kbd_test_poll)() {
   //1º desativar interrupts - feito automaticamente
   //2º polling for scancodes
-  //3ºenable interrupts with command byte
-  //4º restore command byte
+  //3ºreenable interrupts with command byte
+  uint8_t size;
   while(scancode != BREAK_CODE_ESC){
     if(read_out_buffer(&scancode) == 0){
-      kbd_print_scancode(!(scancode & 0x80),scancode == TWO_BYTE_SCAN ? 2 : 1, &scancode);
+      if(scancode == TWO_BYTE_SCAN) size = 2;
+      else size = 1;
+      kbd_print_scancode(!(scancode & 0x80),size, &scancode);
     }
   }
   if(restore_interrupts() != 0) return 1;
@@ -86,10 +92,55 @@ int(kbd_test_poll)() {
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
+  uint8_t teclado_hook_id = 1;
+  uint8_t timer_hook_id = 0;
+  int time = n;
+  int irq_set_key = BIT(KEYBOARD_IRQ);
+  int irq_set_timer = BIT(TIMER0_IRQ);
+   //which handler is activated
+  int r;
+  int ipc_status;
+  uint8_t size;
+  if(timer_subscribe_int(&timer_hook_id) != 0) return 1;
+  if(subscribe_KBC(&teclado_hook_id)) return 1;
+  message msg;
+  
+  while(scancode != BREAK_CODE_ESC && time > 0) { 
+     
+     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+         printf("driver_receive failed with: %d", r);
+         continue;
+     }
+      if (is_ipc_notify(ipc_status)) { 
+          switch (_ENDPOINT_P(msg.m_source)) {
+              case HARDWARE: 			
+                  if (msg.m_notify.interrupts & irq_set_key) { // como lidar com o interrupt
+                    kbc_ih(); //reads the scancodes
+                    if(scancode == TWO_BYTE_SCAN) size = 2;
+                    else size = 1;
+                    kbd_print_scancode(!(scancode & 0x80),size, &scancode);  //see if it is a make code,uses the size of the scancode and use a reference to scancode's memory as an array
+                    time = n; //when a scnacode code is read the the time and counter are reseted
+                    counter_timer = 0;
+                  }
+                  if (msg.m_notify.interrupts & irq_set_timer) { // como lidar com o interrupt
+                    timer_int_handler(); //conta o n de interrupçoes que depois nos pode dar o tempo que passou
+                    if((counter_timer%60)==0){ //check if the counter has reached a number multiple of 60 which is equivalent to passing 1 second
+              
+                      time--;
+                    }
+                  }
+                  break;
+              default:
+                  break; 
+          }
+      } else { 
+          
+      }
 
-  printf("%s is not yet implemented!\n", __func__);
-
-  return 1;
+   }
+   if(unsubscribe_KBC() != 0) return 1;
+    if(timer_unsubscribe_int() != 0) return 1;
+  return 0;
 }
 
 
