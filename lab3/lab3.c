@@ -55,6 +55,7 @@ int(kbd_test_scan)() {
         case HARDWARE: /* hardware interrupt notification */                
           if (msg.m_notify.interrupts & hook) { /* subscribed interrupt */
             kbc_ih();
+            if (error) break;
             uint8_t size;
             uint8_t bytes[2];      
             if (scancode == TWO_BYTE_SCANCODE) {
@@ -88,10 +89,42 @@ int(kbd_test_scan)() {
 }
 
 int(kbd_test_poll)() {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  bool twoByteCode = false;
+  uint8_t stat;
+  while (scancode != ESC_BREAK_CODE) {
+    if (keyboard_get_conf(&stat)) continue;
+    if ((stat & KBC_OBF) == 0 || (stat & KBC_AUX)) continue;
+    if (read_out_buffer()) return 1;
+    uint8_t size;
+    uint8_t bytes[2];      
+    if (scancode == TWO_BYTE_SCANCODE) {
+      bytes[0] = scancode;
+      twoByteCode = true;
+      break;
+    }
+    bool make = !(scancode & BREAK_CODE_BIT);
+    if (!twoByteCode) size = 1;
+    if (twoByteCode) {
+      size = 2;
+      bytes[1] = scancode;
+      twoByteCode = false;
+    } else bytes[0] = scancode;
+    kbd_print_scancode(make, size, bytes);
+  }
 
-  return 1;
+  //Read Command Byte
+  if (kbc_write_command(KBC_READ_CMD)) return 1; 
+  uint8_t cmd;
+  if (kbc_read_return(&cmd)) return 1; 
+  
+  //Enable interrupts
+  cmd |= KBC_INT_ENBL;
+  if (kbc_write_command(KBC_WRITE_CMD)) return 1;
+  if (kbc_write_arguments(cmd)) return 1;
+
+  if (kbd_print_no_sysinb(cnt)) return 1;
+
+  return 0;
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
