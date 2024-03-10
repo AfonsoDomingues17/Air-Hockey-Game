@@ -16,6 +16,7 @@
 #define KBC_TO_ERR 0x40 //timeout error
 #define KBC_ST_IBF 0x02 //input buffer full
 #define KBC_ST_OBF 0x01 //output buffer full
+#define KBC_ST_AUX 0x20 //Mouse data
 
 #define TWO_BYTE_SCAN 0xE0 //first by of a two byte scancode
 #define BREAK_CODE_ESC 0x81 //break code of ESC key

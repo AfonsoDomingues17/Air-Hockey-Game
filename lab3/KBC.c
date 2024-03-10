@@ -13,7 +13,7 @@ int (read_out_buffer)(uint8_t *scancode){
     #endif
 
     if((status & (KBC_PAR_ERR | KBC_TO_ERR)) == 0){ //see if there are no timeout nor parity error
-      if (status & KBC_ST_OBF){ //check if output_buffer is full
+      if (status & KBC_ST_OBF && ((status & KBC_ST_AUX) == 0)){ //check if output_buffer is full and mouse has no data
 
         if(util_sys_inb(KBC_OUT_BUF,scancode) != 0)return 1; //read the scancode from the output buffer
         #ifdef LAB3
@@ -39,7 +39,7 @@ int (write_CMD_TO_KBC)(uint8_t port,uint8_t cmd){
     #endif
 
     if((status & (KBC_PAR_ERR | KBC_TO_ERR)) == 0){ //see if there are no timeout nor parity error
-      if ((status & KBC_ST_IBF) == 0){ //check if input_buffer is full- if not :
+      if ((status & KBC_ST_IBF) == 0){ //check if input_buffer is full- if not
 
         if(sys_outb(port,cmd) != 0)return 1; //write commands to the command port
         return 0;

@@ -75,7 +75,7 @@ int(kbd_test_scan)() {
 }
 
 int(kbd_test_poll)() {
-  //1º desativar interrupts - feito automaticamente
+  //1º desativar interrupts - feito automaticamente com recurso ao modo exclusivo IRQ_exclusive
   //2º polling for scancodes
   //3ºreenable interrupts with command byte
   uint8_t size;
