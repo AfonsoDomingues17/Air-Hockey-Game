@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-uint32_t cnt = 0;
+uint32_t sys_inb_cnt = 0;
 
 int(util_get_LSB)(uint16_t val, uint8_t *lsb) {
   // Checking argument vadility
@@ -32,7 +32,7 @@ int (util_sys_inb)(int port, uint8_t *value) {
   *value = byte & 0xFF;
   // Increase Count
   #ifdef LAB3
-  cnt++;
+  sys_inb_cnt++;
   #endif
   return 0;
 }

@@ -7,7 +7,8 @@
 #include "i8042.h"
 
 extern uint8_t scancode;
-extern uint32_t cnt;
+extern uint32_t sys_inb_cnt;
+extern uint32_t timer_cnt;
 extern bool error;
 
 int main(int argc, char *argv[]) {
@@ -83,7 +84,7 @@ int(kbd_test_scan)() {
 
   if (keyboard_unsubscribe_int()) return 1;
 
-  if (kbd_print_no_sysinb(cnt)) return 1;
+  if (kbd_print_no_sysinb(sys_inb_cnt)) return 1;
 
   return 0;
 }
@@ -122,14 +123,71 @@ int(kbd_test_poll)() {
   if (kbc_write_command(KBC_WRITE_CMD)) return 1;
   if (kbc_write_arguments(cmd)) return 1;
 
-  if (kbd_print_no_sysinb(cnt)) return 1;
+  if (kbd_print_no_sysinb(sys_inb_cnt)) return 1;
 
   return 0;
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
+// Subscribe to keyboard interrupts
+  int ipc_status, r;
+  message msg;
+  uint8_t kbc_hook, timer_hook;
+  bool twoByteCode = false, idle = false;
+  uint32_t last_timed_key_was_pressed = 0;
 
-  return 1;
+  if (keyboard_subscribe_int(&kbc_hook)) return 1;
+  if (timer_subscribe_int(&timer_hook)) return 1;
+
+  while (scancode != ESC_BREAK_CODE && !idle) {
+    /* Get a request message. */
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+
+    if (is_ipc_notify(ipc_status)) { /* received notification */
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE: /* hardware interrupt notification */                
+          if (msg.m_notify.interrupts & kbc_hook) { /* subscribed interrupt */
+            last_timed_key_was_pressed = timer_cnt;
+            kbc_ih();
+            if (error) break;
+            uint8_t size;
+            uint8_t bytes[2];      
+            if (scancode == TWO_BYTE_SCANCODE) {
+              bytes[0] = scancode;
+              twoByteCode = true;
+              break;
+            }
+            bool make = !(scancode & BREAK_CODE_BIT);
+            if (!twoByteCode) size = 1;
+            if (twoByteCode) {
+              size = 2;
+              bytes[1] = scancode;
+              twoByteCode = false;
+            } else bytes[0] = scancode;
+            kbd_print_scancode(make, size, bytes);
+          }
+          if (msg.m_notify.interrupts & timer_hook) { /* subscribed interrupt */
+            timer_int_handler();
+            if ((timer_cnt - last_timed_key_was_pressed) == 60 * n) {
+              idle = true;
+            }
+          }
+          break;
+        default:
+          break; /* no other notifications expected: do nothing */    
+      }
+    } else { /* received a standard message, not a notification */
+      /* no standard messages expected: do nothing */
+    }
+  }
+
+  if (keyboard_unsubscribe_int()) return 1;
+  if (timer_unsubscribe_int()) return 1;
+
+  if (kbd_print_no_sysinb(sys_inb_cnt)) return 1;
+
+  return 0;
 }

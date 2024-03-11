@@ -2,6 +2,7 @@
     "files.associations": {
         "stdint.h": "c",
         "i8254.h": "c",
-        "i8042.h": "c"
+        "i8042.h": "c",
+        "stdbool.h": "c"
     }
 }

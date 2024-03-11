@@ -2,7 +2,7 @@
 
 #include "i8042.h"
 
-int hook_id = KEYBOARD1_IRQ;
+int kbc_hook_id = KEYBOARD1_IRQ;
 uint8_t scancode = 0;
 bool error = false;
 
@@ -17,12 +17,12 @@ int (keyboard_get_conf)(uint8_t *st) {
 int (keyboard_subscribe_int)(uint8_t *bit_no) {
   if (bit_no == NULL)
     return 1; // ERROR
-  *bit_no = BIT(hook_id); // hook_id = 1 => BIT(1)
-  return sys_irqsetpolicy(KEYBOARD1_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id);
+  *bit_no = BIT(kbc_hook_id); // hook_id = 1 => BIT(1)
+  return sys_irqsetpolicy(KEYBOARD1_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &kbc_hook_id);
 }
 
 int (keyboard_unsubscribe_int)() {
-  return sys_irqrmpolicy(&hook_id);
+  return sys_irqrmpolicy(&kbc_hook_id);
 }
 
 void (kbc_ih)() {
@@ -65,7 +65,7 @@ int (kbc_write_command)(uint8_t cmd) {
     if (util_sys_inb(KBC_ST_REG, &stat)) return 1;
     /* loop while 8042 input buffer is not empty */
     if( (stat & KBC_IBF) == 0 ) {
-      sys_outb(KBC_CMD_REG, cmd);
+      if (sys_outb(KBC_CMD_REG, cmd)) return 1;
       return 0;
     }
     tickdelay(micros_to_ticks(WAIT_KBC));
@@ -94,7 +94,7 @@ int (kbc_write_arguments)(uint8_t cmd) {
     if (util_sys_inb(KBC_ST_REG, &stat)) return 1;
     /* loop while 8042 input buffer is not empty */
     if( (stat & KBC_IBF) == 0 ) {
-      sys_outb(KBC_OUT_BUF, cmd);
+      if (sys_outb(KBC_OUT_BUF, cmd)) return 1;
       return 0;
     }
     tickdelay(micros_to_ticks(WAIT_KBC));
