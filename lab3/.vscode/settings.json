@@ -6,5 +6,10 @@
   "editor.tabSize": 2,
   "editor.wordWrap": "bounded",
   "editor.wordWrapColumn": 100,
-  "files.associations": { },
+  "files.associations": {
+    "i8254.h": "c",
+    "i8042.h": "c",
+    "lcf.h": "c",
+    "stdint.h": "c"
+  },
 }
