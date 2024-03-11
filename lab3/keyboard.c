@@ -6,9 +6,13 @@
 int hook = KBC_IRQ;
 uint8_t scancode = 0;
 bool flag = false;
+extern int counter;
 
 int (kbc_get_status)(uint8_t *status) { // status do controlador do teclado
   if (status == NULL) return 1;
+  #ifdef LAB3
+  counter++;
+  #endif
   if (util_sys_inb(KBC_ST_REG, status) != 0) return 1; // le status
   return 0;
 }
@@ -31,6 +35,9 @@ void (kbc_ih)() { // tratamento de interrupção do teclado
     while (attempts--) {
         if (kbc_get_status(&status) != 0) continue;
         if (status & KBC_OBF) { // se buffer de saida está cheio
+            #ifdef LAB3
+            counter++;
+            #endif
             if (util_sys_inb(OUT_BUF, &data) != 0) continue; // lê o scancode do buffer de saída
             if ((status & (KBC_PARITY | KBC_TIMEOUT)) == 0 ) { // verifica se não houve erro
                 scancode = data; // armazena scancode
@@ -45,26 +52,13 @@ void (kbc_ih)() { // tratamento de interrupção do teclado
     }
 }
 
-int (read_out_buff)() { // ler o scancode do buffer de saída
-  int attempts = KBC_ATTEMPTS;
-  int error_code = 0;
-  while (attempts--) {
-      uint8_t status;
-      if (kbc_get_status(&status) != 0) continue;
-      if(status & KBC_OBF) {
-          if (util_sys_inb(OUT_BUF, &scancode) != 0) continue; // lê o scancode do buffer de saída
-          error_code = status & (KBC_PARITY | KBC_TIMEOUT); // obtém o código de erro, se houver
-          return error_code;
-      }
-      tickdelay(micros_to_ticks(WAIT_KBC));
-  }
-  return 1;
-}
-
 int (kbc_write_cmd)(uint8_t cmd) { // escreve comando para o controlador do teclado
   int attempts = KBC_ATTEMPTS;
   while (attempts--) {
     uint8_t status;
+    #ifdef LAB3
+    counter++;
+    #endif
     if (util_sys_inb(KBC_ST_REG, &status) != 0) return 1;
     if ((status & KBC_IBF) == 0 ) { // verifica se o buffer de entrada não está cheio
       if (sys_outb(KBC_CMD_REG, cmd) != 0) return 1; // escreve o comando no register de comando
@@ -80,8 +74,14 @@ int (kbc_read_cmd)(uint8_t* cmd) { // le um comando do controlador do teclado
   if (cmd == NULL) return 1;
   while (attempts--) {
     uint8_t status;
+    #ifdef LAB3
+    counter++;
+    #endif
     if (util_sys_inb(KBC_ST_REG, &status) != 0) return 1;
     if (status & KBC_OBF) { // verifica se o buffer de saída está cheio
+      #ifdef LAB3
+      counter++;
+      #endif
       if (util_sys_inb(OUT_BUF, cmd) != 0) return 1;
       return ((status & ( KBC_PARITY | KBC_TIMEOUT )));
     }
@@ -94,6 +94,9 @@ int (kbc_write_arg)(uint8_t cmd) { // escrever um argumento no controlador do te
   int attempts = KBC_ATTEMPTS;
   while (attempts--) {
     uint8_t status;
+    #ifdef LAB3
+    counter++;
+    #endif
     if (util_sys_inb(KBC_ST_REG, &status) != 0) return 1;
     if (!(status & KBC_IBF)) { // verifica se o buffer de entrada não está cheio
       if (sys_outb(IN_BUF, cmd) != 0) return 1; // escreve o argumento no buffer de entrada
@@ -115,9 +118,15 @@ int (kbc_enable_int)() {
 int (kbc_read_data)(uint8_t *data) {
   uint8_t status;
   while (true) {
+    #ifdef LAB3
+    counter++;
+    #endif
     if (util_sys_inb(KBC_ST_REG, &status)) return 1;
     if (status & KBC_OBF) {
       if (status & (KBC_PARITY | KBC_TIMEOUT | KBC_AUX)) return 1;
+      #ifdef LAB3
+      counter++;
+      #endif
       return util_sys_inb(OUT_BUF, data);
     }  
     tickdelay(micros_to_ticks(WAIT_KBC));
@@ -128,6 +137,9 @@ int (kbc_read_data)(uint8_t *data) {
 
 int (kbc_read_cmd_cb)(uint8_t *commandByte) {
   if (kbc_write_cmd_cb(KBC_CMD_READ) != 0) return 1;
+  #ifdef LAB3
+  counter++;
+  #endif
   if (util_sys_inb(OUT_BUF, commandByte) != 0) return 1;
   return 0;
 }
@@ -135,6 +147,9 @@ int (kbc_read_cmd_cb)(uint8_t *commandByte) {
 int (kbc_write_cmd_cb)(uint8_t commandByte) {
   for (int i = 0; i < 3; i++) {
     uint8_t status;
+    #ifdef LAB3
+    counter++;
+    #endif
     if (util_sys_inb(KBC_ST_REG, &status) != 0) return 1;
     if (status & (KBC_PARITY | KBC_TIMEOUT | KBC_AUX)) return 1;
     if (status & KBC_INH) {
@@ -147,4 +162,8 @@ int (kbc_write_cmd_cb)(uint8_t commandByte) {
   if (sys_outb(KBC_CMD_REG, KBC_CMD_WRITE)) return 1;
   if (sys_outb(IN_BUF, commandByte)) return 1;
   return 0;
+}
+
+int (kbc_int_handler)() {
+  return kbc_read_data(&scancode);
 }

@@ -13,8 +13,6 @@ int (kbc_unsubscribe_int)();
 
 void (kbc_ih)();
 
-int (read_out_buff)();
-
 int (kbc_write_cmd)(uint8_t cmd);
 
 int (kbc_read_cmd)(uint8_t* cmd);
@@ -28,5 +26,7 @@ int (kbc_read_data)(uint8_t *data);
 int (kbc_read_cmd_cb)(uint8_t *commandByte);
 
 int (kbc_write_cmd_cb)(uint8_t commandByte);
+
+int (kbc_int_handler)();
 
 #endif /* _LCOM_KEYBOARD_H */

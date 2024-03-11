@@ -128,9 +128,65 @@ int(kbd_test_poll)() {
 	return 0;
 }
 
-int(kbd_test_timed_scan)(uint8_t n) {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
+extern int counter_;
 
-  return 1;
+int(kbd_test_timed_scan)(uint8_t n) {
+  int ipc_status;
+  message msg;
+  int r;
+  uint8_t bit_no_kbc;
+  uint8_t bit_no_timer;
+
+  if (kbc_subscribe_int(&bit_no_kbc) != 0) return 1;
+
+  if (timer_subscribe_int(&bit_no_timer) != 0) return 1;
+
+  uint8_t bytes[2];
+
+  while (scancode != BREAK_ESC && (counter_/60) != n) {
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0) { 
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { /* received notification */
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE: /* hardware interrupt notification */
+          if (msg.m_notify.interrupts & bit_no_timer) { /* subscribed interrupt */
+            timer_int_handler(); 
+          }
+          if (msg.m_notify.interrupts & bit_no_kbc) { /* subscribed interrupt */
+            if (kbc_int_handler() != 0) return 1; 
+            if (scancode == KBC_2BYTE) { // se o scancode é que tipo de byte
+              bytes[0] = scancode;
+              size++;
+            } else {
+                bool make;
+                bytes[size] = scancode;
+                size++;
+                if ((KBC_MAKECODE & scancode) == KBC_MAKECODE) { // tipo do código da tecla
+                    make = false;
+                } else {
+                    make = true;
+                }
+                kbd_print_scancode(make, size, bytes); 
+                size = 0; // renicia tamanho do buffer
+                counter_ = 0;
+            }
+          }
+            break;
+          default:
+            break; /* no other notifications expected: do nothing */
+        } 
+      } else {  /* received a standard message, not a notification */
+      /* no standard messages expected: do nothing */
+      }
+    }
+
+  if (kbc_unsubscribe_int() != 0) return 1;
+
+  if (timer_unsubscribe_int() != 0) return 1;
+
+  if (kbd_print_no_sysinb(counter) != 0) return 1; 
+
+  return 0;
 }
