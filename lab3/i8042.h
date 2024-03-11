@@ -30,11 +30,9 @@
 #define WAIT_KBC 20000
 #define KBC_ATTEMPTS 10
 
-/*
 #define DIS2 BIT(5)
 #define DIS BIT(4)
 #define INT2 BIT(1)
 #define INT BIT(0)
-*/
 
 #endif /* _LCOM_I8042_H */

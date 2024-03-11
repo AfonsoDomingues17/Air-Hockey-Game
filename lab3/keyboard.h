@@ -21,4 +21,12 @@ int (kbc_read_cmd)(uint8_t* cmd);
 
 int (kbc_write_arg)(uint8_t cmd);
 
+int (kbc_enable_int)();
+
+int (kbc_read_data)(uint8_t *data);
+
+int (kbc_read_cmd_cb)(uint8_t *commandByte);
+
+int (kbc_write_cmd_cb)(uint8_t commandByte);
+
 #endif /* _LCOM_KEYBOARD_H */

@@ -103,3 +103,48 @@ int (kbc_write_arg)(uint8_t cmd) { // escrever um argumento no controlador do te
   }
   return 1;
 }
+
+int (kbc_enable_int)() {
+  uint8_t commandByte;
+  if (kbc_read_cmd_cb(&commandByte) != 0) return 1;
+  commandByte |= INT;
+  if (kbc_write_cmd_cb(commandByte) != 0) return 1;
+  return 0;
+}
+
+int (kbc_read_data)(uint8_t *data) {
+  uint8_t status;
+  while (true) {
+    if (util_sys_inb(KBC_ST_REG, &status)) return 1;
+    if (status & KBC_OBF) {
+      if (status & (KBC_PARITY | KBC_TIMEOUT | KBC_AUX)) return 1;
+      return util_sys_inb(OUT_BUF, data);
+    }  
+    tickdelay(micros_to_ticks(WAIT_KBC));
+  }
+  return 1;
+}
+
+
+int (kbc_read_cmd_cb)(uint8_t *commandByte) {
+  if (kbc_write_cmd_cb(KBC_CMD_READ) != 0) return 1;
+  if (util_sys_inb(OUT_BUF, commandByte) != 0) return 1;
+  return 0;
+}
+
+int (kbc_write_cmd_cb)(uint8_t commandByte) {
+  for (int i = 0; i < 3; i++) {
+    uint8_t status;
+    if (util_sys_inb(KBC_ST_REG, &status) != 0) return 1;
+    if (status & (KBC_PARITY | KBC_TIMEOUT | KBC_AUX)) return 1;
+    if (status & KBC_INH) {
+      tickdelay(micros_to_ticks(WAIT_KBC));
+      continue;
+    }
+    if (sys_outb(KBC_CMD_REG, commandByte)) return 1;
+    break;
+    }
+  if (sys_outb(KBC_CMD_REG, KBC_CMD_WRITE)) return 1;
+  if (sys_outb(IN_BUF, commandByte)) return 1;
+  return 0;
+}

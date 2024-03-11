@@ -103,10 +103,29 @@ int(kbd_test_scan)() {
 }
 
 int(kbd_test_poll)() {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
-
-  return 1;
+  bool flag = false;
+  while (!flag) {
+    if (kbc_read_data(&scancode)) return 1;
+    if (scancode == KBC_2BYTE) {
+      bytes[0] = scancode;
+      size++;
+    } else {
+      bool make;
+      bytes[size] = scancode;
+      size++;
+      if ((KBC_MAKECODE & scancode) == KBC_MAKECODE) { // tipo do código da tecla
+        make = false;
+      } else {
+        make = true;
+      }
+      kbd_print_scancode(make, size, bytes); 
+      size = 0; // renicia tamanho do buffer
+    }
+    if (bytes[0] == BREAK_ESC) flag = true; // sai do loop
+  }
+  if (kbc_enable_int() != 0) return 1;
+  if (kbd_print_no_sysinb(counter) != 0) return 1; 
+	return 0;
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
