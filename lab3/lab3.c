@@ -40,6 +40,8 @@ int(kbd_test_scan)() {
   int r;
   int ipc_status;
   uint8_t size;
+  bool flag = false;
+  uint8_t bytes[2];
   if(subscribe_KBC(&teclado_hook_id)) return 1;
   message msg;
   
@@ -54,10 +56,23 @@ int(kbd_test_scan)() {
               case HARDWARE: 			
                   if (msg.m_notify.interrupts & irq_set) { // como lidar com o interrupt
                     kbc_ih(); //reads the scancodes
-                    if(scancode == TWO_BYTE_SCAN) size = 2;
-                    else size = 1;
-                    kbd_print_scancode(!(scancode & 0x80),size, &scancode);
-                      //see if it is a make code, if the scancode is a two byte size, i am going to compare its MSB with the default value 0xE0 and use the scancode as an array
+                    if (scancode == TWO_BYTE_SCAN) {
+                      bytes[0] = scancode;
+                      flag = true;
+                      break;
+                    }
+                    if (!flag){
+                    size = 1;
+                    bytes[0] = scancode;
+                    }  
+                    else {
+                    size = 2;
+                    bytes[1] = scancode;
+                    flag = false;
+                    } 
+        
+                  kbd_print_scancode(!(scancode & 0x80),size, bytes);
+                      //see if it is a make code, if the scancode is a two byte size, i am going to compare its MSB with the default value 0xE0 and use array
                   }
                   break;
               default:
@@ -79,11 +94,25 @@ int(kbd_test_poll)() {
   //2º polling for scancodes
   //3ºreenable interrupts with command byte
   uint8_t size;
+  bool flag = false;
+  uint8_t bytes[2];
   while(scancode != BREAK_CODE_ESC){
     if(read_out_buffer(&scancode) == 0){
-      if(scancode == TWO_BYTE_SCAN) size = 2;
-      else size = 1;
-      kbd_print_scancode(!(scancode & 0x80),size, &scancode);
+      if (scancode == TWO_BYTE_SCAN) {
+          bytes[0] = scancode;
+          flag = true;
+          break;
+        }
+        if (!flag){
+        size = 1;
+        bytes[0] = scancode;
+        }  
+        else {
+        size = 2;
+        bytes[1] = scancode;
+        flag = false;
+        } 
+      kbd_print_scancode(!(scancode & 0x80),size, bytes);
     }
   }
   if(restore_interrupts() != 0) return 1;
@@ -101,6 +130,8 @@ int(kbd_test_timed_scan)(uint8_t n) {
   int r;
   int ipc_status;
   uint8_t size;
+  bool flag = false;
+  uint8_t bytes[2];
   if(timer_subscribe_int(&timer_hook_id) != 0) return 1;
   if(subscribe_KBC(&teclado_hook_id)) return 1;
   message msg;
@@ -116,16 +147,28 @@ int(kbd_test_timed_scan)(uint8_t n) {
               case HARDWARE: 			
                   if (msg.m_notify.interrupts & irq_set_key) { // como lidar com o interrupt
                     kbc_ih(); //reads the scancodes
-                    if(scancode == TWO_BYTE_SCAN) size = 2;
-                    else size = 1;
-                    kbd_print_scancode(!(scancode & 0x80),size, &scancode);  //see if it is a make code,uses the size of the scancode and use a reference to scancode's memory as an array
+                    if (scancode == TWO_BYTE_SCAN) {
+                      bytes[0] = scancode;
+                      flag = true;
+                      break;
+                    }
+                    if (!flag){
+                    size = 1;
+                    bytes[0] = scancode;
+                    }  
+                    else {
+                    size = 2;
+                    bytes[1] = scancode;
+                    flag = false;
+                    } 
+                    kbd_print_scancode(!(scancode & 0x80),size, bytes);  //see if it is a make code,uses the size of the scancode and use a array
                     time = n; //when a scnacode code is read the the time and counter are reseted
                     counter_timer = 0;
                   }
                   if (msg.m_notify.interrupts & irq_set_timer) { // como lidar com o interrupt
                     timer_int_handler(); //conta o n de interrupçoes que depois nos pode dar o tempo que passou
                     if((counter_timer%60)==0){ //check if the counter has reached a number multiple of 60 which is equivalent to passing 1 second
-              
+    
                       time--;
                     }
                   }

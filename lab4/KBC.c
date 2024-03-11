@@ -2,7 +2,7 @@
 #include "KBC.h"
 
 extern int counter;
-int (read_out_buffer)(uint8_t *scancode){
+int (read_out_buffer)(uint8_t *byte){
   uint8_t status;
   uint8_t tentativas = 10; //numero razoavel de tentativas
   while(tentativas){
@@ -15,7 +15,14 @@ int (read_out_buffer)(uint8_t *scancode){
     if((status & (KBC_PAR_ERR | KBC_TO_ERR)) == 0){ //see if there are no timeout nor parity error
       if (status & KBC_ST_OBF && ((status & KBC_ST_AUX) == 0)){ //check if output_buffer is full and mouse has no data
 
-        if(util_sys_inb(KBC_OUT_BUF,scancode) != 0)return 1; //read the scancode from the output buffer
+        if(util_sys_inb(KBC_OUT_BUF,byte) != 0)return 1; //read the scancode from the output buffer
+        #ifdef LAB3
+        counter++;
+        #endif
+        return 0;
+      }
+      if (status & KBC_ST_OBF && (status & KBC_ST_AUX)){ //check if output_buffer is full and mouse has data
+        if(util_sys_inb(KBC_OUT_BUF,byte) != 0)return 1; //read the scancode from the output buffer
         #ifdef LAB3
         counter++;
         #endif
