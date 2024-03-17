@@ -1,9 +1,13 @@
 #include <lcom/lcf.h>
 #include <lcom/lab3.h>
-#include <stdint.h>
 #include "keyboard.h"
 #include "i8042.h"
+
+#include "i8254.h"
+#include <lcom/lab2.h>
+
 #include <stdbool.h>
+#include <stdint.h>
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -131,9 +135,68 @@ int(kbd_test_poll)() {
   return 1;
 }
 
-int(kbd_test_timed_scan)(uint8_t n) {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
+extern int counter_time;
 
-  return 1;
+int(kbd_test_timed_scan)(uint8_t n) {
+  uint8_t size;
+  uint8_t bytes[2];
+  bool is_2byte_scancode = false;
+
+  message msg;
+  int ipc_status;
+  int r;
+
+  uint8_t bit_no;
+  if (subscribe_KBC(&bit_no)) return 1;
+  uint8_t st;
+  if (timer_subscribe_int(&st)) return 1;
+
+  while ((scancode != BREAK_ESC) && (counter_time/60 != n)) {
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+
+    if (is_ipc_notify(ipc_status)) { 
+      switch (_ENDPOINT_P(msg.m_source)) 
+      {
+      case HARDWARE:
+        if (msg.m_notify.interrupts & bit_no) {
+          kbc_ih();
+          if (deu_erro) break;
+
+          if (scancode == IS_2BYTE_CODE) {
+            bytes[0] = scancode;
+            is_2byte_scancode = true;
+            break;
+          }
+
+          if (is_2byte_scancode) {
+            bytes[1] = scancode;
+            is_2byte_scancode = false;
+            size = 2;
+          }
+          else {
+            bytes[0] = scancode;
+            size = 1;
+          }
+
+          kbd_print_scancode(!(scancode & BREAK_CODE_BIT), size, bytes);
+          counter_time = 0;
+        }
+        if (msg.m_notify.interrupts & st) {
+          timer_int_handler();   
+        }
+        break;
+      
+      default:
+        break;
+      }
+    }
+  }
+
+  if (kbd_print_no_sysinb(count)) return 1;
+  if (unsubscribe_KBC()) return 1;
+  if (timer_unsubscribe_int()) return 1;
+  return 0;
 }

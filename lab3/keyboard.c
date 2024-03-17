@@ -6,7 +6,7 @@
 extern int count;
 uint8_t scancode = 0;
 int keyboard_hook_id = IRQ_teclado;
-bool deu_erro = false;
+bool deu_erro;
 
 int (subscribe_KBC)(uint8_t *bit_no) {
   if (bit_no == NULL) return 1;
@@ -21,6 +21,7 @@ int (unsubscribe_KBC)() {
 
 void (kbc_ih)() {
   uint8_t status, dados;
+  deu_erro = false;
   for (int k = 0; k < 10; k++) {
      if (util_sys_inb(KBC_ST_CMD_REG, &status)) {
       continue;

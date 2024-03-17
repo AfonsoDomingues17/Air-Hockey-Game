@@ -10,6 +10,7 @@
     "i8254.h": "c",
     "i8042.h": "c",
     "lcf.h": "c",
-    "stdint.h": "c"
+    "stdint.h": "c",
+    "timer.h": "c"
   },
 }

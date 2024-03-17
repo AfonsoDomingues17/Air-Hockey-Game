@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-extern int counter;
+extern int counter_time;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -70,7 +70,7 @@ int(timer_test_int)(uint8_t time) {
       case HARDWARE:
         if (msg.m_notify.interrupts & bit_no) { //verifica se tem uma nova notificação interrupt e se o timer ainda está subscrito
           timer_int_handler();
-          if (counter % 60 == 0) {
+          if (counter_time % 60 == 0) {
             time--;
             timer_print_elapsed_time();
           }
