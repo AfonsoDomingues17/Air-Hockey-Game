@@ -6,7 +6,7 @@
 extern int count;
 uint8_t scancode = 0;
 int keyboard_hook_id = IRQ_teclado;
-
+bool deu_erro = false;
 
 int (subscribe_KBC)(uint8_t *bit_no) {
   if (bit_no == NULL) return 1;
@@ -22,16 +22,10 @@ int (unsubscribe_KBC)() {
 void (kbc_ih)() {
   uint8_t status, dados;
   for (int k = 0; k < 10; k++) {
-      #ifdef LAB3
-      count++;
-      #endif
-     if (util_sys_inb(KBC_ST_REG, &status)) {
+     if (util_sys_inb(KBC_ST_CMD_REG, &status)) {
       continue;
      }
     if (status & KBC_ST_OBF) {
-      #ifdef LAB3
-      count++;
-      #endif
       if (util_sys_inb(KBC_OUT_BUF, &dados)) {
         continue;
       }
@@ -39,9 +33,62 @@ void (kbc_ih)() {
         scancode = dados;
       } 
       else {
+        deu_erro = true;
         return;
       }
+      return;
     }
-    //tickdelay(micros_to_ticks(DELAY_US));
+    tickdelay(micros_to_ticks(DELAY_US));
   }
+}
+
+int read_OutB() {
+  uint8_t status;
+  for (int k = 0; k < 10; k++) {
+    if (util_sys_inb(KBC_ST_CMD_REG, &status)) continue;
+    if (status & KBC_ST_OBF) {
+      if (status & (ERRO_PARIDADE | ERRO_TIMEOUT | ERRO_AUXMOUSE)) continue;
+        return util_sys_inb(KBC_OUT_BUF, &scancode);
+    }
+    tickdelay(micros_to_ticks(DELAY_US));
+  }
+  return 1;
+}
+
+int (write_read_command(uint8_t comando)) {
+  uint8_t status;
+  for (int k = 0; k < 10; k++) {
+    if (util_sys_inb(KBC_ST_CMD_REG, &status)) continue;
+    if (!(status & KBC_ST_IBF)) {
+      return sys_outb(KBC_ST_CMD_REG, comando);
+    }
+    tickdelay(micros_to_ticks(DELAY_US));
+  }
+  return 1;
+}
+
+int (ask_the_return)(uint8_t *comando) {
+  if (comando == NULL) return 1;
+  uint8_t status;
+  for (int k = 0; k < 10; k++) {
+    if (util_sys_inb(KBC_ST_CMD_REG, &status)) continue;
+    if (status & KBC_ST_OBF) {
+      if (status & (ERRO_PARIDADE | ERRO_TIMEOUT)) continue;
+      return util_sys_inb(KBC_OUT_BUF, comando);
+    }
+    tickdelay(micro_delay(DELAY_US));
+  }
+  return 1;
+}
+
+int (write_arguments)(uint8_t comando) {
+  uint8_t status;
+  for (int k = 0; k < 10; k++) {
+    if (util_sys_inb(KBC_ST_CMD_REG, &status)) continue;
+    if (!(status & KBC_ST_IBF)) {
+      if (status & (ERRO_PARIDADE | ERRO_TIMEOUT)) continue;
+      return sys_outb(0X60, comando);
+    }
+  }
+  return 1;
 }

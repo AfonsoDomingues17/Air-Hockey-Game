@@ -35,7 +35,7 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
     break;
   }
   
-  uint32_t squareWaveFreq = TIMER_FREQ / freq;
+  uint16_t squareWaveFreq = TIMER_FREQ / freq;
   if (squareWaveFreq > INT16_MAX) return 1;
   uint8_t left;
   uint8_t right;
@@ -87,7 +87,8 @@ int (timer_display_conf) (uint8_t timer, uint8_t st, enum timer_status_field fie
     temp.byte = st;
     break;
   case tsf_initial :
-    temp.in_mode = (st >> 4) & TIMER_LSB_MSB ;
+    temp.in_mode = (st & TIMER_LSB_MSB) >> 4;
+    break;
   case tsf_mode :
     st = (st & 0x0E) >> 1;
     switch (st)
@@ -103,6 +104,7 @@ int (timer_display_conf) (uint8_t timer, uint8_t st, enum timer_status_field fie
     }
   case tsf_base : 
     temp.bcd = st & TIMER_BCD;
+    break;
   default:
     return 1;
   }

@@ -5,9 +5,6 @@
 #include "i8042.h"
 #include <stdbool.h>
 
-extern int count;
-extern uint8_t scancode;
-
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
@@ -32,6 +29,10 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
+extern int count;
+extern uint8_t scancode;
+extern bool deu_erro;
+
 int(kbd_test_scan)() {
   int r;
   uint8_t size;
@@ -39,8 +40,12 @@ int(kbd_test_scan)() {
   message msg;
   int ipc_status;
 
-uint8_t bit_no;
+  uint8_t bit_no;
 if (subscribe_KBC(&bit_no)) return 1;
+
+  uint8_t bytes[2];
+  bool is_2byte_scancode = false;
+
   while (scancode != BREAK_ESC) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
@@ -53,12 +58,25 @@ if (subscribe_KBC(&bit_no)) return 1;
       case HARDWARE:
         if (msg.m_notify.interrupts & bit_no) {
           kbc_ih();
-          
-          size = 1;
-          if (scancode == IS_2BYTE_CODE) size = 2; //BTW PORQUE OS MEUS COLEGAS FIZERAM BYTE[2]???
+          if (deu_erro) break;
 
+          if (scancode == IS_2BYTE_CODE) {
+            bytes[0] = scancode;
+            is_2byte_scancode = true;
+            break;
+          }
 
-          kbd_print_scancode(!(scancode & BREAK_CODE_BIT), size, &scancode);
+          if (is_2byte_scancode) {
+            bytes[1] = scancode;
+            is_2byte_scancode = false;
+            size = 2;
+          }
+          else {
+            bytes[0] = scancode;
+            size = 1;
+          }
+
+          kbd_print_scancode(!(scancode & BREAK_CODE_BIT), size, bytes);
         }   
         break;
       
@@ -74,8 +92,41 @@ if (subscribe_KBC(&bit_no)) return 1;
 }
 
 int(kbd_test_poll)() {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  uint8_t bytes[2];
+  uint8_t size;
+
+  bool is_2BYTE = false;
+
+  while (scancode != BREAK_ESC) {
+    if (read_OutB()) continue;
+
+    if (scancode == IS_2BYTE_CODE) {
+      bytes[0] = scancode;
+      is_2BYTE = true;
+      break;
+    }
+
+    if (is_2BYTE) {
+      size = 2;
+      is_2BYTE = false;
+      bytes[1] = scancode;
+    }
+    else {
+      size = 1;
+      bytes[0] = scancode;
+    }
+
+    kbd_print_scancode(!(scancode & BREAK_CODE_BIT), size, bytes);
+  }
+
+  uint8_t comando;
+  if (write_read_command(LER_COMANDO_KBC)) return 1; //AVISA QUE QUER LER UM COMANDO COM O 0X20
+  if (ask_the_return(&comando)) return 1; //RECEBE O COMANDO PARA ALTERARMOS
+  comando = comando | enable_interrupt_on_OBF; // ALTERA
+  if (write_read_command(ESCREVER_COMANDO_KBC)) return 1; //AVISA QUE VAI ESCREVER COM O 0X60
+  if (write_arguments(comando)) return 1; //PASSA OS ARGUMENTOS
+
+  if (kbd_print_no_sysinb(count)) return 1;
 
   return 1;
 }

@@ -42,33 +42,32 @@ int(timer_test_read_config)(uint8_t timer, enum timer_status_field field) {
 }
 
 int(timer_test_time_base)(uint8_t timer, uint32_t freq) {
-  if (timer < 0 || timer > 2) return 1;
+  if (timer > 2 || timer < 0) return 1;
   if (freq > TIMER_FREQ) return 1;
-  if (timer_set_frequency(timer, freq) != 0) return 1;
+  if (timer_set_frequency(timer, freq)) return 1;
   return 0;
 }
 
 int(timer_test_int)(uint8_t time) {
-  uint8_t bit_no;
-  if (timer_subscribe_int(&bit_no) != 0) return 1;
+uint8_t bit_no;
+if (timer_subscribe_int(&bit_no)) return 1;
 
-  int ipc_status;
-  message msg;
-  int r;
 
-  while (time > 0) {
-    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {  //usa uma função maluca chamada driver_receive, provavelmente para receber a mensagem e o status
-    // o int r é apenas para ver se a função deu errado ou não
-    // ipc = "Inter-Process Communication" permite que processos distintos comuniquem entre si
+ message msg;
+ uint8_t ipc_status;
+ int r;
+
+while (time > 0) {
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {  
       printf("driver_receive failed with: %d", r);
       continue;
     }
 
-    if (is_ipc_notify(ipc_status)) { //usa a função is_ipc_notify para ver se o status está ativo
-      switch (_ENDPOINT_P(msg.m_source)) //usa um define maluco _ENDPOINT_P, não faço ideia praq
+    if (is_ipc_notify(ipc_status)) { 
+      switch (_ENDPOINT_P(msg.m_source)) 
       {
       case HARDWARE:
-        if (msg.m_notify.interrupts & bit_no) { //verifica se tem uma nova notificação interrupt e se o timer ainda está subscrito
+        if (msg.m_notify.interrupts & bit_no) { 
           timer_int_handler();
           if (counter % 60 == 0) {
             time--;
@@ -82,8 +81,6 @@ int(timer_test_int)(uint8_t time) {
       }
     }
   }
-
-  if (timer_unsubscribe_int() != 0) return 1;
-
+  if (timer_unsubscribe_int()) return 1;
   return 0;
 }

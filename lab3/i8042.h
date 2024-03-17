@@ -11,15 +11,22 @@
 #define IS_2BYTE_CODE 0xE0 //Verifica se o scan code é de 2 bytes
 
 /*REGISTOS*/
-#define KBC_ST_REG 0x64 //ler status e escrever comandos
-#define KBC_CMD_REG 0x64 //ler status e escrever comandos
+#define KBC_ST_CMD_REG 0x64 //ler status
 #define KBC_OUT_BUF 0x60 //ler e escrever dados
+#define KBC_OUT_IN 0x60
 
 
 /*ERROS*/
-#define KBC_ST_OBF BIT(0) //output BUFFER CHEIO //O ERRO NO MEU CÓDIGO ESTAVA AQUI, SIM, EU SOU SUPER FELIZ COM A MINHA VIDA
+#define KBC_ST_IBF BIT(1) //INPUT BUFFER CHEIO
+#define KBC_ST_OBF BIT(0) //output BUFFER CHEIO
 #define ERRO_PARIDADE BIT(7)
 #define ERRO_TIMEOUT BIT(6)
+#define ERRO_AUXMOUSE BIT(5)
+
+/*COMANDOS PARA O KBC*/
+#define LER_COMANDO_KBC 0x20 //LER UM COMANDO
+#define ESCREVER_COMANDO_KBC 0x60 //ESCREVER UM COMANDO
+#define enable_interrupt_on_OBF BIT(0) //PEDE AO WRITE_READ QUE NA FUNÇÃO RETURN SEJA PASSADO UM CMD QUE ATIVE OS INTERRUPTS
 
 #endif /* _LCOM_I8042_H */
 
