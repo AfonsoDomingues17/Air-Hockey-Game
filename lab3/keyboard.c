@@ -37,11 +37,11 @@ void (kbc_ih)() {
                 scancode = data;
             }
             else {
-                error = true;
-                return;            
+                error = true;            
             }
+            return;
         }
-        //tickdelay(micros_to_ticks(WAIT_KBC));
+        tickdelay(micros_to_ticks(WAIT_KBC));
     }
 }
 
