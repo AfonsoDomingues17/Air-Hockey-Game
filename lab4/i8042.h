@@ -23,6 +23,21 @@
 
 
 #define MOUSE_IRQ 12 //mouse interrupt line handler
+#define MOUSE_LB BIT(0) //Mouse left button pressed
+#define MOUSE_RB BIT(1) //Mouse right buttton pressed
+#define MOUSE_CB BIT(2) //Mouse center button pressed
+#define X_MSB BIT(4) //MSBit of the displacement of the mouse in the X axis
+#define Y_MSB BIT(5) //MSBit of the displacement of the mouse in the Y axis
+#define X_OVFL BIT(6) //flag that tells if the mouse displacement in the X axis is too large to be represent by a 2's complement 9 byte
+#define Y_OVFL BIT(7) //flag that tells if the mouse displacement in the Y axis is too large to be represent by a 2's complement 9 byte
+#define X_DELTA_Y_DELTA 0xFFFF
+#define MOUSE_CMD 0xD4
+#define ENABLE_DATA_REPORTING 0xF4
+#define DISABLE_DATA_REPORTING 0xF5
+#define ACK 0xFA //Everything is OK
+#define NACK 0xFE //Invalid byte
+#define ERROR 0xFC //Second consecutive invalid byte
+
 
 
 #define DELAY_US 20000 //program delay
