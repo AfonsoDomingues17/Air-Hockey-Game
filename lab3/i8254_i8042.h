@@ -63,6 +63,7 @@
 
 #define PARITY_ERROR BIT(7)
 #define TIMEOUT_ERROR BIT(6)
+#define MOUSE_ERROR BIT(5)
 
 #define DELAY_US 20000
 #define IRQ_KEYBOARD 1
@@ -71,5 +72,7 @@
 
 #define IS_2BYTECODE 0xE0
 #define IS_BREAKCODE BIT(7)
+
+#define WANNA_USE_COMMAND 0x20 //AVISA QUE QUER USAR UM COMANDO
 
 #endif /* _LCOM_I8254_H */
