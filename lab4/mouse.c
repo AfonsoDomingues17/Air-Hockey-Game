@@ -21,36 +21,87 @@ int unsubscribe_mouse() {
   return sys_irqrmpolicy(&hook_mouse);
 }
 
-void read_packets() {
+void (mouse_ih)() {
   uint8_t status, dados;
+  deu_erro = false;
   for (int k = 0; k < 10; k++) {
     if (util_sys_inb(LER_STATUS, &status)) continue;
+
     if (status & KBC_ST_OBF) {
       if (util_sys_inb(KBC_OUT_BUF, &dados)) continue;
-      if (dados & (ERRO_AUXMOUSE | ERRO_PARIDADE | ERRO_TIMEOUT)) {
+      if (status & (ERRO_PARIDADE | ERRO_TIMEOUT)) {
         deu_erro = true;
         return;
       }
-      else {
-        counter_packet++;
+      if (status & AUXMOUSE) {
         byte = dados;
+        counter_packet++;
       }
+      return;
     }
-    return;
   }
   tickdelay(micros_to_ticks(DELAY_US));
 }
 
-int (mouse_enable_data_reporting)() {
-    while (true) {
-        if (write_mouse_cmd(0xF4)) continue;
-        return 0;
-    }
+int (write_mouse_cmd)(uint8_t cmd) {
+  if (write_command(Write_Byte_to_Mouse)) return 1;
+  if (write_arguments(cmd)) return 1;
+  uint8_t temp;
+  if (receive_acknowledgment_byte(&temp)) return 1;
+  return !(temp == ACK);
+
 }
 
-int (mouse_disable_data_reporting)() {
+int (mouse_enable_data_reporting2)() {
     while (true) {
-        if (write_mouse_cmd(0xF5)) continue;
-        return 0;
+        if (write_mouse_cmd(enable_command)) continue;
+        break;
     }
+    return 0;
+}
+
+int (mouse_disable_data_reporting2)() {
+    while (true) {
+        if (write_mouse_cmd(disable_command)) continue;
+        break;
+    }
+    return 0;
+}
+
+int write_command(uint8_t comando) {
+  uint8_t status;
+  for (int k = 0; k < 10; k++) {
+    if (util_sys_inb(LER_STATUS, &status)) continue;
+    if (!(status & KBC_ST_IBF)) {
+      return sys_outb(LER_STATUS, comando);
+    }
+    tickdelay(micros_to_ticks(DELAY_US));
+  }
+  return 1;
+}
+
+int write_arguments(uint8_t comando) {
+  uint8_t status;
+  for (int k = 0; k < 10; k++) {
+    if (util_sys_inb(LER_STATUS, &status)) continue;
+    if (!(status & KBC_ST_IBF)) {
+      return sys_outb(KBC_OUT_BUF, comando);
+    }
+  }
+  return 1;
+}
+
+int receive_acknowledgment_byte(uint8_t *byte) {
+  uint8_t status;
+  if (byte == NULL) return 1;
+  for (int k = 0; k < 10; k++) {
+    if (util_sys_inb(LER_STATUS, &status)) continue;
+
+    if (status & (ERRO_PARIDADE | ERRO_TIMEOUT)) continue;
+    if (status & KBC_ST_OBF) {
+      return util_sys_inb(KBC_OUT_BUF, byte);
+    }
+    tickdelay(micros_to_ticks(DELAY_US));
+  }
+  return 1;
 }

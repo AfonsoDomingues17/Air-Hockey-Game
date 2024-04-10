@@ -20,7 +20,7 @@ int(util_get_MSB)(uint16_t val, uint8_t *msb) {
 
 int (util_sys_inb)(int port, uint8_t *value) {
   if (value == NULL) return 1;
-  #ifdef LAB3
+  #ifdef LAB4
   count_util++;
   #endif
   uint32_t temp;

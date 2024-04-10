@@ -45,7 +45,7 @@ int (mouse_test_packet)(uint32_t cnt) {
   int ipc_status;
 
   uint8_t hook_mouse;
-  if (mouse_enable_data_reporting()) return 1;
+  if (mouse_enable_data_reporting2()) return 1;
   if (subscribe_mouse(&hook_mouse)) return 1;
   
     while (cnt > 0) {
@@ -59,11 +59,15 @@ int (mouse_test_packet)(uint32_t cnt) {
       {
       case HARDWARE:
         if (msg.m_notify.interrupts & hook_mouse) {
-          read_packets();
+          mouse_ih();
           if (deu_erro) continue;
+          if (counter_packet == 1 && (byte & SYNC_BIT) == 0) continue;
+
           switch (counter_packet)
           {
           case 1:
+            caixa->bytes[0] = byte;
+
             caixa->lb = byte & BIT(0);
             caixa->rb = byte & BIT(1);
             caixa->mb = byte & BIT(2);
@@ -75,6 +79,7 @@ int (mouse_test_packet)(uint32_t cnt) {
 
             break;
           case 2:
+          caixa->bytes[1] = byte;
             if (extend_1_X_Delta) {
               extend_1_X_Delta = false;
               uint16_t temp = BIT(8) + byte;
@@ -87,6 +92,8 @@ int (mouse_test_packet)(uint32_t cnt) {
             break;
           case 3:
             cnt--;
+            counter_packet = 0;
+            caixa->bytes[2] = byte;
 
             if (extend_1_Y_Delta) {
               extend_1_Y_Delta = false;
@@ -100,8 +107,6 @@ int (mouse_test_packet)(uint32_t cnt) {
             caixa->delta_y = byte;
             mouse_print_packet(caixa);
             break;
-          default:
-            break;
           }
         }   
         break;
@@ -111,7 +116,7 @@ int (mouse_test_packet)(uint32_t cnt) {
       }
     }
   }
-  if (mouse_disable_data_reporting()) return 1;
+  if (mouse_disable_data_reporting2()) return 1;
   if (unsubscribe_mouse()) return 1;
   return 0;
 }
