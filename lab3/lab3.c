@@ -7,7 +7,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "git.ignoreLimitWarning": true,
   "C_Cpp.clang_format_fallbackStyle": "LLVM",
@@ -7,4 +8,21 @@
   "editor.wordWrap": "bounded",
   "editor.wordWrapColumn": 100,
   "files.associations": { },
+=======
+{
+  "git.ignoreLimitWarning": true,
+  "C_Cpp.clang_format_fallbackStyle": "LLVM",
+  "diffEditor.ignoreTrimWhitespace": true,
+  "editor.formatOnSave": false,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "bounded",
+  "editor.wordWrapColumn": 100,
+  "files.associations": {
+    "i8254.h": "c",
+    "i8042.h": "c",
+    "lcf.h": "c",
+    "stdint.h": "c",
+    "timer.h": "c"
+  },
+>>>>>>> 1ef0b93d2693bafb473121444c42e65f57343c29
 }
