@@ -37,7 +37,7 @@ extern uint8_t byte;
 extern int counter_packet;
 bool extend_1_X_Delta = false;
 bool extend_1_Y_Delta = false;
-struct packet *caixa;
+struct packet caixa;
 
 int (mouse_test_packet)(uint32_t cnt) {
   message msg;
@@ -45,79 +45,76 @@ int (mouse_test_packet)(uint32_t cnt) {
   int ipc_status;
 
   uint8_t hook_mouse;
+
+  
   if (mouse_enable_data_reporting2()) return 1;
+
   if (subscribe_mouse(&hook_mouse)) return 1;
   
-    while (cnt > 0) {
+    while (cnt) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
       continue;
     }
 
     if (is_ipc_notify(ipc_status)) { 
-      switch (_ENDPOINT_P(msg.m_source)) 
-      {
-      case HARDWARE:
-        if (msg.m_notify.interrupts & hook_mouse) {
-          mouse_ih();
-          if (deu_erro) continue;
-          if (counter_packet == 1 && (byte & SYNC_BIT) == 0) continue;
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+          if (msg.m_notify.interrupts & hook_mouse) {
+            mouse_ih();
+            if (deu_erro) continue;
 
-          switch (counter_packet)
-          {
-          case 1:
-            caixa->bytes[0] = byte;
+            if (counter_packet == 0 && (byte & SYNC_BIT) == 0) continue;
+            counter_packet++;
 
-            caixa->lb = byte & BIT(0);
-            caixa->rb = byte & BIT(1);
-            caixa->mb = byte & BIT(2);
-            caixa->x_ov = byte & BIT(6);
-            caixa->y_ov = byte & BIT(7);
+            switch (counter_packet)
+            {
+            case 1:
+              caixa.bytes[0] = byte;
 
-            if ((byte & BIT(4)) != 0) extend_1_X_Delta = true;
-            if ((byte & BIT(5)) != 0) extend_1_Y_Delta = true;
+              caixa.lb = byte & BIT(0);
+              caixa.rb = byte & BIT(1);
+              caixa.mb = byte & BIT(2);
+              caixa.x_ov = byte & BIT(6);
+              caixa.y_ov = byte & BIT(7);
 
-            break;
-          case 2:
-          caixa->bytes[1] = byte;
-            if (extend_1_X_Delta) {
-              extend_1_X_Delta = false;
-              uint16_t temp = BIT(8) + byte;
-              caixa->delta_x = (temp | 0xFF00);
+              if ((byte & BIT(4))) extend_1_X_Delta = true;
+              if ((byte & BIT(5))) extend_1_Y_Delta = true;
+
+              break;
+            case 2:
+            caixa.bytes[1] = byte;
+            caixa.delta_x = (uint16_t) byte;
+              if (extend_1_X_Delta) {
+                extend_1_X_Delta = false;
+                uint16_t temp = BIT(8) + byte;
+                caixa.delta_x = temp | ~(BIT(9) - 1);
+              }
+
+              break;
+            case 3:
+              counter_packet = 0;
+              caixa.bytes[2] = byte;
+              caixa.delta_y = (uint16_t) byte;
+              if (extend_1_Y_Delta) {
+                extend_1_Y_Delta = false;
+                uint16_t temp = BIT(8) + byte;
+                caixa.delta_y = temp | ~(BIT(9) - 1);
+              }
+              mouse_print_packet(&caixa);
+              cnt--;
+              break;
             }
-            else {
-            caixa->delta_x = (uint16_t) byte;
-            }
-
-            break;
-          case 3:
-            cnt--;
-            counter_packet = 0;
-            caixa->bytes[2] = byte;
-
-            if (extend_1_Y_Delta) {
-              extend_1_Y_Delta = false;
-              uint16_t temp = BIT(8) + byte;
-              caixa->delta_x = (temp | 0xFF00);
-            }
-            else {
-            caixa->delta_x = (uint16_t) byte;
-            }
-
-            caixa->delta_y = byte;
-            mouse_print_packet(caixa);
-            break;
-          }
-        }   
-        break;
-      
-      default:
-        break;
+          }   
+        default:
+          break;
       }
     }
   }
-  if (mouse_disable_data_reporting2()) return 1;
   if (unsubscribe_mouse()) return 1;
+  if (mouse_disable_data_reporting2()) return 1;
+
+
   return 0;
 }
 

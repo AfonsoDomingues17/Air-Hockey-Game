@@ -35,12 +35,11 @@ void (mouse_ih)() {
       }
       if (status & AUXMOUSE) {
         byte = dados;
-        counter_packet++;
       }
       return;
     }
+    tickdelay(micros_to_ticks(DELAY_US));
   }
-  tickdelay(micros_to_ticks(DELAY_US));
 }
 
 int (write_mouse_cmd)(uint8_t cmd) {
@@ -55,24 +54,23 @@ int (write_mouse_cmd)(uint8_t cmd) {
 int (mouse_enable_data_reporting2)() {
     while (true) {
         if (write_mouse_cmd(enable_command)) continue;
-        break;
+        return 0;
     }
-    return 0;
 }
 
 int (mouse_disable_data_reporting2)() {
     while (true) {
         if (write_mouse_cmd(disable_command)) continue;
-        break;
+        return 0;
     }
-    return 0;
 }
 
 int write_command(uint8_t comando) {
   uint8_t status;
   for (int k = 0; k < 10; k++) {
     if (util_sys_inb(LER_STATUS, &status)) continue;
-    if (!(status & KBC_ST_IBF)) {
+
+    if ( ! (status & KBC_ST_IBF)) {
       return sys_outb(LER_STATUS, comando);
     }
     tickdelay(micros_to_ticks(DELAY_US));
@@ -87,6 +85,7 @@ int write_arguments(uint8_t comando) {
     if (!(status & KBC_ST_IBF)) {
       return sys_outb(KBC_OUT_BUF, comando);
     }
+    tickdelay(micros_to_ticks(DELAY_US));
   }
   return 1;
 }
@@ -97,7 +96,7 @@ int receive_acknowledgment_byte(uint8_t *byte) {
   for (int k = 0; k < 10; k++) {
     if (util_sys_inb(LER_STATUS, &status)) continue;
 
-    if (status & (ERRO_PARIDADE | ERRO_TIMEOUT)) continue;
+    if (status & (ERRO_PARIDADE | ERRO_TIMEOUT)) return 1;
     if (status & KBC_ST_OBF) {
       return util_sys_inb(KBC_OUT_BUF, byte);
     }

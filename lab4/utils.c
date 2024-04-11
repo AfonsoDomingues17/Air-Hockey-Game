@@ -24,7 +24,7 @@ int (util_sys_inb)(int port, uint8_t *value) {
   count_util++;
   #endif
   uint32_t temp;
-  if (sys_inb(port, &temp) != 0) return 1; 
+  if (sys_inb(port, &temp)) return 1; 
   *value = (uint8_t) (temp & 0xFF);
 
   return 0;
