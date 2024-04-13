@@ -49,36 +49,36 @@ int extern count_timer;
 
 int(timer_test_int)(uint8_t time) {
   
-int ipc_status;
-message msg;
-int r;
+  int ipc_status;
+  message msg;
+  int r;
 
-uint8_t irq_set;
-if (timer_subscribe_int(&irq_set)) return 1;
+  uint8_t irq_set;
+  if (timer_subscribe_int(&irq_set)) return 1;
 
-while( time > 0 ) { 
+  while( time > 0 ) { 
 
-if( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
-printf("driver_receive failed with: %d", r);
-continue;
-}
-if (is_ipc_notify(ipc_status)) { 
-  switch (_ENDPOINT_P(msg.m_source)) {
-case HARDWARE: 
-  if (msg.m_notify.interrupts & irq_set) { 
-    timer_int_handler();
-    if (count_timer % 60 == 0) {
-      time--;
-       timer_print_elapsed_time();
+    if( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
+      printf("driver_receive failed with: %d", r);
+      continue;
     }
-  }
-break;
-default:
-break; 
-}
-}
+    if (is_ipc_notify(ipc_status)) { 
+      switch (_ENDPOINT_P(msg.m_source)) {
+    case HARDWARE: 
+      if (msg.m_notify.interrupts & irq_set) { 
+        timer_int_handler();
+        if (count_timer % 60 == 0) {
+         time--;
+         timer_print_elapsed_time();
+        }
+      }
+      break;
+    default:
+      break; 
+      } 
+    } 
 
-}
-if (timer_unsubscribe_int()) return 1;
-return 0;
+  }
+  if (timer_unsubscribe_int()) return 1;
+  return 0;
 }
