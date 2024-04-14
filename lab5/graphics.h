@@ -8,6 +8,7 @@
 #define SET_VBE_MODE 0x02
 #define VBE_INT 0x10
 #define INDEXED_MODEL 0x04
+#define INDEXED_MODE 0x105
 
 /* BIOS */
 #define VIDEO_CARD_INT 0x10
@@ -31,5 +32,7 @@ uint32_t create_mask(unsigned int size, unsigned int lsb);
 uint32_t (get_color_component)(uint32_t color, uint32_t mask_size, uint32_t lsb);
 
 int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step);
+
+int (vg_draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
 
 #endif

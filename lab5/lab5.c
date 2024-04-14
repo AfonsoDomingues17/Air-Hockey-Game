@@ -137,14 +137,51 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
   /* Return to text mode */
   if (vg_exit()) return 1;
 
-  return 1;
+  return 0;
 }
 
 int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u): under construction\n", __func__, xpm, x, y);
+  /* Initializes the video module in graphics mode */ 
+  if (vg_init(INDEXED_MODE) == NULL) return 1;
 
-  return 1;
+  /* Draw XPM */
+  if (vg_draw_xpm(xpm, x, y)) return 1;
+
+  /* Wait for ESC input */
+  // Subscribe to keyboard interrupts
+  int ipc_status, r;
+  message msg;
+  uint8_t hook;
+
+  if (keyboard_subscribe_int(&hook)) return 1;
+
+  while (scancode != ESC_BREAK_CODE) {
+    /* Get a request message. */
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+
+    if (is_ipc_notify(ipc_status)) { /* received notification */
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE: /* hardware interrupt notification */                
+          if (msg.m_notify.interrupts & hook) /* subscribed interrupt */
+            kbc_ih();
+          break;
+        default:
+          break; /* no other notifications expected: do nothing */    
+      }
+    } else { /* received a standard message, not a notification */
+      /* no standard messages expected: do nothing */
+    }
+  }
+
+  if (keyboard_unsubscribe_int()) return 1;
+
+  /* Return to text mode */
+  if (vg_exit()) return 1;
+
+  return 0;
 }
 
 int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,

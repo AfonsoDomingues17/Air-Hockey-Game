@@ -95,7 +95,7 @@ int (vg_draw_hline) (uint16_t x, uint16_t y, uint16_t len, uint32_t color) {
 }
 
 int (vg_draw_rectangle) (uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
-  if (x > h_res || y > v_res) return 0;
+  if (x > h_res || y > v_res) return 1;
   
   if (y + height > v_res) height = v_res-y;
   for (uint16_t line = 0; line < height; line++) {
@@ -117,7 +117,7 @@ uint32_t (get_color_component)(uint32_t color, uint32_t mask_size, uint32_t lsb)
 
 int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
   uint16_t width = h_res/no_rectangles, height = v_res/no_rectangles;
-  
+
   for (uint16_t y = 0; y < no_rectangles*height; y += height) {
     for (uint16_t x = 0; x < no_rectangles*width; x += width) {
       uint32_t color, col = (x/width), row = (y/height);
@@ -135,6 +135,25 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
 
       if (vg_draw_rectangle(x, y, width, height, color)) return 1;
     }
+  }
+
+  return 0;
+}
+
+int (vg_draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
+  /* Convert XPM to PixMap */
+  xpm_image_t img;
+  uint8_t* sprite = xpm_load(xpm, XPM_INDEXED, &img);
+  if (sprite == NULL) return 1;
+
+  /* Draw Sprite */
+  for (uint16_t line = 0; line < img.height; line++) {
+    uint8_t *ptr = video_mem;
+    ptr += ((y+line)*h_res + x);
+
+    memcpy(ptr, sprite, img.width);
+    ptr += img.width;
+    sprite += img.width;
   }
 
   return 0;
