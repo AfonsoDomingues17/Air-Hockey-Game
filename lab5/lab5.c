@@ -12,6 +12,7 @@
 
 extern uint8_t scancode;
 extern bool error;
+extern unsigned int time_count;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -186,16 +187,78 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
 
 int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,
                      int16_t speed, uint8_t fr_rate) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u, %u, %u, %d, %u): under construction\n",
-         __func__, xpm, xi, yi, xf, yf, speed, fr_rate);
+  /* Initializes the video module in graphics mode */ 
+  if (vg_init(INDEXED_MODE) == NULL) return 1;
 
-  return 1;
-}
+  /* Wait for ESC input */
+  // Subscribe to keyboard interrupts
+  int ipc_status, r;
+  message msg;
+  uint8_t keyboard_hook, timer_hook;
 
-int(video_test_controller)() {
-  /* To be completed */
-  printf("%s(): under construction\n", __func__);
+  if (keyboard_subscribe_int(&keyboard_hook)) return 1;
+  if (timer_subscribe_int(&timer_hook)) return 1;
 
-  return 1;
+  uint16_t ticks_per_change = 60 / fr_rate;
+  uint16_t ticks_passed = 0, frames_per_draw = 1, frames_passed = 0;
+
+  if (speed < 0) frames_per_draw = (-1*speed);
+  /* Draw Initial Frame */
+  if (vg_draw_xpm(xpm, xi, yi)) return 1;
+  uint16_t xo = xi, yo = yi; 
+
+  while (scancode != ESC_BREAK_CODE) {
+    /* Get a request message. */
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+
+    if (is_ipc_notify(ipc_status)) { /* received notification */
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE: /* hardware interrupt notification */                
+          if (msg.m_notify.interrupts & keyboard_hook) /* subscribed interrupt */
+            kbc_ih();
+          if (msg.m_notify.interrupts & timer_hook) {
+            timer_int_handler();
+            ticks_passed++;
+            if (ticks_passed == ticks_per_change) { // A frame has passed
+              ticks_passed = 0;
+              frames_passed++;
+
+              if (frames_passed == frames_per_draw) { // Need to update drawing
+                /* Update Coordinates */
+                if (xi == xf && yi < yf) yi++;
+                if (yi == yf && xi < xf) xi++;
+                if (speed > 0) {
+                  if (xi == xf && yi < yf) yi += speed - 1;
+                  if (yi == yf && xi < xf) xi += speed - 1;
+
+                  if (xi > xf) xi = xf;
+                  if (yi > yf) yi = yf;
+                }
+
+                /* Draw Frame */
+                if (vg_redraw_xpm(xpm, xo, yo, xi, yi)) return 1;
+                xo = xi, yo = yi;
+                frames_passed = 0;
+              }
+            }
+          }
+          break;
+        default:
+          break; /* no other notifications expected: do nothing */    
+      }
+    } else { /* received a standard message, not a notification */
+      /* no standard messages expected: do nothing */
+    }
+  }
+
+  if (keyboard_unsubscribe_int()) return 1;
+  if (timer_unsubscribe_int()) return 1;
+
+  /* Return to text mode */
+  if (vg_exit()) return 1;
+
+  return 0;
 }

@@ -158,3 +158,33 @@ int (vg_draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
 
   return 0;
 }
+
+int (vg_erase_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
+  /* Convert XPM to PixMap */
+  xpm_image_t img;
+  uint8_t* sprite = xpm_load(xpm, XPM_INDEXED, &img);
+  if (sprite == NULL) return 1;
+  
+  /* Reset used pixels */
+  for (uint16_t line = 0; line < img.height; line++) {
+    uint8_t *ptr = video_mem;
+    ptr += ((y+line)*h_res + x);
+
+    uint8_t color_black = 0x00;
+    for (int col = 0; col < img.width; col++, ptr++) {
+      memcpy(ptr, &color_black, 1);
+    }
+  }
+
+  return 0;
+}
+
+int (vg_redraw_xpm)(xpm_map_t xpm, uint16_t xo, uint16_t yo, uint16_t xi, uint16_t yi) {
+  /* Reset used pixels */
+  if (vg_erase_xpm(xpm, xo, yo)) return 1;
+
+  /* Draw new Sprite */
+  if (vg_draw_xpm(xpm, xi, yi)) return 1;
+
+  return 0;
+}

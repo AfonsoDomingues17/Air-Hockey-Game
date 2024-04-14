@@ -35,4 +35,8 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step);
 
 int (vg_draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
 
+int (vg_erase_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
+
+int (vg_redraw_xpm)(xpm_map_t xpm, uint16_t xo, uint16_t yo, uint16_t xi, uint16_t yi);
+
 #endif
