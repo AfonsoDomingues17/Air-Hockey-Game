@@ -182,3 +182,19 @@ int draw_pattern(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t s
   }
   return 0;
 }
+
+int draw_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
+  xpm_image_t img;
+  uint8_t* map = xpm_load(xpm, XPM_INDEXED, &img);
+  if (map == NULL) return 1;
+
+  for (int k = 0; k < img.height; k++) {
+      uint8_t * ptr = video_mem;
+      ptr += ((y+k)*hres) + x;
+
+      memcpy(ptr, map, img.width);
+      ptr += img.width;
+      map += img.width;
+  }
+  return 0;
+}
