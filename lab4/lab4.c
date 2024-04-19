@@ -148,11 +148,93 @@ int (mouse_test_async)(uint8_t idle_time) {
    if(timer_unsubscribe_int() != 0) return 1;
   return 0;
 }
+typedef enum {
+  START,
+  LEFT,
+  MIDDLE,
+  RIGHT,
+  END
+} SystemState;
 
+SystemState state = START;
+uint16_t total_x = 0;
+uint16_t total_y = 0;
+
+void update_state(uint8_t tolerance, uint8_t x_len){
+  total_x += packets.delta_x;
+  total_y += packets.delta_y;
+
+  switch (state)
+  {
+  case START:
+    if(packets.lb && !packets.mb && !packets.rb) state = LEFT;
+    break;
+
+  case LEFT:
+    if(abs(total_x) > )
+    if(!packets.lb) state = MIDDLE;
+    break;
+
+  case MIDDLE:
+    break;
+
+  case RIGHT:
+    break;
+
+  case END:
+    break;
+  
+  default:
+    break;
+  }
+}
 int (mouse_test_gesture)(uint8_t x_len, uint8_t tolerance) {
-    /* To be completed */
-    printf("%s: under construction\n", __func__);
-    return 1;
+    uint8_t mouse_hook_id = 3; //mouse interrupt handler line
+  int r;
+  int irq_set = BIT(mouse_hook_id);
+  int ipc_status;
+  uint32_t number_packets = 0;
+  
+  if(subscribe_MOUSE_interrupts(&mouse_hook_id)) return 1; //subscribe to mouse interrupts
+  //if(mouse_enable_data_reporting() != 0 ) return 1; //set default to remote mode, change it to stream mode
+
+  if(disable_enable_data_reporting(ENABLE_DATA_REPORTING) != 0 ) return 1; //set default to remote mode, change it to stream mode
+  message msg;
+  
+  while(state != END) { //it ends when the number of packets are read
+     
+     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+         printf("driver_receive failed with: %d", r);
+         continue;
+     }
+      if (is_ipc_notify(ipc_status)) { 
+        
+          switch (_ENDPOINT_P(msg.m_source)) {
+              case HARDWARE: 
+              
+                  if (msg.m_notify.interrupts & irq_set) { // como lidar com o interrupt
+                    mouse_ih(); //mouse interrupt handler
+                    packet_creation(); //creates the mouse 3 byte packet
+                    if(counter_bytes_pack == 3){ //when it reads the 3 bytes
+                      counter_bytes_pack = 0; //counter is reseted
+                      packets_assembly();//packet structure is assembled 
+                      mouse_print_packet(&packets); //used to print the packets 
+                      update_state(tolerance,x_len);
+                    }
+                  }
+                  break;
+              default:
+                  break; 
+          }
+      } else { 
+          
+      }
+
+   }
+   if(disable_enable_data_reporting(DISABLE_DATA_REPORTING) != 0) return 1; //disable data_reporting
+   if(unsubscribe_MOUSE_interrupts() != 0) return 1; //unsubscribe mouse interrupts
+  return 0;
+    
 }
 
 int (mouse_test_remote)(uint16_t period, uint8_t cnt) {

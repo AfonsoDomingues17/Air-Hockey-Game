@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 
+
 int(util_get_LSB)(uint16_t val, uint8_t *lsb) {
   /* To be implemented by the students */
   if(lsb == NULL) return 1;

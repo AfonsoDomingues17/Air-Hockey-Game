@@ -1,5 +1,16 @@
 {
     "files.associations": {
-        "stdint.h": "c"
+        "*.embeddedhtml": "html",
+        "stdint.h": "c",
+        "__split_buffer": "c",
+        "__tree": "c",
+        "bitset": "c",
+        "initializer_list": "c",
+        "iterator": "c",
+        "map": "c",
+        "memory": "c",
+        "string": "c",
+        "utility": "c",
+        "vector": "c"
     }
 }
