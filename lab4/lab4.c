@@ -156,8 +156,6 @@ int ipc_status, r;
                 uint16_t temp = BIT(8) + packet[2];
                 parsing.delta_y = nine_bit_sign_extension(temp);
               }
-              //parsing.delta_x = ((packet[0] & MSB_X_DELTA) << 4) + packet[1];
-              //parsing.delta_y = ((packet[0] & MSB_Y_DELTA) << 3) + packet[2];
               parsing.x_ov = packet[0] & X_OVFL;
               parsing.y_ov = packet[0] & Y_OVFL;
               mouse_print_packet(&parsing);
@@ -165,7 +163,6 @@ int ipc_status, r;
           }
           if (msg.m_notify.interrupts & timer_hook) {
             timer_int_handler();
-            //printf("COUNT: %d IDLE: %d\n", time_count, idle);
             if ((time_count-idle) == sys_hz()*idle_time) {
               done = true;
             }

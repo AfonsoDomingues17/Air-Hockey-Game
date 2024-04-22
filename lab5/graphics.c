@@ -23,7 +23,7 @@ int (graphics_set_mode)(uint16_t mode) {
   memset(&r, 0, sizeof(r));
 
   r.ax = VBE_CALL | SET_VBE_MODE; // VBE call, function 02 -- set VBE mode
-  r.bx = (SET_LINEAR_BIT | mode) & (~BIT(15)); // set bit 14: linear framebuffer 
+  r.bx = (SET_LINEAR_BIT | mode); // set bit 14: linear framebuffer 
   r.intno = VBE_INT;
   if( sys_int86(&r) != OK) {
     printf("set_vbe_mode: sys_int86() failed \n");
@@ -126,9 +126,11 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
         first_red = get_color_component(first, red_mask_size, red_field_position);
         first_green = get_color_component(first, green_mask_size, green_field_position);
         first_blue = get_color_component(first, blue_mask_size, blue_field_position);
+
         red = (first_red + col * step) % (1 << red_mask_size);
 	      green = (first_green + row * step) % (1 << green_mask_size);
 	      blue = (first_blue + (col + row) * step) % (1 << blue_mask_size);
+
         color = (red << red_field_position) | (green << green_field_position) | (blue << blue_field_position);
       }
       else color = (first + (row * no_rectangles + col) * step) % (1 << bits_per_pixel);

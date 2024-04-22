@@ -10,7 +10,7 @@ CFLAGS += -pedantic
 
 # list of library dependencies (for Lab 2, only LCF library)
 DPADD += ${LIBLCF}
-LDADD += -llcf
+LDADD += -llcf -llm -lxpm
 
 # include LCOM's makefile that does all the "heavy lifting"
 .include <minix.lcom.mk>
