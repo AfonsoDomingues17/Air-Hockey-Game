@@ -10,6 +10,8 @@
 // Any header files included below this line should have been created by you
 
 #include "i8042.h"
+#include "i8254.h"
+#include <minix/sysutil.h>
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -34,6 +36,93 @@ int main(int argc, char *argv[]) {
 
   return 0;
 }
+
+/* aux */
+
+int hook = KBC_IRQ;
+uint8_t scancode = 0;
+
+int (kbc_get_status)(uint8_t *status) { // status do controlador do teclado
+  if (status == NULL) return 1;
+  if (util_sys_inb(KBC_ST_REG, status) != 0) return 1; // le status
+  return 0;
+}
+
+int(kbc_subscribe_int)(uint8_t *bit_no) {
+  if (bit_no == NULL) return 1; 
+  *bit_no = BIT(hook); 
+  return sys_irqsetpolicy(KBC_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook);
+}
+
+int(kbc_unsubscribe_int)() {
+  return sys_irqrmpolicy(&hook);
+}
+
+void(kbc_ih)() { // tratamento de interrupção do teclado
+    uint8_t status;
+    uint8_t data;
+    int attempts = KBC_ATTEMPTS; // número de tentativas para ler o scancode
+    while (attempts--) {
+        if (kbc_get_status(&status) != 0) continue;
+        if (status & KBC_OBF) { // se buffer de saida está cheio
+            if (util_sys_inb(OUT_BUF, &data) != 0) continue; // lê o scancode do buffer de saída
+            if ((status & (KBC_PARITY | KBC_TIMEOUT)) == 0 ) scancode = data;
+            return; // retorna apos ler scancode
+        }
+        tickdelay(micros_to_ticks(WAIT_KBC)); // atraso para aguardar a disponibilidade do buffer de saída
+    }
+}
+
+int(kbd_test_scan)() {
+  uint8_t hook;
+  int ipc_status;
+  message msg;
+  uint8_t irq_set = BIT(KBC_IRQ);
+  int r;
+  if (kbc_subscribe_int(&hook)) return 1;
+  while (scancode != 0x81) {
+    /* Get a request message. */
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0) { 
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { /* received notification */
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE: /* hardware interrupt notification */
+          if (msg.m_notify.interrupts & irq_set) { /* subscribed interrupt */
+            kbc_ih(); // interrupcao teclado
+          }
+          break;
+        default:
+          break; /* no other notifications expected: do nothing */
+      } 
+    } else {  /* received a standard message, not a notification */
+        /* no standard messages expected: do nothing */
+      }
+    }
+	if (kbc_unsubscribe_int() != 0) return 1; // desubscreve interrupções do teclado
+	return 0;
+}
+
+int hook_timer = 0;
+int counter_timer = 0;
+
+int (timer_subscribe_int)(uint8_t *bit_no) {
+  if (bit_no == NULL) return 1; // apontador tem de ser válido
+  *bit_no = BIT(hook_timer); // máscara a utilizar
+  if (sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &hook_timer) != 0) return 1; // subscreve interrupções
+  return 0;
+}
+
+int (timer_unsubscribe_int)() {
+  if (sys_irqrmpolicy(&hook_timer) != 0) return 1; // desubscreve interrupções
+  return 0;
+}
+
+void (timer_int_handler)() { // timer 0 interrupt handler
+  counter_timer++; // increments counter
+}
+
 
 int (graphic_mode)(uint16_t mode) {
     // struct with a union of anonymous structs that allow access
@@ -229,20 +318,120 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
     return 0;
 }
 
-int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u): under construction\n", __func__, xpm, x, y);
-
-  return 1;
+int (display_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
+  xpm_image_t img;
+  uint8_t *colors = xpm_load(xpm, XPM_INDEXED, &img);
+  unsigned int bytesPerPixel = (mode_info.BitsPerPixel + 7) / 8;
+  for (int i = 0; i < img.height; i++) {
+    uint8_t *fb = frame_buffer;
+    // starting position of the current row
+    fb += (mode_info.XResolution * (y + i) + x) * bytesPerPixel;
+    for (int j = 0; j < img.width; j++) {
+      // check if current position is in within boundaries
+      if (x + j > mode_info.XResolution || y + i > mode_info.YResolution) return 1;
+      // copy color to framebuffer
+      memcpy(fb, colors, bytesPerPixel);
+      // move to next position
+      fb += bytesPerPixel;
+      colors += bytesPerPixel;
+    }
+  }
+  return 0;
 }
 
+// draw a pixmap that is provided as an XPM image
+int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
+  // change to video mode 0x105 and display the pixmap 
+  // provided as an XPM at the specified coordinates 
+  // (upper left corner of pixmap). 
+  if (set_frame_buffer(0x105) != 0) return 1;
+  if (graphic_mode(0x105) != 0) return 1;
+  if (display_xpm(xpm, x, y) != 0) return 1;
+  // When the user releases the ESC key (scancode 0x81), 
+  // it should reset the video mode to Minix's default text 
+  // mode and return.
+  if (kbd_test_scan() != 0) return 1;
+  if (vg_exit() != 0) return 1;
+  return 0;
+}
+
+// move a pixmap that is provided as an XPM image
 int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,
                      int16_t speed, uint8_t fr_rate) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u, %u, %u, %d, %u): under construction\n",
-         __func__, xpm, xi, yi, xf, yf, speed, fr_rate);
+  // change to video mode 0x105 and display the pixmap 
+  // provided as an XPM at (xi,yi) (upper left corner).
+  xpm_image_t img;
+  xpm_load(xpm, XPM_INDEXED, &img);
 
-  return 1;
+  if (set_frame_buffer(0x105) != 0) return 1;
+  if (graphic_mode(0x105) != 0) return 1;
+
+  // move that sprite until its upper left corner is at 
+  // position (xf,yf). 
+
+  // only consider movements along horizontal or vertical 
+  // (xf == xi, yf == yi)
+  bool vertical = false;
+  if (yi == yf && xi < xf) vertical = true;
+
+  // This movement should be done at the specified speed 
+  // with the specified frame_rate in frames per second (fps).
+  // speed positive = displacement in pixels between 
+  // consecutive frames; negative =  number of frames required 
+  // for a displacement of one pixel
+
+  // speed is positive and the length of the movement is not 
+  // a multiple of speed, the last displacement of the pixmap
+  // in its movement will be smaller than speed.
+  int r, ipc_status;
+  message msg;
+  uint8_t irq_set_timer, irq_set_keyboard;
+  int freq = 60 / fr_rate;
+
+  if (kbc_subscribe_int(&irq_set_keyboard) != 0) return 1;
+  if (timer_subscribe_int(&irq_set_timer) != 0) return 1;
+  if (display_xpm(xpm, xi, yi) != 0) return 1;
+
+  while (scancode != 0x81) {
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { 
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE: 			
+          if (msg.m_notify.interrupts & irq_set_timer) { 
+            timer_int_handler();
+            if (counter_timer == freq){
+              if (vg_draw_rectangle(xi,yi,img.width,img.height,0x00) != 0) return 1;
+                if (!vertical) {
+                  yi += speed;
+                } else {
+                  xi += speed;
+                }
+                if(xi > xf) xi = xf;
+                if(yi > yf) yi = yf;
+                if(display_xpm(xpm,xi,yi) != 0) return 1;
+                counter_timer = 0;
+              }
+          }
+          if (msg.m_notify.interrupts & irq_set_keyboard) { 
+            kbc_ih();
+          }
+          break;
+        default:
+          break; 
+        }
+      }
+   }
+  
+  // When the user releases the ESC key (scancode 0x81), 
+  // it should reset the video mode to Minix's default text 
+  // mode and return, even if the movement has not completed.
+  if (kbc_unsubscribe_int() != 0) return 1;
+  if (timer_unsubscribe_int() != 0) return 1;
+  if (vg_exit() != 0) return 1; 
+  return 0;
 }
 
 int(video_test_controller)() {
@@ -251,73 +440,3 @@ int(video_test_controller)() {
 
   return 1;
 }
-
-/* aux */
-
-int hook = KBC_IRQ;
-uint8_t scancode = 0;
-extern int counter;
-
-int (kbc_get_status)(uint8_t *status) { // status do controlador do teclado
-  if (status == NULL) return 1;
-  if (util_sys_inb(KBC_ST_REG, status) != 0) return 1; // le status
-  return 0;
-}
-
-int (kbc_subscribe_int)(uint8_t *bit_no) {
-  if (bit_no == NULL) return 1; 
-  *bit_no = BIT(hook); 
-  return sys_irqsetpolicy(KBC_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook);
-}
-
-int (kbc_unsubscribe_int)() {
-  return sys_irqrmpolicy(&hook);
-}
-
-void (kbc_ih)() { // tratamento de interrupção do teclado
-    uint8_t status;
-    uint8_t data;
-    int attempts = KBC_ATTEMPTS; // número de tentativas para ler o scancode
-    while (attempts--) {
-        if (kbc_get_status(&status) != 0) continue;
-        if (status & KBC_OBF) { // se buffer de saida está cheio
-            if (util_sys_inb(OUT_BUF, &data) != 0) continue; // lê o scancode do buffer de saída
-            if ((status & (KBC_PARITY | KBC_TIMEOUT)) == 0 ) scancode = data;
-            return; // retorna apos ler scancode
-        }
-        tickdelay(micros_to_ticks(WAIT_KBC)); // atraso para aguardar a disponibilidade do buffer de saída
-    }
-}
-
-int(kbd_test_scan)() {
-  uint8_t hook;
-  int ipc_status;
-  message msg;
-  uint8_t irq_set = BIT(KBC_IRQ);
-  int r;
-  if (kbc_subscribe_int(&hook)) return 1;
-  while (scancode != 0x81) {
-    /* Get a request message. */
-    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0) { 
-      printf("driver_receive failed with: %d", r);
-      continue;
-    }
-    if (is_ipc_notify(ipc_status)) { /* received notification */
-      switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE: /* hardware interrupt notification */
-          if (msg.m_notify.interrupts & irq_set) { /* subscribed interrupt */
-            kbc_ih(); // interrupcao teclado
-          }
-          break;
-        default:
-          break; /* no other notifications expected: do nothing */
-      } 
-    } else {  /* received a standard message, not a notification */
-        /* no standard messages expected: do nothing */
-      }
-    }
-	if (kbc_unsubscribe_int() != 0) return 1; // desubscreve interrupções do teclado
-	return 0;
-}
-
-
