@@ -1,5 +1,3 @@
-#include <lcom/lcf.h>
-
 #include "graphics.h"
 
 static void *frame_buffer; /* Process (virtual) address to which VRAM is mapped */
@@ -8,6 +6,8 @@ static uint16_t hres; /* Horizontal resolution in pixels */
 static uint16_t vres; /* Vertical resolution in pixels */
 
 vbe_mode_info_t mode_info; /* Info Struct*/
+
+unsigned int extern time_count;
 
 int(set_graphic_mode)(uint16_t mode){
     reg86_t r;
@@ -237,23 +237,6 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
   return 0;
 }
 
-int hook_id;
-int(timer_subscribe_int)(uint8_t *bit_no){
-  hook_id = *bit_no;
-  if(sys_irqsetpolicy(0,IRQ_REENABLE,&hook_id) != 0) return 1;
-  return 0;
-}
-
-int(timer_unsubscribe_int)(){
-  if(sys_irqrmpolicy(&hook_id) != 0) return 1;
-  return 0;
-}
-
-int counter_timer = 0;
-void(timer_int_handler)(){
-  counter_timer++;
-}
-
 int (video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,
                      int16_t speed, uint8_t fr_rate) {
   bool type_move = false;
@@ -285,7 +268,7 @@ int (video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint
               case HARDWARE: 			
                   if (msg.m_notify.interrupts & irq_set_timer) { // como lidar com o interrupt
                     timer_int_handler();
-                    if(counter_timer == n_inte){
+                    if((int)time_count == n_inte){
                       if(vg_draw_rectangle(xi,yi,img.width,img.height,0x00) != 0) return 1;
                       if(!type_move) yi += speed;
                       else xi += speed;
@@ -293,7 +276,7 @@ int (video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint
                       if(xi > xf) xi = xf;
                       if(yi > yf) yi = yf;
                       if(draw_xpm(xpm,xi,yi) != 0) return 1;
-                      counter_timer = 0;
+                      time_count = 0;
                     }
                     
                   }
@@ -316,3 +299,12 @@ int (video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint
   if(vg_exit() != 0) return 1;
   return 0;
 }
+
+int util_sys_inb(int port, uint8_t* value) {
+  if (value == NULL) return 1;
+  uint32_t temp;
+  if (sys_inb(port, &temp)) return 1;
+  *value = (uint8_t) temp;
+  return 0;
+}
+

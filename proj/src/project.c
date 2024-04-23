@@ -20,9 +20,11 @@
 #include "devices/graphics/graphics.h"
 #include "devices/timer/timer.h"
 
+/*XPM*/
+#include "assets/xpm_background.h"
+#include "assets/bullet.h"
 
 int main(int argc, char *argv[]) {
-
     lcf_set_language("EN-US");
 
     lcf_trace_calls("/home/lcom/labs/proj/src/trace.txt");
@@ -49,8 +51,8 @@ int (draw)(xpm_map_t xpm) {
 }
 
 int (proj_main_loop)(int argc, char **argv) {
-    draw();
-    printf("Please Work!!!!");
+
+    draw((xpm_map_t)bullet_xpm);
 
     return 0;
 }

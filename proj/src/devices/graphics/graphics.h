@@ -33,4 +33,6 @@ uint32_t Blue(uint32_t first);
 
 int (draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
 
+int util_sys_inb(int port, uint8_t* value);
+
 #endif /* _LCOM_GRAPHICS_H */
