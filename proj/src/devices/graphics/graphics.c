@@ -208,32 +208,19 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
   return 0;
 }
 
-int(draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y){
+int draw_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
   xpm_image_t img;
-  uint8_t *colors = xpm_load(xpm, XPM_INDEXED, &img);
-  unsigned int BytesPerPixel = (mode_info.BitsPerPixel + 7) / 8;
+  uint8_t* map = xpm_load(xpm, XPM_INDEXED, &img);
+  if (map == NULL) return 1;
 
-  for(int i = 0; i < img.height; i++){
-    uint8_t *fb = frame_buffer;
-    fb += (mode_info.XResolution * (y + i) + x) * BytesPerPixel;
-    for(int v = 0; v < img.width; v++){
-      if(x + v > mode_info.XResolution || y + i > mode_info.YResolution) return 1;
+  for (int k = 0; k < img.height; k++) {
+      uint8_t * ptr = frame_buffer;
+      ptr += ((y+k)*hres) + x;
 
-      memcpy(fb,colors,BytesPerPixel);
-      fb += BytesPerPixel;
-      colors += BytesPerPixel;
-
-    }
+      memcpy(ptr, map, img.width);
+      ptr += img.width;
+      map += img.width;
   }
-  return 0;
-}
-
-int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
-  if(mset_frame_buffer(0x105) != 0) return 1;
-  if(set_graphic_mode(0x105) != 0) return 1;
-  if(draw_xpm(xpm,x,y) != 0) return 1;
-  if(kbd_test_scan() != 0 ) return 1;
-  if(vg_exit() != 0) return 1;
   return 0;
 }
 
