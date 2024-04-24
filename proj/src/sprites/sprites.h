@@ -5,9 +5,9 @@
 
 typedef struct {
     int x, y; // current position
-    int width, height; // dimensions
+    uint16_t width, height; // dimensions
     int xspeed, yspeed; // current speed
-    char *map; // the pixmap
+    uint32_t *map; // the pixmap
 } Sprite;
 
 
@@ -23,5 +23,9 @@ Sprite *create_sprite(xpm_map_t xpm);
  * @param sprite Sprite pointer to the sprite object
 */
 void *delete_sprite(Sprite *sp);
+
+void loader_sprite();
+
+void unloader_sprite();
 
 #endif

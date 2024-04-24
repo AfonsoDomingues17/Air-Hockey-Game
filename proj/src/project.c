@@ -19,6 +19,7 @@
 #include <lcom/lcf.h>
 #include "devices/graphics/graphics.h"
 #include "devices/timer/timer.h"
+#include "sprites/sprites.h"
 
 /*XPM*/
 #include "assets/xpm_background.h"
@@ -59,8 +60,11 @@ int (proj_main_loop)(int argc, char **argv) {
 
     draw_xpm((xpm_map_t)bullet_xpm, 10, 10);
 
+    //loader_sprite();
     if(kbd_test_scan() != 0 ) return 1;
     if(vg_exit() != 0) return 1;
+    // unloader_sprite();
+
     return 0;
 }
 
