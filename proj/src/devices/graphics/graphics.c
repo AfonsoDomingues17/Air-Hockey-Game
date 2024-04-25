@@ -210,7 +210,7 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
 
 int draw_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
   xpm_image_t img;
-  uint8_t* map = xpm_load(xpm, XPM_INDEXED, &img);
+  uint8_t* map = xpm_load(xpm, XPM_8_8_8, &img);
   if (map == NULL) return 1;
 
   for (int k = 0; k < img.height; k++) {

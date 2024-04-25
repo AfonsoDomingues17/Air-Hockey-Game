@@ -11,7 +11,7 @@ SRCS = project.c graphics.c timer.c sprites.c
 
 # additional compilation flags
 # "-Wall -Wextra -Werror -I . -std=c11 -Wno-unused-parameter" are already set
-CFLAGS += -pedantic
+CFLAGS += -pedantic -D_LCOM_OPTIMIZED_ -O2
 
 # list of library dependencies
 DPADD += ${LIBLCF}

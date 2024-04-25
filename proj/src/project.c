@@ -46,7 +46,7 @@ int (proj_main_loop)(int argc, char **argv) {
     if(mset_frame_buffer(0x115) != 0) return 1;
     if(set_graphic_mode(0x115) != 0) return 1;
 
-    draw_xpm(xpm_background, 0, 350);
+    draw_xpm(xpm_background, 50, 500);
 
     //loader_sprite();
     if(kbd_test_scan() != 0 ) return 1;
