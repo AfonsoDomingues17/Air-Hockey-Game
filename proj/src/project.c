@@ -40,25 +40,13 @@ int main(int argc, char *argv[]) {
 
 }
 
-/*
-int (draw)(xpm_map_t xpm) {
-  xpm_image_t img;
-  xpm_load(xpm, XPM_INDEXED, &img);
-  if(mset_frame_buffer(0x105) != 0) return 1;
-  if(set_graphic_mode(0x105) != 0) return 1;
-  if(draw_xpm(xpm, 0, 0) != 0) return 1;
-  if(kbd_test_scan() != 0 ) return 1;
-  if(vg_exit() != 0) return 1;
-  return 0;
-}
-*/
 
 int (proj_main_loop)(int argc, char **argv) {
+    
+    if(mset_frame_buffer(0x115) != 0) return 1;
+    if(set_graphic_mode(0x115) != 0) return 1;
 
-    if(mset_frame_buffer(0x105) != 0) return 1;
-    if(set_graphic_mode(0x105) != 0) return 1;
-
-    draw_xpm((xpm_map_t)bullet_xpm, 10, 10);
+    draw_xpm(xpm_background, 0, 350);
 
     //loader_sprite();
     if(kbd_test_scan() != 0 ) return 1;

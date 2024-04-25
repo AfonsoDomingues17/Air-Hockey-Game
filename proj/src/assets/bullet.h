@@ -1,6 +1,6 @@
 // TODO: change color
 
-static char *bullet_xpm[] = {
+static xpm_row_t const bullet_xpm[] = {
   "12 12 2",
   "  255",
   ". 2",

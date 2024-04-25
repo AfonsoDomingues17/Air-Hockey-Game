@@ -1,7 +1,9 @@
 /* XPM */
-static char *xpm_background[] = {
+#include <stddef.h>
+
+static xpm_row_t const xpm_background[] = {
 /* columns rows colors chars-per-pixel */
-"768 1024 59 1 ",
+"768 1024 59 1",
 "  c #190C00",
 ". c #330000",
 "X c #201007",
