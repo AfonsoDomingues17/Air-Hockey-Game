@@ -7,7 +7,7 @@ typedef struct {
     int x, y; // current position
     uint16_t width, height; // dimensions
     int xspeed, yspeed; // current speed
-    uint32_t *map; // the pixmap
+    uint8_t *map; // the pixmap
 } Sprite;
 
 
@@ -25,6 +25,8 @@ Sprite *create_sprite(xpm_map_t xpm);
 void *delete_sprite(Sprite *sp);
 
 void loader_sprite();
+
+int draw_sprite_xpm(Sprite *sprite, uint16_t x, uint16_t y);
 
 void unloader_sprite();
 

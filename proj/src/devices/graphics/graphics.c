@@ -210,17 +210,21 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
 
 int draw_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
   xpm_image_t img;
-  uint8_t* map = xpm_load(xpm, XPM_8_8_8, &img);
-  if (map == NULL) return 1;
+  uint8_t* colors = xpm_load(xpm, XPM_8_8_8_8, &img);
+  unsigned int BytesPerPixel = (mode_info.BitsPerPixel + 7) / 8;
 
-  for (int k = 0; k < img.height; k++) {
-      uint8_t * ptr = frame_buffer;
-      ptr += ((y+k)*hres) + x;
+  for(uint16_t i = 0; i < img.height; i++){
+    uint8_t *fb = frame_buffer;
+    fb += (mode_info.XResolution * (y + i) + x) * BytesPerPixel;
+    for(uint16_t v = 0; v < img.width; v++){
+      memcpy(fb,colors,BytesPerPixel);
+      fb += BytesPerPixel;
+      colors += BytesPerPixel;
 
-      memcpy(ptr, map, img.width);
-      ptr += img.width;
-      map += img.width;
+    }
+
   }
+
   return 0;
 }
 
