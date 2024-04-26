@@ -141,3 +141,36 @@
     @/home/lcom/labs/proj/src/devices/graphics/graphics.c:126, kbd_test_scan
       driver_receive(ANY, &msg, &ipc_status)
     > driver_receive(ANY, addr: 0xeffff6b0, addr: 0xeffff6ac)
+    < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+    @/home/lcom/labs/proj/src/devices/graphics/graphics.c:134, kbd_test_scan
+      kbc_ih()
+      @/home/lcom/labs/proj/src/devices/graphics/graphics.c:297, util_sys_inb
+        sys_inb(port, &temp)
+      > sys_inb(0x64, addr: 0xeffff5d0)
+      < sys_inb(0x64, addr: 0xeffff5d0 [0x1d = 0b00011101])
+      @/home/lcom/labs/proj/src/devices/graphics/graphics.c:297, util_sys_inb
+        sys_inb(port, &temp)
+      > sys_inb(0x60, addr: 0xeffff5d4)
+      < sys_inb(0x60, addr: 0xeffff5d4 [0x01 = 0b00000001])
+    @/home/lcom/labs/proj/src/devices/graphics/graphics.c:126, kbd_test_scan
+      driver_receive(ANY, &msg, &ipc_status)
+    > driver_receive(ANY, addr: 0xeffff6b0, addr: 0xeffff6ac)
+    < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+    @/home/lcom/labs/proj/src/devices/graphics/graphics.c:134, kbd_test_scan
+      kbc_ih()
+      @/home/lcom/labs/proj/src/devices/graphics/graphics.c:297, util_sys_inb
+        sys_inb(port, &temp)
+      > sys_inb(0x64, addr: 0xeffff5d0)
+      < sys_inb(0x64, addr: 0xeffff5d0 [0x1d = 0b00011101])
+      @/home/lcom/labs/proj/src/devices/graphics/graphics.c:297, util_sys_inb
+        sys_inb(port, &temp)
+      > sys_inb(0x60, addr: 0xeffff5d4)
+      < sys_inb(0x60, addr: 0xeffff5d4 [0x81 = 0b10000001])
+    @/home/lcom/labs/proj/src/devices/graphics/graphics.c:114, key_usubscribe_int
+      sys_irqrmpolicy(&hook_id2)
+    > sys_irqrmpolicy(addr: 0x82999d8 [10])
+    < sys_irqrmpolicy(addr: 0x82999d8 [10]) -> (ret: 0)
+  @project.c:52, proj_main_loop
+    vg_exit()
+  < vg_exit() -> (ret: 0)
+< proj_main_loop(0, [NULL]) -> (ret: 0)
