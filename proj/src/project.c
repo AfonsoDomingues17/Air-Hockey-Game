@@ -19,6 +19,7 @@
 #include <lcom/lcf.h>
 #include "controller/timer/timer.h"
 #include "controller/keyboard/keyboard.h"
+#include "controller/mouse/mouse.h"
 #include "controller/graphics/graphics.h"
 #include "model/model.h"
 #include "view/view.h"
@@ -47,6 +48,11 @@ int init() {
   /* Subscribe interrupts */
   if (timer_subscribe_interrupt()) return 1;
   if (keyboard_subscribe_int()) return 1;
+  if (mouse_enable_reporting()) return 1;
+  if (mouse_subscribe_int()) return 1;
+
+  /* Create Interactable Objects */
+  loader_sprite();
 
   return 0;
 }
@@ -58,6 +64,11 @@ int finalize() {
   /* Unsubscrive interrupts */
   if (timer_unsubscribe_interrupt()) return 1;
   if (keyboard_unsubscribe_int()) return 1;
+  if (mouse_unsubscribe_int()) return 1;
+  if (mouse_disable_reporting()) return 1;
+
+  /* Destroy Interactable Objects */
+  unloader_sprite();
 
   return 0;
 }
@@ -84,6 +95,7 @@ int (proj_main_loop)(int argc, char **argv) {
         case HARDWARE: /* hardware interrupt notification */                
           if (msg.m_notify.interrupts & TIMER_MASK) timer_int();
           if (msg.m_notify.interrupts & KEYBOARD_MASK) keyboard_int();
+          if (msg.m_notify.interrupts & MOUSE_MASK) mouse_int();
           break;
         default:
           break; /* no other notifications expected: do nothing */    

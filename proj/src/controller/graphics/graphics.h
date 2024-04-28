@@ -3,6 +3,10 @@
 
 #include <lcom/lcf.h>
 
+#include "../../model/sprites.h"
+
+#define TRANSPARENT 0xFFFFFE
+
 /* VBE */
 #define VBE_CALL 0x4F00
 #define SET_VBE_MODE 0x02
@@ -29,5 +33,11 @@ uint32_t (create_mask)(unsigned int size, unsigned int lsb);
 uint32_t (get_color_component)(uint32_t color, uint32_t mask_size, uint32_t lsb);
 
 int (vg_draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
+
+int (vg_draw_sprite)(Sprite *sprite);
+
+unsigned (get_h_res)();
+
+unsigned (get_v_res)();
 
 #endif

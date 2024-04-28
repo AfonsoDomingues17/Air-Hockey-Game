@@ -2,7 +2,7 @@
 
 int kbc_hook_id = KEYBOARD1_IRQ;
 uint8_t scancode = 0;
-bool error = false;
+bool keyboard_error = false;
 
 int (keyboard_get_conf)(uint8_t *st) {
   // Checking argument validity
@@ -22,7 +22,7 @@ int (keyboard_unsubscribe_int)() {
 
 void (kbc_ih)() {
     uint8_t stat, data;
-    error = false;
+    keyboard_error = false;
     for (int i = 0; i < KBC_RETRY_CNT; i++) {
         if (keyboard_get_conf(&stat)) continue;
         /* loop while 8042 output buffer is empty */
@@ -32,7 +32,7 @@ void (kbc_ih)() {
                 scancode = data;
             }
             else {
-                error = true;            
+                keyboard_error = true;            
             }
             return;
         }

@@ -9,6 +9,9 @@
 /* Static XPMS */
 #include "model/xpm/xpm_background.h"
 
+/* Sprite Objects */
+extern Sprite* mouse;
+
 void (draw_frame)();
 
 #endif

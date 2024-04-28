@@ -121,3 +121,33 @@ int (vg_draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
 
   return 0;
 }
+
+int (vg_draw_sprite)(Sprite *sprite) {
+  if (sprite == NULL || sprite->map == NULL) return 1;
+  
+  /* Draw Sprite */
+  uint8_t* colors = sprite->map;
+  for (uint16_t line = 0; line < sprite->height; line++) {
+    uint8_t *ptr = video_mem;
+    ptr += ((sprite->y+line)*h_res + sprite->x) * bytes_per_pixel;
+
+    for (int i = 0; i < sprite->width; i++, ptr+=bytes_per_pixel, colors+=bytes_per_pixel) {
+      // Check if color is TRANSPARENT
+      uint32_t color = 0;
+      memcpy(&color, colors, bytes_per_pixel);
+      if (color == TRANSPARENT) continue;
+      // Paint pixel
+      memcpy(ptr, colors, bytes_per_pixel);
+    }
+  }
+
+  return 0;
+}
+
+unsigned (get_h_res)() {
+  return h_res;
+}
+
+unsigned (get_v_res)() {
+  return v_res;
+}
