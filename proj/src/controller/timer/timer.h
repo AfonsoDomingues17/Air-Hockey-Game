@@ -1,5 +1,5 @@
-#ifndef _PROJ_TIMER_H_
-#define _PROJ_TIMER_H_
+#ifndef _LCOM_TIMER_H_
+#define _LCOM_TIMER_H_
 
 #include <lcom/lcf.h>
 #include <stdint.h>

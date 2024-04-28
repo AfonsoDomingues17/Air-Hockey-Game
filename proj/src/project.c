@@ -17,12 +17,12 @@
 */
 
 #include <lcom/lcf.h>
-#include "devices/graphics/graphics.h"
-#include "devices/timer/timer.h"
-#include "sprites/sprites.h"
+#include "controller/keyboard/keyboard.h"
+#include "controller/graphics/graphics.h"
+#include "model/model.h"
+#include "view/view.h"
 
-/*XPM*/
-#include "assets/xpm_background.h"
+extern MainStateMachine mainState;
 
 int main(int argc, char *argv[]) {
     lcf_set_language("EN-US");
@@ -39,23 +39,58 @@ int main(int argc, char *argv[]) {
 
 }
 
+int init() {
+  /* Initializes the video module in graphics mode */ 
+  if (vg_init(0x14C) == NULL) return 1;
 
-int (proj_main_loop)(int argc, char **argv) {
-    
-    if(mset_frame_buffer(0x14C) != 0) return 1;
-    if(set_graphic_mode(0x14C) != 0) return 1;
+  /* Subscribe interrupts */
+  if (keyboard_subscribe_int()) return 1;
 
-    draw_xpm(xpm_background, 0, 0);
-
-    //loader_sprite();
-    if(kbd_test_scan() != 0 ) return 1;
-    if(vg_exit() != 0) return 1;
-    // unloader_sprite();
-
-    return 0;
+  return 0;
 }
 
+int finalize() {
+  /* Exit graphic mode */
+  if(vg_exit() != 0) return 1;
 
+  /* Unsubscrive interrupts */
+  if (keyboard_unsubscribe_int()) return 1;
 
+  return 0;
+}
 
+int (proj_main_loop)(int argc, char **argv) {
+  /* Run setup */
+  if (init()) return 1;
 
+  /* Draw first frame */
+  draw_frame();
+
+  /* Device loop */
+  int ipc_status, r;
+  message msg;
+
+  while (mainState == RUNNING) {
+    /* Get a request message. */
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { /* received notification */
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE: /* hardware interrupt notification */                
+          if (msg.m_notify.interrupts & KEYBOARD_MASK) keyboard_int();
+          break;
+        default:
+          break; /* no other notifications expected: do nothing */    
+      }
+    } else { /* received a standard message, not a notification */
+      /* no standard messages expected: do nothing */
+    }
+  }
+
+  /* Exit Safelly */
+  if (finalize()) return 1;
+
+  return 0;
+}

@@ -1,6 +1,6 @@
 #include "sprites.h"
-#include "../devices/graphics/graphics.h"
-#include "../assets/xpm_background.h"
+#include "../controller/graphics/graphics.h"
+#include "xpm/xpm_background.h"
 
 Sprite *background;
 
