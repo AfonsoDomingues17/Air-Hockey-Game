@@ -1,15 +1,15 @@
 # name of the program (Minix service)
 PROG = proj
 
-# .PATH: ${.CURDIR}/controller/timer
 .PATH: ${.CURDIR}/controller/
+.PATH: ${.CURDIR}/controller/timer
 .PATH: ${.CURDIR}/controller/keyboard
 .PATH: ${.CURDIR}/controller/graphics
 .PATH: ${.CURDIR}/model
 .PATH: ${.CURDIR}/view
 
 # source code files to be compiled
-SRCS = project.c utils.c keyboard.c graphics.c model.c view.c
+SRCS = project.c utils.c timer.c keyboard.c graphics.c model.c view.c
 
 # additional compilation flags
 # "-Wall -Wextra -Werror -I . -std=c11 -Wno-unused-parameter" are already set

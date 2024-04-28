@@ -17,6 +17,7 @@
 */
 
 #include <lcom/lcf.h>
+#include "controller/timer/timer.h"
 #include "controller/keyboard/keyboard.h"
 #include "controller/graphics/graphics.h"
 #include "model/model.h"
@@ -44,6 +45,7 @@ int init() {
   if (vg_init(0x14C) == NULL) return 1;
 
   /* Subscribe interrupts */
+  if (timer_subscribe_interrupt()) return 1;
   if (keyboard_subscribe_int()) return 1;
 
   return 0;
@@ -54,6 +56,7 @@ int finalize() {
   if(vg_exit() != 0) return 1;
 
   /* Unsubscrive interrupts */
+  if (timer_unsubscribe_interrupt()) return 1;
   if (keyboard_unsubscribe_int()) return 1;
 
   return 0;
@@ -79,6 +82,7 @@ int (proj_main_loop)(int argc, char **argv) {
     if (is_ipc_notify(ipc_status)) { /* received notification */
       switch (_ENDPOINT_P(msg.m_source)) {
         case HARDWARE: /* hardware interrupt notification */                
+          if (msg.m_notify.interrupts & TIMER_MASK) timer_int();
           if (msg.m_notify.interrupts & KEYBOARD_MASK) keyboard_int();
           break;
         default:

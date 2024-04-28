@@ -3,6 +3,7 @@
 
 #include <lcom/lcf.h>
 
+#include "controller/timer/timer.h"
 #include "controller/keyboard/keyboard.h"
 
 typedef enum {
@@ -11,5 +12,7 @@ typedef enum {
 } MainStateMachine;
 
 void (keyboard_int)();
+
+void (timer_int)();
 
 #endif
