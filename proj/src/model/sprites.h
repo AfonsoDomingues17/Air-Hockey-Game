@@ -14,20 +14,16 @@ typedef struct {
 /**
  * @brief Create a sprite object
  * @param xpm XPM Map of the sprite object
+ * @param x Position x of the sprite on the screen
+ * @param y Position y of the sprite on the screen
  * @return Sprite* pointer to its object
 */
-Sprite *create_sprite(xpm_map_t xpm);
+Sprite *create_sprite(xpm_map_t xpm, int x, int y);
 
 /**
  * @brief Delete a sprite object
  * @param sprite Sprite pointer to the sprite object
 */
 void *delete_sprite(Sprite *sp);
-
-void loader_sprite();
-
-int draw_sprite_xpm(Sprite *sprite, uint16_t x, uint16_t y);
-
-void unloader_sprite();
 
 #endif
