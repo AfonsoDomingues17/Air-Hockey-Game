@@ -76,7 +76,7 @@ int (kbc_read_return)(uint8_t* cmd) {
   for (int i = 0; i < KBC_RETRY_CNT; i++) {
     if (util_sys_inb(KBC_ST_REG, &stat)) return 1;
     /* loop while 8042 output buffer is empty */
-    if( stat & KBC_OBF ) {
+    if(true) { /* stat & KBC_OBF somehow doesn't work */
       if (util_sys_inb(KBC_OUT_BUF, cmd)) return 1;
       return ( (stat &(KBC_PAR_ERR | KBC_TO_ERR)) );
     }
@@ -94,10 +94,12 @@ int (write_mouse_cmd)(uint8_t cmd) {
 }
 
 int (mouse_enable_reporting)() {
+  printf("Enabling mouse\n");
     while (true) {
         if (write_mouse_cmd(ENBL_DATA_REPORTING)) continue;
         break;
     }
+    printf("Mouse enabled\n");
     return 0;
 }
 
