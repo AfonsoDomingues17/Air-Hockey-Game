@@ -54,6 +54,9 @@ int init() {
   /* Create Interactable Objects */
   loader_sprite();
 
+  /* Draw background */
+  draw_frame();
+
   return 0;
 }
 
@@ -76,9 +79,6 @@ int finalize() {
 int (proj_main_loop)(int argc, char **argv) {
   /* Run setup */
   if (init()) return 1;
-
-  /* Draw first frame */
-  draw_frame();
 
   /* Device loop */
   int ipc_status, r;

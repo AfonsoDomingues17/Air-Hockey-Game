@@ -73,7 +73,7 @@ void (mouse_update)(Sprite* mouse, struct packet parsing) {
     if (parsing.x_ov || parsing.y_ov) return;
 
     int new_x = mouse->x + parsing.delta_x;
-    int new_y = mouse->y + parsing.delta_y;
+    int new_y = mouse->y - parsing.delta_y;
     
     unsigned h_res = get_h_res();
     unsigned v_res = get_v_res();

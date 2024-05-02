@@ -18,6 +18,8 @@ static unsigned blue_field_position;	/* Bit position of lsb of blue mask */
 
 static unsigned int vram_base; /* VRAM’s physical addresss */
 
+xpm_image_t background; /* Struct with background info like color */
+
 int (graphics_set_mode)(uint16_t mode) {
   reg86_t r;
   memset(&r, 0, sizeof(r));
@@ -117,6 +119,25 @@ int (vg_draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
     memcpy(ptr, sprite, img.width*bytes_per_pixel);
     ptr += img.width * bytes_per_pixel;
     sprite += img.width * bytes_per_pixel;
+  }
+
+  return 0;
+}
+
+int (vg_draw_background)(xpm_map_t xpm) {
+  if (background.bytes == NULL) {
+    if (xpm_load(xpm, XPM_8_8_8_8, &background) == NULL) return 1;
+  }
+
+  /* Draw Sprite */
+  uint8_t *sprite = background.bytes;
+  for (uint16_t line = 0; line < background.height; line++) {
+    uint8_t *ptr = video_mem;
+    ptr += (line*h_res) * bytes_per_pixel;
+
+    memcpy(ptr, sprite, background.width*bytes_per_pixel);
+    ptr += background.width * bytes_per_pixel;
+    sprite += background.width * bytes_per_pixel;
   }
 
   return 0;
