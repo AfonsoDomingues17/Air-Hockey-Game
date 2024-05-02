@@ -94,12 +94,10 @@ int (write_mouse_cmd)(uint8_t cmd) {
 }
 
 int (mouse_enable_reporting)() {
-  printf("Enabling mouse\n");
     while (true) {
         if (write_mouse_cmd(ENBL_DATA_REPORTING)) continue;
         break;
     }
-    printf("Mouse enabled\n");
     return 0;
 }
 
