@@ -10,7 +10,6 @@
     "graphics.h": "c",
     "xpm_brackground.h": "c",
     "timer.h": "c",
-    "xpm_background.h": "c",
-    "xpm_mouse.h": "c"
+    "xpm_background.h": "c"
   },
 }
