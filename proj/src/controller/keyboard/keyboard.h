@@ -31,6 +31,7 @@
 #define ESC_BREAK_CODE 0x81 /**< @brief Esc key break code */
 #define SPACE_BREAK_CODE 0xb9 /**< @brief Space key break code */
 #define S_BREAK_CODE 0x1F
+#define W_BREAK_CODE 0x11
 
 /* Arbitrary Constants */
 #define WAIT_KBC    20000 /**< @brief Time it waits before retrying to read */

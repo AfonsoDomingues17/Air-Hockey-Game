@@ -24,6 +24,7 @@ void (timer_int)() {
     switch (mainState) {
         case GAME:
             if (time_count % sys_hz() == 0) idle_game++;
+            if(idle_game == 120) mainState = STOP;
             break;
         default:
             break;
@@ -35,10 +36,10 @@ void (keyboard_int)() {
     if (keyboard_error) return;
     switch (mainState) {
         case MAIN_MENU:
-            if (scancode == ESC_BREAK_CODE) mainState = STOP;
-            if (scancode == SPACE_BREAK_CODE) mainState = GAME;
-            //if (scancode == S_BREAK_CODE) option_down();
-            if (scancode == S_BREAK_CODE) option_up();
+            if (menu_6button->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
+            if (menu_2button->selected && scancode == SPACE_BREAK_CODE) mainState = GAME;
+            if (scancode == S_BREAK_CODE) option_down();
+            if (scancode == W_BREAK_CODE) option_up();
             break;
         case GAME:
             if (scancode == ESC_BREAK_CODE) mainState = MAIN_MENU;
@@ -93,7 +94,7 @@ void (parse_mouse_data)(struct packet* parsing) {
 void (mouse_update)(Sprite* mouse, struct packet parsing) {           
     // If there was a data overflow, dont update
     if (parsing.x_ov || parsing.y_ov) return;
-
+   
     int new_x = mouse->x + parsing.delta_x;
     int new_y = mouse->y - parsing.delta_y;
     
@@ -102,9 +103,9 @@ void (mouse_update)(Sprite* mouse, struct packet parsing) {
 
     if (new_x > (int)h_res || new_x < 0) return;
     if (new_y > (int)v_res || new_y < 0) return; 
-
     mouse->x = new_x;
     mouse->y = new_y;
+    
 }
 
 void (loader_sprite)() {
@@ -112,6 +113,7 @@ void (loader_sprite)() {
     menu_button = create_sprite((xpm_map_t) play_unselected, 421, 350);
     menu_button->selected = true;
     menu_2button = create_sprite((xpm_map_t) play_selected, 421, 350);
+    menu_2button->selected = true;
     menu_3button = create_sprite((xpm_map_t) leaderboard_unselected, 421, 500);
     menu_4button = create_sprite((xpm_map_t) leaderboard_selected, 421, 500);
     menu_5button = create_sprite((xpm_map_t) exit_unselected, 421, 650);
@@ -158,17 +160,32 @@ void (option_up)() {
             break;
     }
 }
-/*
+
 void (option_down)() {
     switch (option) {
         case 0:
+            menu_button->selected = false;
+            menu_2button->selected = false;
+            menu_3button->selected = true;
+            menu_4button->selected = true;
+            option = 1;
             break;
         case 1:
+            menu_3button->selected = false;
+            menu_4button->selected = false;
+            menu_5button->selected = true;
+            menu_6button->selected = true;
+            option = 2;
             break;
         case 2:
+            menu_5button->selected = false;
+            menu_6button->selected = false;
+            menu_button->selected = true;
+            menu_2button->selected = true;
+            option = 0;
             break;
         default:
             break;
     }
 }
-*/
+
