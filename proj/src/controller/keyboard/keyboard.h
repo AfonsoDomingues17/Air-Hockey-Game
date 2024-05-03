@@ -29,6 +29,7 @@
 
 /* Important Scancodes */
 #define ESC_BREAK_CODE 0x81 /**< @brief Esc key break code */
+#define ENTER_BREAK_CODE 0x9c /**< @brief Enter key break code */
 
 /* Arbitrary Constants */
 #define WAIT_KBC    20000 /**< @brief Time it waits before retrying to read */

@@ -12,23 +12,39 @@ uint8_t packet[3];
 int count = 0;
 
 /* Iniciar estado do programa */
-MainStateMachine mainState = RUNNING;
+MainStateMachine mainState = MAIN_MENU;
 
 /* Timers */
-unsigned int idle = 0;
+unsigned int idle_game = 0;
 
 void (timer_int)() {
     timer_int_handler();
-    draw_frame();
-    if (time_count % sys_hz() == 0) idle++;
-    if (idle == 100) mainState = STOP;
+    swap_buffers();
+    switch (mainState) {
+        case GAME:
+            if (time_count % sys_hz() == 0) idle_game++;
+            break;
+        default:
+            break;
+    }
 }
 
 void (keyboard_int)() {
     kbc_ih();
     if (keyboard_error) return;
-    if (scancode == ESC_BREAK_CODE) mainState = STOP;
-    idle = time_count;
+    switch (mainState) {
+        case MAIN_MENU:
+            if (scancode == ESC_BREAK_CODE) mainState = STOP;
+            if (scancode == 0xb9) mainState = GAME;
+            break;
+        case GAME:
+            if (scancode == ESC_BREAK_CODE) mainState = MAIN_MENU;
+            idle_game = time_count;        
+            break;
+        default:
+            break;
+    }
+    draw_frame();
 }
 
 void (mouse_int)() {
@@ -44,6 +60,9 @@ void (mouse_int)() {
 
         // Update mouse location
         mouse_update(mouse, parsing);
+    
+        // Draw new frame
+        draw_frame();
     }
 }
 
@@ -73,7 +92,7 @@ void (mouse_update)(Sprite* mouse, struct packet parsing) {
     if (parsing.x_ov || parsing.y_ov) return;
 
     int new_x = mouse->x + parsing.delta_x;
-    int new_y = mouse->y + parsing.delta_y;
+    int new_y = mouse->y - parsing.delta_y;
     
     unsigned h_res = get_h_res();
     unsigned v_res = get_v_res();

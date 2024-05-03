@@ -2,11 +2,15 @@
 
 #include "graphics.h"
 
-static void *video_mem; /* Process (virtual) address to which VRAM is mapped */
 
-static unsigned h_res; /* Horizontal resolution in pixels */
+
+uint8_t *main_buffer; //main buffer 
+uint8_t *secondary_buffer; //secondary buffer
+unsigned int vram_size;
+
+unsigned h_res; /* Horizontal resolution in pixels */
 static unsigned v_res; /* Vertical resolution in pixels */
-static unsigned bytes_per_pixel; /* Number of VRAM bits per pixel */
+unsigned bytes_per_pixel; /* Number of VRAM bits per pixel */
 static unsigned memory_model; /* Memory Model (Direct or Indexed) */
 
 static unsigned red_mask_size; /* Size of direct color red mask in bits */
@@ -18,7 +22,7 @@ static unsigned blue_field_position;	/* Bit position of lsb of blue mask */
 
 static unsigned int vram_base; /* VRAM’s physical addresss */
 
-xpm_image_t background; /* Struct with background info like color */
+
 
 int (graphics_set_mode)(uint16_t mode) {
   reg86_t r;
@@ -39,7 +43,7 @@ int (map_phys_mem)(uint16_t mode) {
   int r;
   struct minix_mem_range mr; /* physical memory range */
   
-  unsigned int vram_size = h_res * v_res * bytes_per_pixel; /* VRAM’s size, but you can use the frame-buffer size, instead */
+  vram_size = h_res * v_res * bytes_per_pixel; /* VRAM’s size, but you can use the frame-buffer size, instead */
   
   /* Allow memory mapping */
   mr.mr_base = (phys_bytes) vram_base;
@@ -49,10 +53,11 @@ int (map_phys_mem)(uint16_t mode) {
     panic("sys_privctl (ADD_MEM) failed: %d\n", r);
   
   /* Map memory */
-  video_mem = vm_map_phys(SELF, (void *)mr.mr_base, vram_size);
-  if(video_mem == MAP_FAILED)
+  main_buffer = vm_map_phys(SELF, (void *)mr.mr_base, vram_size);
+  if(main_buffer == MAP_FAILED)
     panic("couldn’t map video memory");
-  
+
+  secondary_buffer = (uint8_t *) malloc(vram_size);
   return 0;
 }
 
@@ -81,11 +86,11 @@ void* (vg_init)(uint16_t mode) {
   /* Set VG Mode */
   if (graphics_set_mode(mode)) return NULL;
 
-  return video_mem;
+  return main_buffer;
 }
 
 int (vg_draw_hline) (uint16_t x, uint16_t y, uint16_t len, uint32_t color) {
-  uint8_t *ptr = video_mem;
+  uint8_t *ptr = secondary_buffer;
   ptr += (y*h_res + x)*bytes_per_pixel;
   if (x + len > h_res) len = h_res-x;
   for (int i = 0; i < len; i++, ptr+=bytes_per_pixel) {
@@ -113,7 +118,7 @@ int (vg_draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
 
   /* Draw Sprite */
   for (uint16_t line = 0; line < img.height; line++) {
-    uint8_t *ptr = video_mem;
+    uint8_t *ptr = secondary_buffer;
     ptr += ((y+line)*h_res + x) * bytes_per_pixel;
 
     memcpy(ptr, sprite, img.width*bytes_per_pixel);
@@ -124,24 +129,6 @@ int (vg_draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
   return 0;
 }
 
-int (vg_draw_background)(xpm_map_t xpm) {
-  if (background.bytes == NULL) {
-    if (xpm_load(xpm, XPM_8_8_8_8, &background) == NULL) return 1;
-  }
-
-  /* Draw Sprite */
-  uint8_t *sprite = background.bytes;
-  for (uint16_t line = 0; line < background.height; line++) {
-    uint8_t *ptr = video_mem;
-    ptr += (line*h_res) * bytes_per_pixel;
-
-    memcpy(ptr, sprite, background.width*bytes_per_pixel);
-    ptr += background.width * bytes_per_pixel;
-    sprite += background.width * bytes_per_pixel;
-  }
-
-  return 0;
-}
 
 int (vg_draw_sprite)(Sprite *sprite) {
   if (sprite == NULL || sprite->map == NULL) return 1;
@@ -149,7 +136,7 @@ int (vg_draw_sprite)(Sprite *sprite) {
   /* Draw Sprite */
   uint8_t* colors = sprite->map;
   for (uint16_t line = 0; line < sprite->height; line++) {
-    uint8_t *ptr = video_mem;
+    uint8_t *ptr = secondary_buffer;
     ptr += ((sprite->y+line)*h_res + sprite->x) * bytes_per_pixel;
 
     for (int i = 0; i < sprite->width; i++, ptr+=bytes_per_pixel, colors+=bytes_per_pixel) {

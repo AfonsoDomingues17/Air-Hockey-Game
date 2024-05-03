@@ -84,7 +84,7 @@ int (proj_main_loop)(int argc, char **argv) {
   int ipc_status, r;
   message msg;
 
-  while (mainState == RUNNING) {
+  while (mainState != STOP) {
     /* Get a request message. */
     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
       printf("driver_receive failed with: %d", r);

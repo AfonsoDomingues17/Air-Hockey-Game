@@ -1,10 +1,9 @@
 /* XPM */
-static char *play_unselected[] = {
+static xpm_row_t const play_unselected[] = {
 /* columns rows colors chars-per-pixel */
 "310 96 2 1 ",
 "  c #5991FF",
-". c white",
-/* pixels */
+". c #FFFFFF",
 "                                                                                                                                                                                                                                                                                                                      ",
 "                                                                                                                                                                                                                                                                                                                      ",
 "                                                                                                                                                                                                                                                                                                                      ",

@@ -16,7 +16,8 @@
 Sprite* mouse;
 
 typedef enum {
-    RUNNING,
+    MAIN_MENU,
+    GAME,
     STOP,
 } MainStateMachine;
 

@@ -34,7 +34,6 @@ uint32_t (get_color_component)(uint32_t color, uint32_t mask_size, uint32_t lsb)
 
 int (vg_draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
 
-int (vg_draw_background)(xpm_map_t xpm);
 
 int (vg_draw_sprite)(Sprite *sprite);
 

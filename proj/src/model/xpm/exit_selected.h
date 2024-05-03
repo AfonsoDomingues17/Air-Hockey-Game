@@ -1,10 +1,9 @@
 /* XPM */
-static char *exit_selected[] = {
+static xpm_row_t const exit_selected[] = {
 /* columns rows colors chars-per-pixel */
 "310 96 2 1 ",
 "  c #C45200",
-". c white",
-/* pixels */
+". c #FFFFFF",
 "                                                                                                                                                                                                                                                                                                                      ",
 "                                                                                                                                                                                                                                                                                                                      ",
 "                                                                                                                                                                                                                                                                                                                      ",

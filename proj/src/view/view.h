@@ -8,10 +8,16 @@
 
 /* Static XPMS */
 #include "model/xpm/xpm_background.h"
+#include "model/xpm/menu.h"
 
 /* Sprite Objects */
 extern Sprite* mouse;
 
 void (draw_frame)();
+
+void(swap_buffers)();
+
+int (vg_draw_background)(xpm_map_t xpm, xpm_image_t *img);
+
 
 #endif
