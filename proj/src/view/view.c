@@ -15,7 +15,15 @@ void (draw_frame)() {
   switch(mainState) {
     case MAIN_MENU:
       vg_draw_background((xpm_map_t) menu, &menu_background);
-      vg_draw_sprite(mouse);
+      //vg_draw_sprite(mouse);
+      if(!menu_button->selected) vg_draw_sprite(menu_button);
+      else vg_draw_sprite(menu_2button);
+      if(!menu_3button->selected) vg_draw_sprite(menu_3button);
+      else vg_draw_sprite(menu_4button);
+      if(!menu_5button->selected) vg_draw_sprite(menu_5button);
+      else vg_draw_sprite(menu_6button);
+
+
       break;
     case GAME:
       vg_draw_background((xpm_map_t) xpm_background, &game_background);
@@ -29,6 +37,8 @@ void (draw_frame)() {
 void(swap_buffers)(){
   memcpy(main_buffer,secondary_buffer,vram_size);
 }
+
+
 
 int (vg_draw_background)(xpm_map_t xpm, xpm_image_t *img) {
   if (img->bytes == NULL) {

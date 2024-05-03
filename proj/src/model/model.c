@@ -13,6 +13,7 @@ int count = 0;
 
 /* Iniciar estado do programa */
 MainStateMachine mainState = MAIN_MENU;
+int option = 0;
 
 /* Timers */
 unsigned int idle_game = 0;
@@ -35,7 +36,9 @@ void (keyboard_int)() {
     switch (mainState) {
         case MAIN_MENU:
             if (scancode == ESC_BREAK_CODE) mainState = STOP;
-            if (scancode == 0xb9) mainState = GAME;
+            if (scancode == SPACE_BREAK_CODE) mainState = GAME;
+            //if (scancode == S_BREAK_CODE) option_down();
+            if (scancode == S_BREAK_CODE) option_up();
             break;
         case GAME:
             if (scancode == ESC_BREAK_CODE) mainState = MAIN_MENU;
@@ -105,9 +108,67 @@ void (mouse_update)(Sprite* mouse, struct packet parsing) {
 }
 
 void (loader_sprite)() {
-    mouse = create_sprite((xpm_map_t) xpm_mouse, 576, 432);
+    mouse = create_sprite((xpm_map_t) xpm_mouse, 576, 150);
+    menu_button = create_sprite((xpm_map_t) play_unselected, 421, 350);
+    menu_button->selected = true;
+    menu_2button = create_sprite((xpm_map_t) play_selected, 421, 350);
+    menu_3button = create_sprite((xpm_map_t) leaderboard_unselected, 421, 500);
+    menu_4button = create_sprite((xpm_map_t) leaderboard_selected, 421, 500);
+    menu_5button = create_sprite((xpm_map_t) exit_unselected, 421, 650);
+    menu_6button = create_sprite((xpm_map_t) exit_selected, 421, 650);
+
+
+
 }
 
-void unloader_sprite() {
+void (unloader_sprite)() {
     delete_sprite(mouse);
+    delete_sprite(menu_button);
+    delete_sprite(menu_2button);
+    delete_sprite(menu_3button);
+    delete_sprite(menu_4button);
+    delete_sprite(menu_5button);
+    delete_sprite(menu_6button);
 }
+
+void (option_up)() {
+    switch (option) {
+        case 0:
+            menu_button->selected = false;
+            menu_2button->selected = false;
+            menu_5button->selected = true;
+            menu_6button->selected = true;
+            option = 2;
+            break;
+        case 1:
+            menu_3button->selected = false;
+            menu_4button->selected = false;
+            menu_button->selected = true;
+            menu_2button->selected = true;
+            option = 0;
+            break;
+        case 2:
+            menu_5button->selected = false;
+            menu_6button->selected = false;
+            menu_3button->selected = true;
+            menu_4button->selected = true;
+            option = 1;
+            break;
+        default:
+            break;
+    }
+}
+/*
+void (option_down)() {
+    switch (option) {
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        default:
+            break;
+    }
+}
+*/

@@ -17,7 +17,6 @@ Sprite *create_sprite(xpm_map_t xpm, int x, int y) {
     sp->width = img.width; sp->height = img.height;
     sp->xspeed = 0; sp->yspeed = 0;
     sp->x = x; sp->y = y;
-    sp->selected = false;
     
     return sp;
 }

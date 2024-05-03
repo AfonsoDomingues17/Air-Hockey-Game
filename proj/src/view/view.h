@@ -12,6 +12,10 @@
 
 /* Sprite Objects */
 extern Sprite* mouse;
+extern Sprite* menu_button;
+extern Sprite* menu_2button;
+extern Sprite* menu_3button;
+
 
 void (draw_frame)();
 

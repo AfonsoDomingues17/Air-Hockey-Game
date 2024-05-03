@@ -11,9 +11,24 @@
 
 #include "sprites.h"
 #include "xpm/xpm_mouse.h"
+#include "xpm/play_unselected.h"
+#include "xpm/play_selected.h"
+#include "xpm/leaderboard_unselected.h"
+#include "xpm/leaderboard_selected.h"
+#include "xpm/exit_unselected.h"
+#include "xpm/exit_selected.h"
+
+
 
 /* Interactable Objects */
 Sprite* mouse;
+Sprite* menu_button;
+Sprite* menu_2button;
+Sprite* menu_3button;
+Sprite* menu_4button;
+Sprite* menu_5button;
+Sprite* menu_6button;
+
 
 typedef enum {
     MAIN_MENU,
@@ -36,5 +51,9 @@ void (mouse_update)();
 void (loader_sprite)();
 
 void (unloader_sprite)();
+
+void (option_up)();
+
+void (option_down)();
 
 #endif
