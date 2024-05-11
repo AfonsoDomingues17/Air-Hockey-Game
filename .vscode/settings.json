@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "lcf.h": "c"
+        "lcf.h": "c",
+        "xpm_background.h": "c",
+        "blue_puck.h": "c"
     }
 }

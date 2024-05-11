@@ -4,10 +4,13 @@ extern MainStateMachine mainState;
 
 extern unsigned bytes_per_pixel; /* Number of VRAM bits per pixel */
 extern unsigned h_res;
+extern unsigned v_res;
 extern uint8_t *main_buffer; //main buffer 
 extern uint8_t *secondary_buffer; //secondary buffer
 extern unsigned int vram_size; 
 
+xpm_image_t red_puck;
+xpm_image_t blue_puck;
 xpm_image_t game_background; /* Struct with background info like color */
 xpm_image_t menu_background; /* Struct with background info like color */
 
@@ -56,5 +59,31 @@ int (vg_draw_background)(xpm_map_t xpm, xpm_image_t *img) {
     sprite += img->width * bytes_per_pixel;
   }
 
+  //int disk_width = 50, disk_height = 50;
+  int redpuck_x = 100, redpuck_y = 100;
+  int bluepuck_x = 100, bluepuck_y = 300;
+  //int disk_x = (h_res - disk_width) / 2;
+  //int disk_y = (v_res - disk_height) / 2;
+
+  draw_puck(redpuck_x, redpuck_y, 1, red_puck);
+  draw_puck(bluepuck_x, bluepuck_y, 2, blue_puck);
+
   return 0;
+}
+
+int (draw_puck)(int x, int y, int player, xpm_image_t *puck) {
+
+     if (puck->bytes == NULL) return 1;
+  
+    uint8_t *sprite = puck->bytes;
+    for (uint16_t line = 0; line < puck->height; line++) {
+        uint8_t *ptr = secondary_buffer;
+        ptr += ((line + y) * h_res + x) * bytes_per_pixel;
+
+        memcpy(ptr, sprite, puck->width * bytes_per_pixel);
+        ptr += puck->width * bytes_per_pixel;
+        sprite += puck->width * bytes_per_pixel;
+    }
+
+    return 0;
 }
