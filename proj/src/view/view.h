@@ -24,6 +24,4 @@ void(swap_buffers)();
 
 int (vg_draw_background)(xpm_map_t xpm, xpm_image_t *img);
 
-int (draw_puck)(int x, int y, xpm_image_t *puck);
-
 #endif

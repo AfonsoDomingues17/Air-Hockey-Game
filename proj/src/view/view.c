@@ -42,7 +42,6 @@ void(swap_buffers)(){
 }
 
 
-
 int (vg_draw_background)(xpm_map_t xpm, xpm_image_t *img) {
   if (img->bytes == NULL) {
     if (xpm_load(xpm, XPM_8_8_8_8, img) == NULL) return 1;
@@ -59,31 +58,5 @@ int (vg_draw_background)(xpm_map_t xpm, xpm_image_t *img) {
     sprite += img->width * bytes_per_pixel;
   }
 
-  //int disk_width = 50, disk_height = 50;
-  //int redpuck_x = 100, redpuck_y = 100;
-  //int bluepuck_x = 100, bluepuck_y = 300;
-  //int disk_x = (h_res - disk_width) / 2;
-  //int disk_y = (v_res - disk_height) / 2;
-
-  //draw_puck(redpuck_x, redpuck_y, (xpm_image_t*)&red_puck);
-  //draw_puck(bluepuck_x, bluepuck_y, (xpm_image_t*)&blue_puck);
-
   return 0;
 }
-
-/*int (draw_puck)(int x, int y, xpm_image_t *puck) {
-
-     if (puck->bytes == NULL) return 1;
-  
-    uint8_t *sprite = puck->bytes;
-    for (uint16_t line = 0; line < puck->height; line++) {
-        uint8_t *ptr = secondary_buffer;
-        ptr += ((line + y) * h_res + x) * bytes_per_pixel;
-
-        memcpy(ptr, sprite, puck->width * bytes_per_pixel);
-        ptr += puck->width * bytes_per_pixel;
-        sprite += puck->width * bytes_per_pixel;
-    }
-
-    return 0;
-}*/

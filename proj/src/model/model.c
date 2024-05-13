@@ -64,6 +64,8 @@ void (mouse_int)() {
 
         // Update mouse location
         mouse_update(mouse, parsing);
+        move_puck_with_mouse(parsing);
+
     
         // Draw new frame
         draw_frame();
@@ -106,6 +108,23 @@ void (mouse_update)(Sprite* mouse, struct packet parsing) {
     mouse->x = new_x;
     mouse->y = new_y;
     
+}
+
+void (move_puck_with_mouse)(struct packet parsing) {
+
+    unsigned int new_x = redpuck->x + parsing.delta_x;
+    unsigned int new_y = redpuck->y - parsing.delta_y;
+
+    unsigned h_res = get_h_res();
+    unsigned v_res = get_v_res();
+
+    if (new_x + redpuck->width < h_res) {
+        redpuck->x = new_x;
+    }
+
+    if (new_y + redpuck->height < v_res) {
+        redpuck->y = new_y;
+    }
 }
 
 void (loader_sprite)() {
