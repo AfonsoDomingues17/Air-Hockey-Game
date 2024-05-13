@@ -17,7 +17,8 @@
 #include "xpm/leaderboard_selected.h"
 #include "xpm/exit_unselected.h"
 #include "xpm/exit_selected.h"
-
+#include "xpm/blue_puck.h"
+#include "xpm/red_puck.h"
 
 
 /* Interactable Objects */
@@ -28,6 +29,8 @@ Sprite* menu_3button;
 Sprite* menu_4button;
 Sprite* menu_5button;
 Sprite* menu_6button;
+Sprite* redpuck;
+Sprite* bluepuck;
 
 
 typedef enum {

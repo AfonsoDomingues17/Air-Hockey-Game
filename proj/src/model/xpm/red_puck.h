@@ -2,8 +2,8 @@
 static xpm_row_t red_puck[] = {
 /* columns rows colors chars-per-pixel */
 "80 80 25 1 ",
-"  c None",
-". c red",
+"  c #FFFFFE",
+". c #FF0000",
 "X c #FF1010",
 "o c #FF2020",
 "O c #FF3030",
@@ -26,7 +26,7 @@ static xpm_row_t red_puck[] = {
 "3 c #FFDFDF",
 "4 c #FFE0E0",
 "5 c #FFEFEF",
-"6 c white",
+"6 c #FFFFFF",
 /* pixels */
 "                                  .............                                 ",
 "                             ......................                             ",

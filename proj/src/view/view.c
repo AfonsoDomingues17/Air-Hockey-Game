@@ -9,8 +9,6 @@ extern uint8_t *main_buffer; //main buffer
 extern uint8_t *secondary_buffer; //secondary buffer
 extern unsigned int vram_size; 
 
-xpm_image_t red_puck;
-xpm_image_t blue_puck;
 xpm_image_t game_background; /* Struct with background info like color */
 xpm_image_t menu_background; /* Struct with background info like color */
 
@@ -30,6 +28,8 @@ void (draw_frame)() {
       break;
     case GAME:
       vg_draw_background((xpm_map_t) xpm_background, &game_background);
+      vg_draw_sprite(redpuck);
+      vg_draw_sprite(bluepuck);
       vg_draw_sprite(mouse);
       break;
     default:
@@ -60,18 +60,18 @@ int (vg_draw_background)(xpm_map_t xpm, xpm_image_t *img) {
   }
 
   //int disk_width = 50, disk_height = 50;
-  int redpuck_x = 100, redpuck_y = 100;
-  int bluepuck_x = 100, bluepuck_y = 300;
+  //int redpuck_x = 100, redpuck_y = 100;
+  //int bluepuck_x = 100, bluepuck_y = 300;
   //int disk_x = (h_res - disk_width) / 2;
   //int disk_y = (v_res - disk_height) / 2;
 
-  draw_puck(redpuck_x, redpuck_y, 1, red_puck);
-  draw_puck(bluepuck_x, bluepuck_y, 2, blue_puck);
+  //draw_puck(redpuck_x, redpuck_y, (xpm_image_t*)&red_puck);
+  //draw_puck(bluepuck_x, bluepuck_y, (xpm_image_t*)&blue_puck);
 
   return 0;
 }
 
-int (draw_puck)(int x, int y, int player, xpm_image_t *puck) {
+/*int (draw_puck)(int x, int y, xpm_image_t *puck) {
 
      if (puck->bytes == NULL) return 1;
   
@@ -86,4 +86,4 @@ int (draw_puck)(int x, int y, int player, xpm_image_t *puck) {
     }
 
     return 0;
-}
+}*/

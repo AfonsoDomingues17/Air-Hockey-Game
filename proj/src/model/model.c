@@ -118,8 +118,8 @@ void (loader_sprite)() {
     menu_4button = create_sprite((xpm_map_t) leaderboard_selected, 421, 500);
     menu_5button = create_sprite((xpm_map_t) exit_unselected, 421, 650);
     menu_6button = create_sprite((xpm_map_t) exit_selected, 421, 650);
-
-
+    redpuck = create_sprite((xpm_map_t) red_puck, 535, 55);
+    bluepuck = create_sprite((xpm_map_t) blue_puck, 535, 730);
 
 }
 
@@ -131,6 +131,8 @@ void (unloader_sprite)() {
     delete_sprite(menu_4button);
     delete_sprite(menu_5button);
     delete_sprite(menu_6button);
+    delete_sprite(redpuck);
+    delete_sprite(bluepuck);
 }
 
 void (option_up)() {
