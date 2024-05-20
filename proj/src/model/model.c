@@ -65,8 +65,8 @@ void (mouse_int)() {
         // Update mouse location
         mouse_update(mouse, parsing);
         if(parsing.lb){
-        move_puck_with_mouse(parsing);
-        mouse->visibility = false;
+            move(bluepuck, parsing.delta_x, parsing.delta_y);
+            mouse->visibility = false;
         }
         else mouse->visibility = true;
 
@@ -101,36 +101,8 @@ void (parse_mouse_data)(struct packet* parsing) {
 void (mouse_update)(Sprite* mouse, struct packet parsing) {           
     // If there was a data overflow, dont update
     if (parsing.x_ov || parsing.y_ov) return;
-    
-    int new_x = mouse->x + parsing.delta_x;
-    int new_y = mouse->y - parsing.delta_y;
-    
-    unsigned h_res = get_h_res();
-    unsigned v_res = get_v_res();
 
-    if (new_x > (int)h_res || new_x < 0) return;
-    if (new_y > (int)v_res || new_y < 0) return; 
-
-    if(new_x > 275 && new_x < 869) mouse->x = new_x;
-    mouse->y = new_y;
-    
-}
-
-void (move_puck_with_mouse)(struct packet parsing) {
-
-    unsigned int new_x = bluepuck->x + parsing.delta_x;
-    unsigned int new_y = bluepuck->y - parsing.delta_y;
-
-    unsigned h_res = get_h_res();
-    unsigned v_res = get_v_res();
-
-    if (new_x + bluepuck->width < h_res) {
-        if(new_x > 270 && new_x < 801) bluepuck->x = new_x;
-    }
-
-    if (new_y + bluepuck->height < v_res) {
-        if(new_y > 436 && new_y < 765)bluepuck->y = new_y;
-    }
+    move(mouse, parsing.delta_x, parsing.delta_y);
 }
 
 void (loader_sprite)() {

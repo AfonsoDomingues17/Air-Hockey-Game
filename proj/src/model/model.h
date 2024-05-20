@@ -51,8 +51,6 @@ void (parse_mouse_data)();
 
 void (mouse_update)();
 
-void (move_puck_with_mouse)(struct packet parsing);
-
 /* Sprite Creation */
 
 void (loader_sprite)();

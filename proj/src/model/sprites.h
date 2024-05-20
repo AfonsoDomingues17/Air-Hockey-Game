@@ -28,4 +28,12 @@ Sprite *create_sprite(xpm_map_t xpm, int x, int y);
 */
 void *delete_sprite(Sprite *sp);
 
+/**
+ * @brief Move a sprite object
+ * @param sprite Sprite pointer to the sprite object
+ * @param x next sprite location
+ * @param y next sprite location
+*/
+void move(Sprite* object, int16_t x, int16_t y);
+
 #endif
