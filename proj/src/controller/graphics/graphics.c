@@ -132,7 +132,7 @@ int (vg_draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
 
 int (vg_draw_sprite)(Sprite *sprite) {
   if (sprite == NULL || sprite->map == NULL) return 1;
-  
+  if(sprite->visibility){
   /* Draw Sprite */
   uint8_t* colors = sprite->map;
   for (uint16_t line = 0; line < sprite->height; line++) {
@@ -147,6 +147,7 @@ int (vg_draw_sprite)(Sprite *sprite) {
       // Paint pixel
       memcpy(ptr, colors, bytes_per_pixel);
     }
+  }
   }
 
   return 0;

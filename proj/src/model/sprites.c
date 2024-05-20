@@ -18,6 +18,7 @@ Sprite *create_sprite(xpm_map_t xpm, int x, int y) {
     sp->xspeed = 0; sp->yspeed = 0;
     sp->x = x; sp->y = y;
     sp->selected = false;
+    sp->visibility = true;
     
     return sp;
 }

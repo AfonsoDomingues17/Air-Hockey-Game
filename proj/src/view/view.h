@@ -17,8 +17,11 @@ extern Sprite* menu_2button;
 extern Sprite* menu_3button;
 extern Sprite* redpuck;
 extern Sprite* bluepuck;
+extern Sprite* Ball;
+
 
 void (draw_frame)();
+
 
 void(swap_buffers)();
 

@@ -31,6 +31,7 @@ void (draw_frame)() {
       vg_draw_sprite(redpuck);
       vg_draw_sprite(bluepuck);
       vg_draw_sprite(mouse);
+      vg_draw_sprite(Ball);
       break;
     default:
       break;

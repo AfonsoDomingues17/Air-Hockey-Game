@@ -9,6 +9,7 @@ typedef struct {
     int xspeed, yspeed; // current speed
     uint8_t *map; // the pixmap
     bool selected;
+    bool visibility;
 } Sprite;
 
 

@@ -64,11 +64,16 @@ void (mouse_int)() {
 
         // Update mouse location
         mouse_update(mouse, parsing);
+        if(parsing.lb){
         move_puck_with_mouse(parsing);
+        mouse->visibility = false;
+        }
+        else mouse->visibility = true;
 
     
         // Draw new frame
         draw_frame();
+
     }
 }
 
@@ -105,25 +110,26 @@ void (mouse_update)(Sprite* mouse, struct packet parsing) {
 
     if (new_x > (int)h_res || new_x < 0) return;
     if (new_y > (int)v_res || new_y < 0) return; 
-    mouse->x = new_x;
+
+    if(new_x > 275 && new_x < 869) mouse->x = new_x;
     mouse->y = new_y;
     
 }
 
 void (move_puck_with_mouse)(struct packet parsing) {
 
-    unsigned int new_x = redpuck->x + parsing.delta_x;
-    unsigned int new_y = redpuck->y - parsing.delta_y;
+    unsigned int new_x = bluepuck->x + parsing.delta_x;
+    unsigned int new_y = bluepuck->y - parsing.delta_y;
 
     unsigned h_res = get_h_res();
     unsigned v_res = get_v_res();
 
-    if (new_x + redpuck->width < h_res) {
-        redpuck->x = new_x;
+    if (new_x + bluepuck->width < h_res) {
+        if(new_x > 270 && new_x < 801) bluepuck->x = new_x;
     }
 
-    if (new_y + redpuck->height < v_res) {
-        redpuck->y = new_y;
+    if (new_y + bluepuck->height < v_res) {
+        if(new_y > 436 && new_y < 765)bluepuck->y = new_y;
     }
 }
 
@@ -139,6 +145,7 @@ void (loader_sprite)() {
     menu_6button = create_sprite((xpm_map_t) exit_selected, 421, 650);
     redpuck = create_sprite((xpm_map_t) red_puck, 535, 55);
     bluepuck = create_sprite((xpm_map_t) blue_puck, 535, 730);
+    Ball = create_sprite((xpm_map_t) disk, 500, 500);
 
 }
 
@@ -152,6 +159,7 @@ void (unloader_sprite)() {
     delete_sprite(menu_6button);
     delete_sprite(redpuck);
     delete_sprite(bluepuck);
+    delete_sprite(Ball);
 }
 
 void (option_up)() {
