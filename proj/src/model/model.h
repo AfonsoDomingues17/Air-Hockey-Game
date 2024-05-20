@@ -23,12 +23,12 @@
 
 /* Interactable Objects */
 Sprite* mouse;
-Sprite* menu_button;
-Sprite* menu_2button;
-Sprite* menu_3button;
-Sprite* menu_4button;
-Sprite* menu_5button;
-Sprite* menu_6button;
+Sprite* start_button_unselected;
+Sprite* start_button_selected;
+Sprite* leaderboard_button_unselected;
+Sprite* leaderboard_button_selected;
+Sprite* exit_button_unselected;
+Sprite* exit_button_selected;
 Sprite* redpuck;
 Sprite* bluepuck;
 

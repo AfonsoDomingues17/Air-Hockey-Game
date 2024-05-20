@@ -1,7 +1,5 @@
 #include "view.h"
 
-extern MainStateMachine mainState;
-
 extern unsigned bytes_per_pixel; /* Number of VRAM bits per pixel */
 extern unsigned h_res;
 extern unsigned v_res;
@@ -16,13 +14,12 @@ void (draw_frame)() {
   switch(mainState) {
     case MAIN_MENU:
       vg_draw_background((xpm_map_t) menu, &menu_background);
-      //vg_draw_sprite(mouse);
-      if(!menu_button->selected) vg_draw_sprite(menu_button);
-      else vg_draw_sprite(menu_2button);
-      if(!menu_3button->selected) vg_draw_sprite(menu_3button);
-      else vg_draw_sprite(menu_4button);
-      if(!menu_5button->selected) vg_draw_sprite(menu_5button);
-      else vg_draw_sprite(menu_6button);
+      if(!start_button_unselected->selected) vg_draw_sprite(start_button_unselected);
+      else vg_draw_sprite(start_button_selected);
+      if(!leaderboard_button_unselected->selected) vg_draw_sprite(leaderboard_button_unselected);
+      else vg_draw_sprite(leaderboard_button_selected);
+      if(!exit_button_unselected->selected) vg_draw_sprite(exit_button_unselected);
+      else vg_draw_sprite(exit_button_selected);
 
 
       break;
