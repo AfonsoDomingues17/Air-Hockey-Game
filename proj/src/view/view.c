@@ -10,7 +10,9 @@ extern unsigned int vram_size;
 extern MainStateMachine mainState;
 
 xpm_image_t game_background; /* Struct with background info like color */
-xpm_image_t menu_background; /* Struct with background info like color */
+xpm_image_t menu_background; /* Struct with menu info like color */
+xpm_image_t youwon_popOut; /* Struct with youWON info like color */
+xpm_image_t youlost_popOut; /* Struct with youLOST info like color */
 
 void (draw_frame)() {
   switch(mainState) {
@@ -32,6 +34,11 @@ void (draw_frame)() {
       vg_draw_sprite(mouse);
       vg_draw_sprite(Ball);
       break;
+    case WIN:
+      vg_drawn_popOut((xpm_map_t) youwon, &youwon_popOut);
+    case LOST:
+      vg_drawn_popOut((xpm_map_t) youlost, &youlost_popOut);
+      break;
     default:
       break;
   }
@@ -51,6 +58,25 @@ int (vg_draw_background)(xpm_map_t xpm, xpm_image_t *img) {
   uint8_t *sprite = img->bytes;
   for (uint16_t line = 0; line < img->height; line++) {
     uint8_t *ptr = secondary_buffer;
+    ptr += (line*h_res) * bytes_per_pixel;
+
+    memcpy(ptr, sprite, img->width*bytes_per_pixel);
+    ptr += img->width * bytes_per_pixel;
+    sprite += img->width * bytes_per_pixel;
+  }
+
+  return 0;
+}
+
+int (vg_drawn_popOut)(xpm_map_t xpm, xpm_image_t *img) {
+  if (img->bytes == NULL) {
+    if (xpm_load(xpm, XPM_8_8_8_8, img) == NULL) return 1;
+  }
+
+  /* Draw Sprite */
+  uint8_t *sprite = img->bytes;
+  for (uint16_t line = (get_v_res()/2 - img->height/2); line < img->height + (get_v_res()/2 - img->height/2); line++) {
+    uint8_t *ptr = secondary_buffer + (get_h_res()/2 - img->width/2)*bytes_per_pixel;
     ptr += (line*h_res) * bytes_per_pixel;
 
     memcpy(ptr, sprite, img->width*bytes_per_pixel);

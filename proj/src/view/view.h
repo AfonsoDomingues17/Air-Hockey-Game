@@ -9,13 +9,15 @@
 /* Static XPMS */
 #include "model/xpm/xpm_background.h"
 #include "model/xpm/menu.h"
-
+#include "model/xpm/youwon.h"
+#include "model/xpm/youlost.h"
 
 void (draw_frame)();
-
 
 void(swap_buffers)();
 
 int (vg_draw_background)(xpm_map_t xpm, xpm_image_t *img);
+
+int (vg_drawn_popOut)(xpm_map_t xpm, xpm_image_t *img);
 
 #endif

@@ -39,6 +39,8 @@ typedef enum {
     MAIN_MENU,
     GAME,
     STOP,
+    WIN,
+    LOST,
 } MainStateMachine;
 
 void (timer_int)();

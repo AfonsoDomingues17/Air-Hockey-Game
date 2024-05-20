@@ -11,6 +11,7 @@
     "xpm_brackground.h": "c",
     "timer.h": "c",
     "xpm_background.h": "c",
-    "sprites.h": "c"
+    "sprites.h": "c",
+    "stdint.h": "c"
   },
 }

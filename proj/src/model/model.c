@@ -24,7 +24,17 @@ void (timer_int)() {
     switch (mainState) {
         case GAME:
             if (time_count % sys_hz() == 0) idle_game++;
-            if(idle_game == 120) mainState = STOP;
+            if(idle_game == 120) {
+                mainState = WIN;
+                idle_game = 0;
+            }
+            break;
+        case WIN:
+            if (time_count % sys_hz() == 0) idle_game++;
+            if(idle_game == 5) {
+                mainState = MAIN_MENU;
+                idle_game = 0;
+            }
             break;
         default:
             break;
