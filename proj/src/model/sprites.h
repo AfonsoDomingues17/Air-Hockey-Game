@@ -2,6 +2,7 @@
 #define _LCOM_SPRITES_H_
 
 #include <lcom/lcf.h>
+#include "model.h"
 
 typedef struct {
     int x, y; // current position

@@ -21,6 +21,12 @@
 #include "xpm/red_puck.h"
 #include "xpm/disk.h"
 
+/* Play area info */
+#define horizontal_start 273
+#define horizontal_end 879
+#define vertical_start 21
+#define vertical_end 843
+
 
 /* Interactable Objects */
 Sprite* mouse;

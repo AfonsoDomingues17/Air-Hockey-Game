@@ -12,6 +12,11 @@
     "timer.h": "c",
     "xpm_background.h": "c",
     "sprites.h": "c",
-    "stdint.h": "c"
+    "stdint.h": "c",
+    "leaderboard_unselected.h": "c",
+    "xpm_mouse.h": "c",
+    "leaderboard_selected.h": "c",
+    "exit_unselected.h": "c",
+    "play_selected.h": "c"
   },
 }
