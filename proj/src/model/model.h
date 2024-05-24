@@ -9,6 +9,7 @@
 #include "controller/graphics/graphics.h"
 #include "view/view.h"
 
+#include "physics.h"
 #include "sprites.h"
 #include "xpm/xpm_mouse.h"
 #include "xpm/play_unselected.h"
@@ -20,13 +21,6 @@
 #include "xpm/blue_puck.h"
 #include "xpm/red_puck.h"
 #include "xpm/disk.h"
-
-/* Play area info */
-#define horizontal_start 273
-#define horizontal_end 879
-#define vertical_start 21
-#define vertical_end 843
-
 
 /* Interactable Objects */
 Sprite* mouse;
