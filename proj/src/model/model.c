@@ -75,7 +75,7 @@ void (mouse_int)() {
         // Update mouse location
         mouse_update(mouse, parsing);
         if(parsing.lb){
-            move(bluepuck, parsing.delta_x, parsing.delta_y);
+            move(bluepuck, parsing.delta_x, parsing.delta_y, 1);
             mouse->visibility = false;
         }
         else mouse->visibility = true;
@@ -112,7 +112,7 @@ void (mouse_update)(Sprite* mouse, struct packet parsing) {
     // If there was a data overflow, dont update
     if (parsing.x_ov || parsing.y_ov) return;
 
-    move(mouse, parsing.delta_x, parsing.delta_y);
+    move(mouse, parsing.delta_x, parsing.delta_y, 0);
 }
 
 void (loader_sprite)() {
