@@ -46,7 +46,6 @@ bool detec_collision(Sprite* object1, int new_x, int new_y, Sprite* object2) {
   int bottom_border = min(new_y+object1->height, object2->y+object2->height);
 
   if ((right_border >= left_border) && (top_border <= bottom_border)) {
-    printf("Finer detection called\n");
     // Sprite Squares have overlapped move on to pixel detection
     return pixel_detection(object1, new_x, new_y, object2, left_border, right_border, top_border, bottom_border);
   }
