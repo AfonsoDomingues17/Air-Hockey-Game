@@ -18,20 +18,24 @@ int option = 0;
 /* Timers */
 unsigned int idle_game = 0;
 
+/* Menu buttons */
+
 void (timer_int)() {
     timer_int_handler();
     swap_buffers();
     switch (mainState) {
         case GAME:
             if (time_count % sys_hz() == 0) idle_game++;
-            if(idle_game == 120) {
-                mainState = WIN;
+            if(idle_game == 5) {
+                reset_option();
+                mainState = LOST;
                 idle_game = 0;
             }
             break;
-        case WIN:
+        case LOST:
             if (time_count % sys_hz() == 0) idle_game++;
-            if(idle_game == 5) {
+            if(idle_game == 10) {
+                reset_option();
                 mainState = MAIN_MENU;
                 idle_game = 0;
             }
@@ -41,6 +45,10 @@ void (timer_int)() {
     }
 }
 
+void reset_option() {
+    option = 0;
+}
+
 void (keyboard_int)() {
     kbc_ih();
     if (keyboard_error) return;
@@ -48,12 +56,24 @@ void (keyboard_int)() {
         case MAIN_MENU:
             if (exit_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
             if (start_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = GAME;
-            if (scancode == S_BREAK_CODE) option_down();
-            if (scancode == W_BREAK_CODE) option_up();
+            if (scancode == S_BREAK_CODE) option_down(buttons_menu_unselected, buttons_menu_selected, 3);
+            if (scancode == W_BREAK_CODE) option_up(buttons_menu_unselected, buttons_menu_selected, 3);
             break;
         case GAME:
             if (scancode == ESC_BREAK_CODE) mainState = MAIN_MENU;
             idle_game = time_count;        
+            break;
+        case WIN:
+            if (leave_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
+            if (play_again_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = GAME;
+            if (scancode == W_BREAK_CODE) option_up(buttons_winlose_unselected, buttons_winlose_selected, 2);
+            if (scancode == S_BREAK_CODE) option_down(buttons_winlose_unselected, buttons_winlose_selected, 2);
+            break;
+        case LOST:
+            if (leave_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
+            if (play_again_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = GAME;
+            if (scancode == W_BREAK_CODE) option_up(buttons_winlose_unselected, buttons_winlose_selected, 2);
+            if (scancode == S_BREAK_CODE) option_down(buttons_winlose_unselected, buttons_winlose_selected, 2);
             break;
         default:
             break;
@@ -129,6 +149,27 @@ void (loader_sprite)() {
     bluepuck = create_sprite((xpm_map_t) blue_puck, 535, 730);
     Ball = create_sprite((xpm_map_t) disk, 500, 500);
 
+    play_again_button_selected = create_sprite((xpm_map_t) play_again_selected, 450, 380);
+    play_again_button_selected->selected = true;
+    play_again_button_unselected = create_sprite((xpm_map_t) play_again_unselected, 450, 380);
+    play_again_button_unselected->selected = true;
+
+    leave_button_selected = create_sprite((xpm_map_t) leave_selected, 495, 480);
+    leave_button_unselected = create_sprite((xpm_map_t) leave_unselected, 495, 480);
+
+    buttons_menu_unselected[0] = start_button_unselected;
+    buttons_menu_unselected[1] = leaderboard_button_unselected;
+    buttons_menu_unselected[2] = exit_button_unselected;
+
+    buttons_menu_selected[0] = start_button_selected;
+    buttons_menu_selected[1] = leaderboard_button_selected;
+    buttons_menu_selected[2] = exit_button_selected;
+
+    buttons_winlose_selected[0] = play_again_button_selected;
+    buttons_winlose_selected[1] = leave_button_selected;
+
+    buttons_winlose_unselected[0] = play_again_button_unselected;
+    buttons_winlose_unselected[1] = leave_button_unselected;
 }
 
 void (unloader_sprite)() {
@@ -144,59 +185,21 @@ void (unloader_sprite)() {
     delete_sprite(Ball);
 }
 
-void (option_up)() {
-    switch (option) {
-        case 0:
-            start_button_unselected->selected = false;
-            start_button_selected->selected = false;
-            exit_button_unselected->selected = true;
-            exit_button_selected->selected = true;
-            option = 2;
-            break;
-        case 1:
-            leaderboard_button_unselected->selected = false;
-            leaderboard_button_selected->selected = false;
-            start_button_unselected->selected = true;
-            start_button_selected->selected = true;
-            option = 0;
-            break;
-        case 2:
-            exit_button_unselected->selected = false;
-            exit_button_selected->selected = false;
-            leaderboard_button_unselected->selected = true;
-            leaderboard_button_selected->selected = true;
-            option = 1;
-            break;
-        default:
-            break;
-    }
+void (option_up)(Sprite* buttons_unselected[], Sprite* buttons_selected[], int size) {
+    buttons_unselected[option]->selected = false;
+    buttons_selected[option]->selected = false;
+    option--;
+    if (option == -1) option = size - 1;
+    buttons_unselected[option]->selected = true;
+    buttons_selected[option]->selected = true;
 }
 
-void (option_down)() {
-    switch (option) {
-        case 0:
-            start_button_unselected->selected = false;
-            start_button_selected->selected = false;
-            leaderboard_button_unselected->selected = true;
-            leaderboard_button_selected->selected = true;
-            option = 1;
-            break;
-        case 1:
-            leaderboard_button_unselected->selected = false;
-            leaderboard_button_selected->selected = false;
-            exit_button_unselected->selected = true;
-            exit_button_selected->selected = true;
-            option = 2;
-            break;
-        case 2:
-            exit_button_unselected->selected = false;
-            exit_button_selected->selected = false;
-            start_button_unselected->selected = true;
-            start_button_selected->selected = true;
-            option = 0;
-            break;
-        default:
-            break;
-    }
+void (option_down)(Sprite* buttons_unselected[], Sprite* buttons_selected[], int size) {
+    buttons_unselected[option]->selected = false;
+    buttons_selected[option]->selected = false;
+    option++;
+    if (option == size) option = 0;
+    buttons_unselected[option]->selected = true;
+    buttons_selected[option]->selected = true;
 }
 
