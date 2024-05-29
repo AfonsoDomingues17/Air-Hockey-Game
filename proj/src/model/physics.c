@@ -6,38 +6,44 @@ void move(Sprite* object, int16_t x, int16_t y, unsigned layer) {
     int new_x = object->x + x;
     int new_y = object->y - y;
 
-    unsigned h_start = horizontal_start;
-    unsigned h_end = horizontal_end;
-
-    unsigned v_start = vertical_start;
-    unsigned v_end = vertical_end;
-
-    if (new_x + object->width > (int)h_end || new_x  < (int)h_start) return;
-    if (new_y + object->height > (int)v_end || new_y < (int)v_start) return; 
-
     if (detect_collision_in_layer(object, new_x, new_y, layer)) {
       return;
     } else {
       object->x = new_x;
       object->y = new_y;
+      object->xspeed = x;
+      object->yspeed = y;
     }
 }
 
 bool detect_collision_in_layer(Sprite* object, int new_x, int new_y, unsigned layer) {
   switch (layer)
   {
-  case 1:
-    if (detec_collision(object, new_x, new_y, redpuck)) return true;
-    if (detec_collision(object, new_x, new_y, bluepuck)) return true;
-    if (detec_collision(object, new_x, new_y, Ball)) {
+  case 0: // Collision Layer for Mouse
+    if (detect_wall_collision(object, new_x, new_y)) return true;
+    break;
+  case 1: // Collision Layer for Ball object
+    if (detect_wall_collision(object, new_x, new_y)) {
       return true;
     }
+    if (detect_collision(object, new_x, new_y, redpuck)) return true;
+    if (detect_collision(object, new_x, new_y, bluepuck)) return true;
+    break;
+  case 2: // Collision Layer for Pucks
+    if (detect_wall_collision(object, new_x, new_y)) return true;
+    if (detect_middle_field_collision(object, new_x, new_y)) return true;
+    if (detect_collision(object, new_x, new_y, Ball)) {
+      ball_collision(object);
+      return true;
+    }
+    break;
   default:
-    return false;;
+    return false;
   }
+  return false;
 }
 
-bool detec_collision(Sprite* object1, int new_x, int new_y, Sprite* object2) {
+bool detect_collision(Sprite* object1, int new_x, int new_y, Sprite* object2) {
   if (object1 == object2 || object1 == NULL || object2 == NULL) return false;
 
   int left_border = max(new_x, object2->x);
@@ -81,4 +87,47 @@ bool pixel_detection(Sprite* object1, int new_x, int new_y, Sprite* object2, int
   }
 
   return false;
+}
+
+bool detect_wall_collision(Sprite *object, int new_x, int new_y) {
+  bool collided = false;
+  if (new_x + object->width > horizontal_end) { // Collided with right wall
+    collided = true;
+    object->x = horizontal_end - object->width;
+  }
+  if (new_x  < horizontal_start) { // Collided with left wall
+    collided = true;
+    object->x = horizontal_start;
+  }
+  if (new_y + object->height > vertical_end) { // Collided with bottom wall
+    collided = true;
+    object->y = vertical_end - object->height;
+  }
+  if (new_y < vertical_start) { // Collided with top wall
+    collided = true;
+    object->y = vertical_start;
+  }
+  return collided; 
+}
+
+bool detect_middle_field_collision(Sprite *object, int new_x, int new_y) {
+  if (object->y < middle_field) { // Above middle field
+    if (new_y < object->y) return false; // If moving up then there is no collision
+    if (new_y + object->height > middle_field) { // If moving down check treshold
+      object->y = middle_field - object->height;
+      return true;
+    } 
+  }
+  // Bellow middle Field
+  if (new_y > object->y) return false; // If moving down then there is no collision
+  if (new_y < middle_field) { // If moving up check treshold
+    object->y = middle_field;
+    return true;
+  }
+  return false;
+}
+
+void ball_collision(Sprite *object) {
+  Ball->xspeed = object->xspeed;
+  Ball->yspeed = object->yspeed;
 }

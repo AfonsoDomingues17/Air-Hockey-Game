@@ -31,6 +31,8 @@ void (timer_int)() {
                 mainState = LOST;
                 idle_game = 0;
             }
+            move(Ball, Ball->xspeed, Ball->yspeed, 1);
+            draw_frame();
             break;
         case LOST:
             if (time_count % sys_hz() == 0) idle_game++;
@@ -95,15 +97,10 @@ void (mouse_int)() {
         // Update mouse location
         mouse_update(mouse, parsing);
         if(parsing.lb){
-            move(bluepuck, parsing.delta_x, parsing.delta_y, 1);
+            move(bluepuck, parsing.delta_x, parsing.delta_y, 2);
             mouse->visibility = false;
         }
         else mouse->visibility = true;
-
-    
-        // Draw new frame
-        draw_frame();
-
     }
 }
 
