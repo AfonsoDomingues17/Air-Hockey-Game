@@ -8,7 +8,7 @@ typedef struct {
     uint16_t width, height; // dimensions
     int xspeed, yspeed; // current speed
     uint8_t *map; // the pixmap
-    bool selected;
+    bool selected; // Button property to tell us if it is selected
     bool visibility;
 } Sprite;
 
@@ -27,13 +27,5 @@ Sprite *create_sprite(xpm_map_t xpm, int x, int y);
  * @param sprite Sprite pointer to the sprite object
 */
 void *delete_sprite(Sprite *sp);
-
-/**
- * @brief Move a sprite object
- * @param sprite Sprite pointer to the sprite object
- * @param x next sprite location
- * @param y next sprite location
-*/
-void move(Sprite* object, int16_t x, int16_t y);
 
 #endif

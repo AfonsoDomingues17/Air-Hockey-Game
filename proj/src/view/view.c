@@ -25,8 +25,6 @@ void (draw_frame)() {
       else vg_draw_sprite(leaderboard_button_selected);
       if(!exit_button_unselected->selected) vg_draw_sprite(exit_button_unselected);
       else vg_draw_sprite(exit_button_selected);
-
-
       break;
     case GAME:
       vg_draw_background((xpm_map_t) xpm_background, &game_background);
@@ -39,8 +37,17 @@ void (draw_frame)() {
       break;
     case WIN:
       vg_drawn_popOut((xpm_map_t) youwon, &youwon_popOut);
+      if(!leave_button_unselected->selected) vg_draw_sprite(leave_button_unselected);
+      else vg_draw_sprite(leave_button_selected);
+      if(!play_again_button_unselected->selected) vg_draw_sprite(play_again_button_unselected);
+      else vg_draw_sprite(play_again_button_selected);
+      break;
     case LOST:
       vg_drawn_popOut((xpm_map_t) youlost, &youlost_popOut);
+      if(!leave_button_unselected->selected) vg_draw_sprite(leave_button_unselected);
+      else vg_draw_sprite(leave_button_selected);
+      if(!play_again_button_unselected->selected) vg_draw_sprite(play_again_button_unselected);
+      else vg_draw_sprite(play_again_button_selected);
       break;
     default:
       break;

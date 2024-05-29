@@ -10,7 +10,7 @@ PROG = proj
 .PATH: ${.CURDIR}/view
 
 # source code files to be compiled
-SRCS = project.c utils.c timer.c keyboard.c mouse.c graphics.c model.c sprites.c view.c 
+SRCS = project.c utils.c timer.c keyboard.c mouse.c graphics.c sprites.c physics.c model.c view.c 
 
 # additional compilation flags
 # "-Wall -Wextra -Werror -I . -std=c11 -Wno-unused-parameter" are already set

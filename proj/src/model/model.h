@@ -9,6 +9,7 @@
 #include "controller/graphics/graphics.h"
 #include "view/view.h"
 
+#include "physics.h"
 #include "sprites.h"
 #include "xpm/xpm_mouse.h"
 #include "xpm/play_unselected.h"
@@ -17,6 +18,10 @@
 #include "xpm/leaderboard_selected.h"
 #include "xpm/exit_unselected.h"
 #include "xpm/exit_selected.h"
+#include "xpm/play_again_selected.h"
+#include "xpm/play_again_unselected.h"
+#include "xpm/leave_selected.h"
+#include "xpm/leave_unselected.h"
 #include "xpm/blue_puck.h"
 #include "xpm/red_puck.h"
 #include "xpm/disk.h"
@@ -32,20 +37,33 @@
 #include "xpm/game/white numbers/white_9.h"
 #include "xpm/game/white numbers/white_time.h"
 
-
 /* Interactable Objects */
 Sprite* mouse;
-Sprite* start_button_unselected;
-Sprite* start_button_selected;
-Sprite* leaderboard_button_unselected;
-Sprite* leaderboard_button_selected;
-Sprite* exit_button_unselected;
-Sprite* exit_button_selected;
 Sprite* redpuck;
 Sprite* bluepuck;
 Sprite* Ball;
 Sprite *numbers[10];
 Sprite *time_sep;
+
+/* Menu buttons */
+Sprite* exit_button_unselected;
+Sprite* leaderboard_button_unselected;
+Sprite* start_button_unselected;
+Sprite* buttons_menu_unselected[3];
+
+Sprite* start_button_selected;
+Sprite* leaderboard_button_selected;
+Sprite* exit_button_selected;
+Sprite* buttons_menu_selected[3];
+
+/* Win-Lose buttons */
+Sprite* play_again_button_selected;
+Sprite* leave_button_selected;
+Sprite* buttons_winlose_selected[2];
+
+Sprite* play_again_button_unselected;
+Sprite* leave_button_unselected;
+Sprite* buttons_winlose_unselected[2];
 
 
 typedef enum {
@@ -55,6 +73,8 @@ typedef enum {
     WIN,
     LOST,
 } MainStateMachine;
+
+void reset_option();
 
 void (timer_int)();
 
@@ -72,8 +92,8 @@ void (loader_sprite)();
 
 void (unloader_sprite)();
 
-void (option_up)();
+void (option_up)(Sprite* buttons_unselected[], Sprite* buttons_selected[], int size);
 
-void (option_down)();
+void (option_down)(Sprite* buttons_unselected[], Sprite* buttons_selected[], int size);
 
 #endif
