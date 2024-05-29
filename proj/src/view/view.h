@@ -11,6 +11,7 @@
 #include "model/xpm/menu.h"
 #include "model/xpm/youwon.h"
 #include "model/xpm/youlost.h"
+#include "model/xpm/tie.h"
 
 void (draw_frame)();
 

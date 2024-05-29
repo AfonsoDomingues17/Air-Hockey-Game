@@ -13,6 +13,7 @@ xpm_image_t game_background; /* Struct with background info like color */
 xpm_image_t menu_background; /* Struct with menu info like color */
 xpm_image_t youwon_popOut; /* Struct with youWON info like color */
 xpm_image_t youlost_popOut; /* Struct with youLOST info like color */
+xpm_image_t tie_popOut; /* Struct with tie info like color */
 extern unsigned int time_remaining;
 
 void (draw_frame)() {
@@ -44,6 +45,13 @@ void (draw_frame)() {
       break;
     case LOST:
       vg_drawn_popOut((xpm_map_t) youlost, &youlost_popOut);
+      if(!leave_button_unselected->selected) vg_draw_sprite(leave_button_unselected);
+      else vg_draw_sprite(leave_button_selected);
+      if(!play_again_button_unselected->selected) vg_draw_sprite(play_again_button_unselected);
+      else vg_draw_sprite(play_again_button_selected);
+      break;
+    case TIE:
+      vg_drawn_popOut((xpm_map_t) tie, &tie_popOut);
       if(!leave_button_unselected->selected) vg_draw_sprite(leave_button_unselected);
       else vg_draw_sprite(leave_button_selected);
       if(!play_again_button_unselected->selected) vg_draw_sprite(play_again_button_unselected);
