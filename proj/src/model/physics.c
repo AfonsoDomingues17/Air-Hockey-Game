@@ -90,19 +90,41 @@ bool pixel_detection(Sprite* object1, int new_x, int new_y, Sprite* object2, int
 }
 
 bool detect_wall_collision(Sprite *object, int new_x, int new_y) {
-  if (new_x + object->width > horizontal_end || new_x  < horizontal_start) return true;
-  if (new_y + object->height > vertical_end || new_y < vertical_start) return true;
-  return false; 
+  bool collided = false;
+  if (new_x + object->width > horizontal_end) { // Collided with right wall
+    collided = true;
+    object->x = horizontal_end - object->width;
+  }
+  if (new_x  < horizontal_start) { // Collided with left wall
+    collided = true;
+    object->x = horizontal_start;
+  }
+  if (new_y + object->height > vertical_end) { // Collided with bottom wall
+    collided = true;
+    object->y = vertical_end - object->height;
+  }
+  if (new_y < vertical_start) { // Collided with top wall
+    collided = true;
+    object->y = vertical_start;
+  }
+  return collided; 
 }
 
 bool detect_middle_field_collision(Sprite *object, int new_x, int new_y) {
   if (object->y < middle_field) { // Above middle field
     if (new_y < object->y) return false; // If moving up then there is no collision
-    return (new_y + object->height > middle_field); // If moving down check treshold
+    if (new_y + object->height > middle_field) { // If moving down check treshold
+      object->y = middle_field - object->height;
+      return true;
+    } 
   }
   // Bellow middle Field
   if (new_y > object->y) return false; // If moving down then there is no collision
-  return (new_y < middle_field); // If moving up check treshold
+  if (new_y < middle_field) { // If moving up check treshold
+    object->y = middle_field;
+    return true;
+  }
+  return false;
 }
 
 void ball_collision(Sprite *object) {
