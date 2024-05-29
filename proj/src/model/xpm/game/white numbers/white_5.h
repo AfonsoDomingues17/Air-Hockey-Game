@@ -2,8 +2,8 @@
 static xpm_row_t const white_five[] = {
 /* columns rows colors chars-per-pixel */
 "31 31 2 1 ",
-"  c None",
-". c white",
+"  c #FFFFFE",
+". c #FFFFFF",
 /* pixels */
 "..........................     ",
 "..........................     ",

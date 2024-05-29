@@ -17,16 +17,22 @@ int option = 0;
 
 /* Timers */
 unsigned int idle_game = 0;
+unsigned int time_remaining;
+unsigned int start_time;
 
 void (timer_int)() {
     timer_int_handler();
     swap_buffers();
     switch (mainState) {
         case GAME:
-            if (time_count % sys_hz() == 0) idle_game++;
-            if(idle_game == 120) {
-                mainState = WIN;
-                idle_game = 0;
+            if (time_count % sys_hz() == 0) {
+                if (time_remaining > 0) {
+                    time_remaining--; 
+                    draw_frame();
+                } else {
+                    mainState = WIN;
+                    draw_frame();
+                }
             }
             break;
         case WIN:
@@ -34,6 +40,7 @@ void (timer_int)() {
             if(idle_game == 5) {
                 mainState = MAIN_MENU;
                 idle_game = 0;
+                draw_frame();
             }
             break;
         default:
@@ -47,7 +54,12 @@ void (keyboard_int)() {
     switch (mainState) {
         case MAIN_MENU:
             if (exit_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
-            if (start_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = GAME;
+            if (start_button_selected->selected && scancode == SPACE_BREAK_CODE) {
+                mainState = GAME;
+                time_remaining = 120;
+                start_time = time_count / sys_hz(); 
+                time_count = 0;
+            }
             if (scancode == S_BREAK_CODE) option_down();
             if (scancode == W_BREAK_CODE) option_up();
             break;
@@ -128,7 +140,17 @@ void (loader_sprite)() {
     redpuck = create_sprite((xpm_map_t) red_puck, 535, 55);
     bluepuck = create_sprite((xpm_map_t) blue_puck, 535, 730);
     Ball = create_sprite((xpm_map_t) disk, 500, 500);
-
+    numbers[0] = create_sprite((xpm_map_t) white_zero, 0, 0);
+    numbers[1] = create_sprite((xpm_map_t) white_one, 0, 0);
+    numbers[2] = create_sprite((xpm_map_t) white_two, 0, 0);
+    numbers[3] = create_sprite((xpm_map_t) white_three, 0, 0);
+    numbers[4] = create_sprite((xpm_map_t) white_four, 0, 0);
+    numbers[5] = create_sprite((xpm_map_t) white_five, 0, 0);
+    numbers[6] = create_sprite((xpm_map_t) white_six, 0, 0);
+    numbers[7] = create_sprite((xpm_map_t) white_seven, 0, 0);
+    numbers[8] = create_sprite((xpm_map_t) white_eight, 0, 0);
+    numbers[9] = create_sprite((xpm_map_t) white_nine, 0, 0);
+    time_sep = create_sprite((xpm_map_t) white_time, 120, 10);
 }
 
 void (unloader_sprite)() {
@@ -142,6 +164,10 @@ void (unloader_sprite)() {
     delete_sprite(redpuck);
     delete_sprite(bluepuck);
     delete_sprite(Ball);
+    for (int i = 0; i < 10; i++) {
+        delete_sprite(numbers[i]);
+    }
+    delete_sprite(time_sep);
 }
 
 void (option_up)() {

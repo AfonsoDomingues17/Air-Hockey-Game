@@ -13,6 +13,7 @@ xpm_image_t game_background; /* Struct with background info like color */
 xpm_image_t menu_background; /* Struct with menu info like color */
 xpm_image_t youwon_popOut; /* Struct with youWON info like color */
 xpm_image_t youlost_popOut; /* Struct with youLOST info like color */
+extern unsigned int time_remaining;
 
 void (draw_frame)() {
   switch(mainState) {
@@ -33,6 +34,8 @@ void (draw_frame)() {
       vg_draw_sprite(bluepuck);
       vg_draw_sprite(mouse);
       vg_draw_sprite(Ball);
+      vg_draw_sprite(time_sep);
+      vg_draw_time(time_remaining, 10, 10);
       break;
     case WIN:
       vg_drawn_popOut((xpm_map_t) youwon, &youwon_popOut);
@@ -86,3 +89,24 @@ int (vg_drawn_popOut)(xpm_map_t xpm, xpm_image_t *img) {
 
   return 0;
 }
+
+void (vg_draw_time)(unsigned int time, int x, int y) {
+  unsigned int minutes = time / 60;
+  unsigned int seconds = time % 60;
+
+  numbers[minutes / 10]->x = x;
+  numbers[minutes / 10]->y = y;
+  vg_draw_sprite(numbers[minutes / 10]);
+
+  numbers[minutes % 10]->x = x + 50;
+  numbers[minutes % 10]->y = y;
+  vg_draw_sprite(numbers[minutes % 10]);
+
+  numbers[seconds / 10]->x = x + 3 * 50;
+  numbers[seconds / 10]->y = y;
+  vg_draw_sprite(numbers[seconds / 10]);
+  
+  numbers[seconds % 10]->x = x + 4 * 50;
+  numbers[seconds % 10]->y = y;
+  vg_draw_sprite(numbers[seconds % 10]);
+} 

@@ -20,6 +20,17 @@
 #include "xpm/blue_puck.h"
 #include "xpm/red_puck.h"
 #include "xpm/disk.h"
+#include "xpm/game/white numbers/white_0.h"
+#include "xpm/game/white numbers/white_1.h"
+#include "xpm/game/white numbers/white_2.h"
+#include "xpm/game/white numbers/white_3.h"
+#include "xpm/game/white numbers/white_4.h"
+#include "xpm/game/white numbers/white_5.h"
+#include "xpm/game/white numbers/white_6.h"
+#include "xpm/game/white numbers/white_7.h"
+#include "xpm/game/white numbers/white_8.h"
+#include "xpm/game/white numbers/white_9.h"
+#include "xpm/game/white numbers/white_time.h"
 
 
 /* Interactable Objects */
@@ -33,6 +44,8 @@ Sprite* exit_button_selected;
 Sprite* redpuck;
 Sprite* bluepuck;
 Sprite* Ball;
+Sprite *numbers[10];
+Sprite *time_sep;
 
 
 typedef enum {
