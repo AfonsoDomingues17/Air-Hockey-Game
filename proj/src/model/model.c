@@ -167,7 +167,8 @@ void (loader_sprite)() {
     numbers[7] = create_sprite((xpm_map_t) white_seven, 0, 0);
     numbers[8] = create_sprite((xpm_map_t) white_eight, 0, 0);
     numbers[9] = create_sprite((xpm_map_t) white_nine, 0, 0);
-    time_sep = create_sprite((xpm_map_t) white_time, 120, 10);
+    time_sep = create_sprite((xpm_map_t) white_time, 115, 425);
+    time_title = create_sprite((xpm_map_t) title_time, 55, 370);
 
     play_again_button_selected = create_sprite((xpm_map_t) play_again_selected, 450, 380);
     play_again_button_selected->selected = true;
@@ -207,6 +208,7 @@ void (unloader_sprite)() {
         delete_sprite(numbers[i]);
     }
     delete_sprite(time_sep);
+    delete_sprite(time_title);
 }
 
 void (option_up)(Sprite* buttons_unselected[], Sprite* buttons_selected[], int size) {
