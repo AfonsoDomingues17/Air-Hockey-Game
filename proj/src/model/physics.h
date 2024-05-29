@@ -13,6 +13,7 @@
 #define horizontal_end 879
 #define vertical_start 21
 #define vertical_end 843
+#define middle_field 432
 
 /* Collidable objects */
 extern Sprite* redpuck;
@@ -43,7 +44,7 @@ bool detect_collision_in_layer(Sprite* object, int new_x, int new_y, unsigned la
  * @param new_y Top left corner y position that the object is trying to move into
  * @param object2 Sprite pointer to the sprite object2
 */
-bool detec_collision(Sprite* object1, int new_x, int new_y, Sprite* object2);
+bool detect_collision(Sprite* object1, int new_x, int new_y, Sprite* object2);
 
 /**
  * @brief Returns true if the pixels inside a specific area overlapped between 2 objects
@@ -57,5 +58,26 @@ bool detec_collision(Sprite* object1, int new_x, int new_y, Sprite* object2);
  * @param bottom_border Bottom most border of the overlapped region
 */
 bool pixel_detection(Sprite* object1, int new_x, int new_y, Sprite* object2, int left_border, int right_border, int top_border, int bottom_border);
+
+/**
+ * @brief Checks collision between object and wall
+ * @param object Sprite pointer to the sprite object
+ * @param new_x Top left corner x position that the object is trying to move into
+ * @param new_y Top left corner y position that the object is trying to move into
+*/
+bool detect_wall_collision(Sprite *object, int new_x, int new_y);
+
+/**
+ * @brief Checks if item collided with the middle of the field
+ * @param object Sprite pointer to the sprite object
+ * @param new_x Top left corner x position that the object is trying to move into
+ * @param new_y Top left corner y position that the object is trying to move into
+*/
+bool detect_middle_field_collision(Sprite *object, int new_x, int new_y);
+
+/**
+ * @brief Handles collision between puck and Ball
+*/
+void ball_collision(Sprite *object);
 
 #endif

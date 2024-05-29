@@ -28,6 +28,8 @@ void (timer_int)() {
                 mainState = WIN;
                 idle_game = 0;
             }
+            move(Ball, Ball->xspeed, Ball->yspeed, 1);
+            draw_frame();
             break;
         case WIN:
             if (time_count % sys_hz() == 0) idle_game++;
@@ -75,15 +77,10 @@ void (mouse_int)() {
         // Update mouse location
         mouse_update(mouse, parsing);
         if(parsing.lb){
-            move(bluepuck, parsing.delta_x, parsing.delta_y, 1);
+            move(bluepuck, parsing.delta_x, parsing.delta_y, 2);
             mouse->visibility = false;
         }
         else mouse->visibility = true;
-
-    
-        // Draw new frame
-        draw_frame();
-
     }
 }
 
@@ -128,7 +125,6 @@ void (loader_sprite)() {
     redpuck = create_sprite((xpm_map_t) red_puck, 535, 55);
     bluepuck = create_sprite((xpm_map_t) blue_puck, 535, 730);
     Ball = create_sprite((xpm_map_t) disk, 500, 500);
-
 }
 
 void (unloader_sprite)() {
