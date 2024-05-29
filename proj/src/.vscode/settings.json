@@ -17,6 +17,11 @@
     "xpm_mouse.h": "c",
     "leaderboard_selected.h": "c",
     "exit_unselected.h": "c",
-    "play_selected.h": "c"
+    "play_selected.h": "c",
+    "disk.h": "c",
+    "blue_puck.h": "c",
+    "exit_selected.h": "c",
+    "red_puck.h": "c",
+    "mouse.h": "c"
   },
 }

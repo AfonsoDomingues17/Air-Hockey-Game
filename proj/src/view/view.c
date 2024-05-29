@@ -13,6 +13,8 @@ xpm_image_t game_background; /* Struct with background info like color */
 xpm_image_t menu_background; /* Struct with menu info like color */
 xpm_image_t youwon_popOut; /* Struct with youWON info like color */
 xpm_image_t youlost_popOut; /* Struct with youLOST info like color */
+xpm_image_t tie_popOut; /* Struct with tie info like color */
+extern unsigned int time_remaining;
 
 void (draw_frame)() {
   switch(mainState) {
@@ -24,8 +26,6 @@ void (draw_frame)() {
       else vg_draw_sprite(leaderboard_button_selected);
       if(!exit_button_unselected->selected) vg_draw_sprite(exit_button_unselected);
       else vg_draw_sprite(exit_button_selected);
-
-
       break;
     case GAME:
       vg_draw_background((xpm_map_t) xpm_background, &game_background);
@@ -33,11 +33,30 @@ void (draw_frame)() {
       vg_draw_sprite(bluepuck);
       vg_draw_sprite(mouse);
       vg_draw_sprite(Ball);
+      vg_draw_sprite(time_sep);
+      vg_draw_sprite(time_title);
+      vg_draw_time(time_remaining, 35, 420);
       break;
     case WIN:
       vg_drawn_popOut((xpm_map_t) youwon, &youwon_popOut);
+      if(!leave_button_unselected->selected) vg_draw_sprite(leave_button_unselected);
+      else vg_draw_sprite(leave_button_selected);
+      if(!play_again_button_unselected->selected) vg_draw_sprite(play_again_button_unselected);
+      else vg_draw_sprite(play_again_button_selected);
+      break;
     case LOST:
       vg_drawn_popOut((xpm_map_t) youlost, &youlost_popOut);
+      if(!leave_button_unselected->selected) vg_draw_sprite(leave_button_unselected);
+      else vg_draw_sprite(leave_button_selected);
+      if(!play_again_button_unselected->selected) vg_draw_sprite(play_again_button_unselected);
+      else vg_draw_sprite(play_again_button_selected);
+      break;
+    case TIE:
+      vg_drawn_popOut((xpm_map_t) tie, &tie_popOut);
+      if(!leave_button_unselected->selected) vg_draw_sprite(leave_button_unselected);
+      else vg_draw_sprite(leave_button_selected);
+      if(!play_again_button_unselected->selected) vg_draw_sprite(play_again_button_unselected);
+      else vg_draw_sprite(play_again_button_selected);
       break;
     default:
       break;
@@ -86,3 +105,24 @@ int (vg_drawn_popOut)(xpm_map_t xpm, xpm_image_t *img) {
 
   return 0;
 }
+
+void (vg_draw_time)(unsigned int time, int x, int y) {
+  unsigned int minutes = time / 60;
+  unsigned int seconds = time % 60;
+
+  numbers[minutes / 10]->x = x;
+  numbers[minutes / 10]->y = y;
+  vg_draw_sprite(numbers[minutes / 10]);
+
+  numbers[minutes % 10]->x = x + 40;
+  numbers[minutes % 10]->y = y;
+  vg_draw_sprite(numbers[minutes % 10]);
+
+  numbers[seconds / 10]->x = x + 3 * 40 - 15;
+  numbers[seconds / 10]->y = y;
+  vg_draw_sprite(numbers[seconds / 10]);
+  
+  numbers[seconds % 10]->x = x + 4 * 40 - 15;
+  numbers[seconds % 10]->y = y;
+  vg_draw_sprite(numbers[seconds % 10]);
+} 
