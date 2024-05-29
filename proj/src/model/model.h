@@ -36,6 +36,7 @@
 #include "xpm/game/white numbers/white_8.h"
 #include "xpm/game/white numbers/white_9.h"
 #include "xpm/game/white numbers/white_time.h"
+#include "xpm/game/time.h"
 
 /* Interactable Objects */
 Sprite* mouse;
@@ -44,6 +45,7 @@ Sprite* bluepuck;
 Sprite* Ball;
 Sprite *numbers[10];
 Sprite *time_sep;
+Sprite *time_title;
 
 /* Menu buttons */
 Sprite* exit_button_unselected;

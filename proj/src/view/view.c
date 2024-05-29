@@ -34,7 +34,8 @@ void (draw_frame)() {
       vg_draw_sprite(mouse);
       vg_draw_sprite(Ball);
       vg_draw_sprite(time_sep);
-      vg_draw_time(time_remaining, 10, 10);
+      vg_draw_sprite(time_title);
+      vg_draw_time(time_remaining, 35, 420);
       break;
     case WIN:
       vg_drawn_popOut((xpm_map_t) youwon, &youwon_popOut);
@@ -113,15 +114,15 @@ void (vg_draw_time)(unsigned int time, int x, int y) {
   numbers[minutes / 10]->y = y;
   vg_draw_sprite(numbers[minutes / 10]);
 
-  numbers[minutes % 10]->x = x + 50;
+  numbers[minutes % 10]->x = x + 40;
   numbers[minutes % 10]->y = y;
   vg_draw_sprite(numbers[minutes % 10]);
 
-  numbers[seconds / 10]->x = x + 3 * 50;
+  numbers[seconds / 10]->x = x + 3 * 40 - 15;
   numbers[seconds / 10]->y = y;
   vg_draw_sprite(numbers[seconds / 10]);
   
-  numbers[seconds % 10]->x = x + 4 * 50;
+  numbers[seconds % 10]->x = x + 4 * 40 - 15;
   numbers[seconds % 10]->y = y;
   vg_draw_sprite(numbers[seconds % 10]);
 } 
