@@ -95,12 +95,18 @@ void (keyboard_int)() {
                 Ball->xspeed = 0;
                 Ball->yspeed = 0;
             }
+            if (rules_button_selected->selected && scancode == SPACE_BREAK_CODE) {
+                mainState = RULES;
+            }
             if (scancode == S_BREAK_CODE) option_down(buttons_menu_unselected, buttons_menu_selected, 3);
             if (scancode == W_BREAK_CODE) option_up(buttons_menu_unselected, buttons_menu_selected, 3);
             break;
         case GAME:
             if (scancode == ESC_BREAK_CODE) mainState = MAIN_MENU;
             idle_game = time_count;        
+            break;
+        case RULES:
+            if (scancode == ESC_BREAK_CODE) mainState = MAIN_MENU;
             break;
         case WIN:
             popOutButtons();
@@ -230,16 +236,16 @@ void (loader_sprite)() {
     play_again_button_unselected->selected = true;
 
     exit_button_unselected = create_sprite((xpm_map_t) exit_unselected, 421, 650);
-    leaderboard_button_unselected = create_sprite((xpm_map_t) leaderboard_unselected, 421, 500);
-    leaderboard_button_selected = create_sprite((xpm_map_t) leaderboard_selected, 421, 500);
+    rules_button_unselected = create_sprite((xpm_map_t) rules_unselected, 421, 500);
+    rules_button_selected = create_sprite((xpm_map_t) rules_selected, 421, 500);
     exit_button_selected = create_sprite((xpm_map_t) exit_selected, 421, 650);
 
     buttons_menu_unselected[0] = start_button_unselected;
-    buttons_menu_unselected[1] = leaderboard_button_unselected;
+    buttons_menu_unselected[1] = rules_button_unselected;
     buttons_menu_unselected[2] = exit_button_unselected;
 
     buttons_menu_selected[0] = start_button_selected;
-    buttons_menu_selected[1] = leaderboard_button_selected;
+    buttons_menu_selected[1] = rules_button_selected;
     buttons_menu_selected[2] = exit_button_selected;
 
     leave_button_selected = create_sprite((xpm_map_t) leave_selected, 495, 480);
@@ -256,8 +262,8 @@ void (unloader_sprite)() {
     delete_sprite(mouse);
     delete_sprite(start_button_unselected);
     delete_sprite(start_button_selected);
-    delete_sprite(leaderboard_button_unselected);
-    delete_sprite(leaderboard_button_selected);
+    delete_sprite(rules_button_unselected);
+    delete_sprite(rules_button_selected);
     delete_sprite(exit_button_unselected);
     delete_sprite(exit_button_selected);
     delete_sprite(redpuck);

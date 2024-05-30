@@ -15,8 +15,8 @@
 #include "xpm/xpm_mouse.h"
 #include "xpm/play_unselected.h"
 #include "xpm/play_selected.h"
-#include "xpm/leaderboard_unselected.h"
-#include "xpm/leaderboard_selected.h"
+#include "xpm/rules_unselected.h"
+#include "xpm/rules_selected.h"
 #include "xpm/exit_unselected.h"
 #include "xpm/exit_selected.h"
 #include "xpm/play_again_selected.h"
@@ -83,12 +83,12 @@ Sprite *day_sep2;
 
 /* Menu buttons */
 Sprite* exit_button_unselected;
-Sprite* leaderboard_button_unselected;
+Sprite* rules_button_unselected;
 Sprite* start_button_unselected;
 Sprite* buttons_menu_unselected[3];
 
 Sprite* start_button_selected;
-Sprite* leaderboard_button_selected;
+Sprite* rules_button_selected;
 Sprite* exit_button_selected;
 Sprite* buttons_menu_selected[3];
 
@@ -104,6 +104,7 @@ Sprite* buttons_winlose_unselected[2];
 
 typedef enum {
     MAIN_MENU,
+    RULES,
     GAME,
     STOP,
     WIN,

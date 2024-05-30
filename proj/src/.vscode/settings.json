@@ -26,6 +26,7 @@
     "rtc.h": "c",
     "blue_3.h": "c",
     "blue_9.h": "c",
-    "blue_8.h": "c"
+    "blue_8.h": "c",
+    "tie.h": "c"
   },
 }

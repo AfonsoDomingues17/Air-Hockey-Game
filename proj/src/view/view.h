@@ -12,6 +12,7 @@
 #include "model/xpm/youwon.h"
 #include "model/xpm/youlost.h"
 #include "model/xpm/tie.h"
+#include "model/xpm/rules.h"
 
 void (draw_frame)();
 

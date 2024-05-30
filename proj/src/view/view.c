@@ -15,6 +15,8 @@ xpm_image_t menu_background; /* Struct with menu info like color */
 xpm_image_t youwon_popOut; /* Struct with youWON info like color */
 xpm_image_t youlost_popOut; /* Struct with youLOST info like color */
 xpm_image_t tie_popOut; /* Struct with tie info like color */
+xpm_image_t rules_background;
+
 extern unsigned int time_remaining;
 extern int player_1;
 extern int player_2;
@@ -25,8 +27,8 @@ void (draw_frame)() {
       vg_draw_background((xpm_map_t) menu, &menu_background);
       if(!start_button_unselected->selected) vg_draw_sprite(start_button_unselected);
       else vg_draw_sprite(start_button_selected);
-      if(!leaderboard_button_unselected->selected) vg_draw_sprite(leaderboard_button_unselected);
-      else vg_draw_sprite(leaderboard_button_selected);
+      if(!rules_button_unselected->selected) vg_draw_sprite(rules_button_unselected);
+      else vg_draw_sprite(rules_button_selected);
       if(!exit_button_unselected->selected) vg_draw_sprite(exit_button_unselected);
       else vg_draw_sprite(exit_button_selected);
       vg_draw_rtc(&day_time_info, 10, 10);
@@ -34,6 +36,9 @@ void (draw_frame)() {
       vg_draw_sprite(two_points2);
       vg_draw_sprite(day_sep);
       vg_draw_sprite(day_sep2);
+      break;
+    case RULES:
+      vg_draw_background((xpm_map_t) rules, &rules_background);
       break;
     case GAME:
       vg_draw_background((xpm_map_t) xpm_background, &game_background);
