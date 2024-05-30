@@ -14,6 +14,8 @@ xpm_image_t menu_background; /* Struct with menu info like color */
 xpm_image_t youwon_popOut; /* Struct with youWON info like color */
 xpm_image_t youlost_popOut; /* Struct with youLOST info like color */
 extern unsigned int time_remaining;
+extern int player_1;
+extern int player_2;
 
 void (draw_frame)() {
   switch(mainState) {
@@ -34,7 +36,10 @@ void (draw_frame)() {
       vg_draw_sprite(Ball);
       vg_draw_sprite(time_sep);
       vg_draw_sprite(time_title);
+      vg_draw_sprite(points_title);
+      vg_draw_sprite(points_sep);
       vg_draw_time(time_remaining, 35, 420);
+      vg_draw_points(player_1, player_2, 960, 425);
       break;
     case WIN:
       vg_drawn_popOut((xpm_map_t) youwon, &youwon_popOut);
@@ -118,3 +123,12 @@ void (vg_draw_time)(unsigned int time, int x, int y) {
   numbers[seconds % 10]->y = y;
   vg_draw_sprite(numbers[seconds % 10]);
 } 
+
+void (vg_draw_points)(int player_1, int player_2, int x, int y) {
+  numbers_red[player_1]->x = x;
+  numbers_red[player_1]->y = y;
+  vg_draw_sprite(numbers_red[player_1]);
+  numbers_blue[player_2]->x = x + 105;
+  numbers_blue[player_2]->y = y;
+  vg_draw_sprite(numbers_blue[player_2]);
+}

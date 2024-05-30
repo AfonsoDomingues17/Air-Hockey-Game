@@ -22,4 +22,6 @@ int (vg_drawn_popOut)(xpm_map_t xpm, xpm_image_t *img);
 
 void (vg_draw_time)(unsigned int time, int x, int y);
 
+void (vg_draw_points)(int player_1, int player_2, int x, int y);
+
 #endif

@@ -20,6 +20,9 @@ unsigned int idle_game = 0;
 unsigned int time_remaining;
 unsigned int start_time;
 
+/* Player Points */
+int player_1 = 0, player_2 = 0;
+
 /* Menu buttons */
 
 void (timer_int)() {
@@ -170,6 +173,31 @@ void (loader_sprite)() {
     time_sep = create_sprite((xpm_map_t) white_time, 115, 425);
     time_title = create_sprite((xpm_map_t) title_time, 55, 370);
 
+    points_title = create_sprite((xpm_map_t) title_points, 925, 370);
+    points_sep = create_sprite((xpm_map_t) white_points, 1015, 440);
+
+    numbers_blue[0] = create_sprite((xpm_map_t) blue_zero, 0, 425);
+    numbers_blue[1] = create_sprite((xpm_map_t) blue_one, 0, 425);
+    numbers_blue[2] = create_sprite((xpm_map_t) blue_two, 0, 425);
+    numbers_blue[3] = create_sprite((xpm_map_t) blue_three, 0, 425);
+    numbers_blue[4] = create_sprite((xpm_map_t) blue_four, 0, 425);
+    numbers_blue[5] = create_sprite((xpm_map_t) blue_five, 0, 425);
+    numbers_blue[6] = create_sprite((xpm_map_t) blue_six, 0, 425);
+    numbers_blue[7] = create_sprite((xpm_map_t) blue_seven, 0, 425);
+    numbers_blue[8] = create_sprite((xpm_map_t) blue_eight, 0, 425);
+    numbers_blue[9] = create_sprite((xpm_map_t) blue_nine, 0, 425);
+
+    numbers_red[0] = create_sprite((xpm_map_t) red_zero, 0, 425);
+    numbers_red[1] = create_sprite((xpm_map_t) red_one, 0, 425);
+    numbers_red[2] = create_sprite((xpm_map_t) red_two, 0, 425);
+    numbers_red[3] = create_sprite((xpm_map_t) red_three, 0, 425);
+    numbers_red[4] = create_sprite((xpm_map_t) red_four, 0, 425);
+    numbers_red[5] = create_sprite((xpm_map_t) red_five, 0, 425);
+    numbers_red[6] = create_sprite((xpm_map_t) red_six, 0, 425);
+    numbers_red[7] = create_sprite((xpm_map_t) red_seven, 0, 425);
+    numbers_red[8] = create_sprite((xpm_map_t) red_eight, 0, 425);
+    numbers_red[9] = create_sprite((xpm_map_t) red_nine, 0, 425);
+
     play_again_button_selected = create_sprite((xpm_map_t) play_again_selected, 450, 380);
     play_again_button_selected->selected = true;
     play_again_button_unselected = create_sprite((xpm_map_t) play_again_unselected, 450, 380);
@@ -209,6 +237,14 @@ void (unloader_sprite)() {
     }
     delete_sprite(time_sep);
     delete_sprite(time_title);
+    delete_sprite(points_title);
+    delete_sprite(points_sep);
+    for (int i = 0; i < 10; i++) {
+        delete_sprite(numbers_blue[i]);
+    }
+    for (int i = 0; i < 10; i++) {
+        delete_sprite(numbers_red[i]);
+    }
 }
 
 void (option_up)(Sprite* buttons_unselected[], Sprite* buttons_selected[], int size) {
