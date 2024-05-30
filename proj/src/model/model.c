@@ -16,26 +16,34 @@ int count = 0;
 MainStateMachine mainState = MAIN_MENU;
 int option = 0;
 
+/* Serial Port Related Variables*/
+extern Queue *inQueue;
+int previous_x = 535;
+int previous_y = 730;
+
 /* Timers */
 unsigned int idle_game = 0;
 unsigned int time_remaining;
 unsigned int start_time;
+unsigned int puck_transmit = 0;
 
 /* Player Points */
 extern int player_1;
 extern int player_2;
-
-/* Menu buttons */
 
 void (timer_int)() {
     timer_int_handler();
     swap_buffers();
     switch (mainState) {
         case GAME:
+            puck_transmit++;
+            if (puck_transmit == 1) {
+                transmit_puck_change(bluepuck, &previous_x, &previous_y);
+                puck_transmit = 0;
+            } 
             if (time_count % sys_hz() == 0) {
                 if (time_remaining > 0) {
                     time_remaining--; 
-                    draw_frame();
                     if (player_1 == 9) {
                         mainState = LOST;
                     } else if (player_2 == 9) {
@@ -141,6 +149,29 @@ void (mouse_int)() {
             mouse->visibility = false;
         }
         else mouse->visibility = true;
+    }
+}
+
+void (sp_int)() {
+    switch (mainState)
+    {
+    case GAME:
+        sp_ih();
+        while (queue_get_size(inQueue) >= 4) {
+            int16_t delta_x = dequeue(inQueue);
+            delta_x += (dequeue(inQueue) << 8);
+            int16_t delta_y = dequeue(inQueue);
+            delta_y += (dequeue(inQueue) << 8);
+            if ( 270 < redpuck->x - delta_x && redpuck->x - delta_x < 801) 
+                redpuck->x -= delta_x;
+            if ( 50 < redpuck->y - delta_y && redpuck->y - delta_y < 450) 
+                redpuck->y -= delta_y;
+        }
+        draw_frame();
+        break;
+    default:
+        serialPort_resetFIFO();
+        break;
     }
 }
 

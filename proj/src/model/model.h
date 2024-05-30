@@ -8,6 +8,7 @@
 #include "controller/mouse/mouse.h"
 #include "controller/graphics/graphics.h"
 #include "controller/rtc/rtc.h"
+#include "controller/serialport/serialport.h"
 #include "view/view.h"
 
 #include "physics.h"
@@ -119,6 +120,8 @@ void (timer_int)();
 void (keyboard_int)();
 
 void (mouse_int)();
+
+void (sp_int)();
 
 void (parse_mouse_data)();
 
