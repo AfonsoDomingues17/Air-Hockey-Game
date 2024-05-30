@@ -6,6 +6,7 @@ extern unsigned v_res;
 extern uint8_t *main_buffer; //main buffer 
 extern uint8_t *secondary_buffer; //secondary buffer
 extern unsigned int vram_size; 
+extern day_time day_time_info;
 
 extern MainStateMachine mainState;
 
@@ -28,6 +29,7 @@ void (draw_frame)() {
       else vg_draw_sprite(leaderboard_button_selected);
       if(!exit_button_unselected->selected) vg_draw_sprite(exit_button_unselected);
       else vg_draw_sprite(exit_button_selected);
+      vg_draw_rtc(&day_time_info, 10, 10);
       break;
     case GAME:
       vg_draw_background((xpm_map_t) xpm_background, &game_background);
@@ -140,3 +142,30 @@ void (vg_draw_points)(int player_1, int player_2, int x, int y) {
   numbers_blue[player_2]->y = y;
   vg_draw_sprite(numbers_blue[player_2]);
 }
+
+void (vg_draw_rtc)(day_time *time, int x, int y) {
+  // hours
+  numbers[time->h / 10]->x = x;
+  numbers[time->h / 10]->y = y;
+  vg_draw_sprite(numbers[time->h / 10]);
+  numbers[time->h % 10]->x = x + 40;
+  numbers[time->h % 10]->y = y;
+  vg_draw_sprite(numbers[time->h % 10]);
+
+  // minutes
+  numbers[time->m / 10]->x = x + 40 * 3;
+  numbers[time->m / 10]->y = y;
+  vg_draw_sprite(numbers[time->m / 10]);
+  numbers[time->m % 10]->x = x + 40 * 4;
+  numbers[time->m % 10]->y = y;
+  vg_draw_sprite(numbers[time->m % 10]);
+
+  // seconds
+  numbers[time->s / 10]->x = x + 40 * 6;
+  numbers[time->s / 10]->y = y;
+  vg_draw_sprite(numbers[time->s / 10]);
+  numbers[time->s % 10]->x = x + 40 * 7;
+  numbers[time->s % 10]->y = y;
+  vg_draw_sprite(numbers[time->s % 10]);
+
+} 

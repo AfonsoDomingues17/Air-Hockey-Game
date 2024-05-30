@@ -7,6 +7,7 @@
 #include "controller/keyboard/keyboard.h"
 #include "controller/mouse/mouse.h"
 #include "controller/graphics/graphics.h"
+#include "controller/rtc/rtc.h"
 #include "view/view.h"
 
 #include "physics.h"
@@ -116,6 +117,8 @@ void (mouse_int)();
 void (parse_mouse_data)();
 
 void (mouse_update)();
+
+void (rtc_int)();
 
 /* Sprite Creation */
 

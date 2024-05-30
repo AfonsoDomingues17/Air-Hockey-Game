@@ -6,11 +6,12 @@ PROG = proj
 .PATH: ${.CURDIR}/controller/keyboard
 .PATH: ${.CURDIR}/controller/mouse
 .PATH: ${.CURDIR}/controller/graphics
+.PATH: ${.CURDIR}/controller/rtc
 .PATH: ${.CURDIR}/model
 .PATH: ${.CURDIR}/view
 
 # source code files to be compiled
-SRCS = project.c utils.c timer.c keyboard.c mouse.c graphics.c sprites.c physics.c model.c view.c 
+SRCS = project.c utils.c timer.c keyboard.c mouse.c graphics.c sprites.c physics.c model.c view.c rtc.c
 
 # additional compilation flags
 # "-Wall -Wextra -Werror -I . -std=c11 -Wno-unused-parameter" are already set

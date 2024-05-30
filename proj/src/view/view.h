@@ -25,4 +25,6 @@ void (vg_draw_time)(unsigned int time, int x, int y);
 
 void (vg_draw_points)(int player_1, int player_2, int x, int y);
 
+void (vg_draw_rtc)(day_time *time, int x, int y);
+
 #endif
