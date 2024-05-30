@@ -15,27 +15,27 @@ int count = 0;
 MainStateMachine mainState = MAIN_MENU;
 int option = 0;
 
+/* Serial Port Related Variables*/
 extern Queue *inQueue;
-
+int previous_x = 535;
+int previous_y = 730;
 
 /* Timers */
 unsigned int idle_game = 0;
+unsigned int puck_transmit = 0;
 
 void (timer_int)() {
     timer_int_handler();
     swap_buffers();
     switch (mainState) {
         case GAME:
+            puck_transmit++;
             if (time_count % sys_hz() == 0) idle_game++;
-            if(idle_game == 120) mainState = STOP;
-            sendNewPositions();
-            if (queue_get_size(inQueue) < 2) break;
-            int tempx = dequeue(inQueue);
-            int tempy = dequeue(inQueue);
-            //printf("Received X: %x, Y: %x\n", tempx, tempy);
-            if(tempx > 0 && tempx < 1152) redpuck->x = tempx;
-            if(tempy > 0 && tempy < 864) redpuck->y = tempy;
-            draw_frame(); 
+            if (idle_game == 120) mainState = STOP;
+            if (puck_transmit == 1) {
+                transmit_puck_change(bluepuck, &previous_x, &previous_y);
+                puck_transmit = 0;
+            } 
             break;
         default:
             break;
@@ -91,6 +91,17 @@ void (sp_int)() {
     {
     case GAME:
         sp_ih();
+        while (queue_get_size(inQueue) >= 4) {
+            int16_t delta_x = dequeue(inQueue);
+            delta_x += (dequeue(inQueue) << 8);
+            int16_t delta_y = dequeue(inQueue);
+            delta_y += (dequeue(inQueue) << 8);
+            if ( 270 < redpuck->x - delta_x && redpuck->x - delta_x < 801) 
+                redpuck->x -= delta_x;
+            if ( 50 < redpuck->y - delta_y && redpuck->y - delta_y < 450) 
+                redpuck->y -= delta_y;
+        }
+        draw_frame();
         break;
     default:
         serialPort_resetFIFO();

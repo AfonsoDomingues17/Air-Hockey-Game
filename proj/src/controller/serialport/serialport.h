@@ -88,7 +88,7 @@ int(sp_unsubscribe_int)();
 
 void(sp_ih)();
 
-int(read_int)();
+int(read_char)();
 
 int(send_char)(uint8_t data);
 
@@ -98,4 +98,4 @@ int(serialPort_exit)();
 
 int(serialPort_resetFIFO)();
 
-int(sendNewPositions)();
+void(transmit_puck_change)(Sprite* bluepuck, int* previous_x, int* previous_y);
