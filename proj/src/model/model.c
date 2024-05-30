@@ -242,12 +242,6 @@ void (unloader_sprite)() {
     delete_sprite(redpuck);
     delete_sprite(bluepuck);
     delete_sprite(Ball);
-    for (int i = 0; i < 3; i++) {
-        delete_sprite(buttons_menu_selected[i]);
-    }
-    for (int i = 0; i < 3; i++) {
-        delete_sprite(buttons_menu_unselected[i]);
-    }
     for (int i = 0; i < 2; i++) {
         delete_sprite(buttons_winlose_selected[i]);
     }

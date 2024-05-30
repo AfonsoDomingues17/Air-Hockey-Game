@@ -57,3 +57,4 @@ int (rtc_update_info)() {
   if (rtc_read_convert(year, &day_time_info.yyyy) != 0) return 1;
   return 0;
 }
+

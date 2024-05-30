@@ -189,15 +189,15 @@ void (vg_draw_rtc)(day_time *time, int x, int y) {
   vg_draw_sprite(numbers[time->mm % 10]);
 
   // year
-  numbers[time->yyyy / 1000]->x = x + 5 + 35 * 16;
-  numbers[time->yyyy / 1000]->y = y;
-  vg_draw_sprite(numbers[time->yyyy / 1000]);
-  numbers[(time->yyyy / 100) % 10]->x = x + 5 + 35 * 17;
-  numbers[(time->yyyy / 100) % 10]->y = y;
-  vg_draw_sprite(numbers[(time->yyyy / 100) % 10]);
-  numbers[(time->yyyy / 10) % 10]->x = x + 5 + 35 * 18;
-  numbers[(time->yyyy / 10) % 10]->y = y;
-  vg_draw_sprite(numbers[(time->yyyy / 10) % 10]);
+  numbers[2]->x = x + 5 + 35 * 16;
+  numbers[2]->y = y;
+  vg_draw_sprite(numbers[2]);
+  numbers[0]->x = x + 5 + 35 * 17;
+  numbers[0]->y = y;
+  vg_draw_sprite(numbers[0]);
+  numbers[time->yyyy / 10]->x = x + 5 + 35 * 18;
+  numbers[time->yyyy / 10]->y = y;
+  vg_draw_sprite(numbers[time->yyyy / 10]);
   numbers[time->yyyy % 10]->x = x + 5 + 35 * 19;
   numbers[time->yyyy % 10]->y = y;
   vg_draw_sprite(numbers[time->yyyy % 10]);
