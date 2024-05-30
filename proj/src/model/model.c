@@ -178,8 +178,8 @@ void (loader_sprite)() {
     two_points = create_sprite((xpm_map_t) time_two_points, 20+35*2, 15);
     two_points2 = create_sprite((xpm_map_t) time_two_points, 20+35*5, 15);
 
-    day_sep = create_sprite((xpm_map_t) day_separator, 15+35*12, 20);
-    day_sep2 = create_sprite((xpm_map_t) day_separator, 15+35*15, 20);
+    day_sep = create_sprite((xpm_map_t) day_separator, 445+35*12, 25);
+    day_sep2 = create_sprite((xpm_map_t) day_separator, 445+35*15, 25);
 
     numbers_blue[0] = create_sprite((xpm_map_t) blue_zero, 0, 425);
     numbers_blue[1] = create_sprite((xpm_map_t) blue_one, 0, 425);

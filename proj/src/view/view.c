@@ -173,32 +173,32 @@ void (vg_draw_rtc)(day_time *time, int x, int y) {
   vg_draw_sprite(numbers[time->s % 10]);
 
   // day
-  numbers[time->dd / 10]->x = x + 35 * 10;
+  numbers[time->dd / 10]->x = 430 + x + 35 * 10;
   numbers[time->dd / 10]->y = y;
   vg_draw_sprite(numbers[time->dd / 10]);
-  numbers[time->dd % 10]->x = x + 35 * 11;
+  numbers[time->dd % 10]->x = 430 + x + 35 * 11;
   numbers[time->dd % 10]->y = y;
   vg_draw_sprite(numbers[time->dd % 10]);
 
   // month
-  numbers[time->mm / 10]->x = x + 5 + 35 * 13;
+  numbers[time->mm / 10]->x = 430 + x + 5 + 35 * 13;
   numbers[time->mm / 10]->y = y;
   vg_draw_sprite(numbers[time->mm / 10]);
-  numbers[time->mm % 10]->x = x + 5 +  35 * 14;
+  numbers[time->mm % 10]->x = 430 + x + 5 +  35 * 14;
   numbers[time->mm % 10]->y = y;
   vg_draw_sprite(numbers[time->mm % 10]);
 
   // year
-  numbers[2]->x = x + 5 + 35 * 16;
+  numbers[2]->x = 430 + x + 5 + 35 * 16;
   numbers[2]->y = y;
   vg_draw_sprite(numbers[2]);
-  numbers[0]->x = x + 5 + 35 * 17;
+  numbers[0]->x = 430 + x + 5 + 35 * 17;
   numbers[0]->y = y;
   vg_draw_sprite(numbers[0]);
-  numbers[time->yyyy / 10]->x = x + 5 + 35 * 18;
+  numbers[time->yyyy / 10]->x = 430 + x + 5 + 35 * 18;
   numbers[time->yyyy / 10]->y = y;
   vg_draw_sprite(numbers[time->yyyy / 10]);
-  numbers[time->yyyy % 10]->x = x + 5 + 35 * 19;
+  numbers[time->yyyy % 10]->x = 430 + x + 5 + 35 * 19;
   numbers[time->yyyy % 10]->y = y;
   vg_draw_sprite(numbers[time->yyyy % 10]);
 
