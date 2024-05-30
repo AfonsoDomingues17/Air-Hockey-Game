@@ -60,3 +60,7 @@ int (queue_read_int)(Queue* queue) {
     }
     return res;
 }
+
+int (queue_get_size)(Queue* queue) {
+    return queue->size;
+}

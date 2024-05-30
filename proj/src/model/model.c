@@ -28,6 +28,15 @@ void (timer_int)() {
         case GAME:
             if (time_count % sys_hz() == 0) idle_game++;
             if(idle_game == 120) mainState = STOP;
+            if (queue_get_size(inQueue) < 8) break;
+            int tempx = queue_read_int(inQueue);
+            int tempy = queue_read_int(inQueue);
+            if (tempx != 0x01010101) {
+                printf("X: %x Y: %x\n", tempx, tempy);
+                redpuck->x = tempx;
+                redpuck->y = tempy;
+                draw_frame(); 
+            } else printf("Ignoring Movement\n");
             break;
         default:
             break;
@@ -64,7 +73,6 @@ void (mouse_int)() {
         // Parse Mouse Packet Info
         struct packet parsing;
         parse_mouse_data(&parsing);
-
         // Update mouse location
         mouse_update(mouse, parsing);
         if(parsing.lb){
@@ -73,11 +81,8 @@ void (mouse_int)() {
             mouse->visibility = false;
         }
         else mouse->visibility = true;
-
-    
         // Draw new frame
         draw_frame();
-
     }
 }
 
@@ -86,9 +91,6 @@ void (sp_int)() {
     {
     case GAME:
         sp_ih();
-        redpuck->x = queue_read_int(inQueue);
-        redpuck->y = queue_read_int(inQueue);
-        draw_frame(); 
         break;
     default:
         serialPort_resetFIFO();

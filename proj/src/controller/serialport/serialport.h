@@ -96,6 +96,4 @@ int(serialPort_exit)();
 
 int(serialPort_resetFIFO)();
 
-int(MovePucks)(uint8_t val);
-
 int(sendNewPositions)();

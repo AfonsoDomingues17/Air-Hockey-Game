@@ -42,6 +42,7 @@ int(read_char)(){
                 printf("Ardeu"); //check if there are no errors
                 return 1;
             }
+            printf("Received Byte: %x\n", data);
             enqueue(inQueue,data);
             return 0;
             //dar push do character para a fila porque os dados nao podem ser processados imediatamente
@@ -96,27 +97,6 @@ int (serialPort_resetFIFO)(){
         dequeue(inQueue);
     }
     return 0;
-}
-
-int (MovePucks)(uint8_t val){
-    /*
-    while(mouseMovement < 3){
-        mousePacket[mouseMovement++] = val;
-        sp_ih();
-        val = dequeue(inQueue);
-    }
-   
-    mouseMovement = 0; 
-    if(mousePacket[0] == redpuck){
-        redpuck->x = mousePacket[1];
-        redpuck->y = mousePacket[2];
-    }
-    else if(mousePacket[0] == bluepuck){
-        bluepuck->x = mousePacket[1];
-        bluepuck->y = mousePacket[2];
-    }
-    */
-    return 0; 
 }
 
 int(sendNewPositions)(){
