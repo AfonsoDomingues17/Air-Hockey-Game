@@ -2,6 +2,9 @@
 
 extern unsigned bytes_per_pixel;
 
+int player_1 = 0;
+int player_2 = 0;
+
 void move(Sprite* object, int16_t x, int16_t y, unsigned layer) {
   int new_x = object->x + x;
   int new_y = object->y - y;
@@ -27,6 +30,13 @@ bool detect_collision_in_layer(Sprite* object, int new_x, int new_y, unsigned la
     } 
     break;
   case 1: // Collision Layer for Ball object
+    if (detect_beacon_collision(object, new_x, new_y)) {
+      object->x = 550;
+      object->y = 410;
+      object->xspeed = 0;
+      object->yspeed = 0;
+      return true;
+    }
     if (detect_wall_collision(object, new_x, new_y, info)) {
       handle_play_area_collision(object, info);
       return true;
@@ -75,6 +85,19 @@ bool detect_collision(Sprite* object1, int new_x, int new_y, Sprite* object2) {
   }
 
   return false;
+}
+
+bool detect_beacon_collision(Sprite* object, int new_x, int new_y) {
+  bool collided = false;
+  if (new_x >= 476 && new_x <= 676 && new_y >= 21 && new_y <= 35 ) {
+    player_2++;
+    collided = true;
+  }
+  if (new_x >= 476 && new_x <= 676 && new_y >= 793 && new_y <= 810) {
+    player_1++;
+    collided = true;
+  }
+  return collided;
 }
 
 bool pixel_detection(Sprite* object1, int new_x, int new_y, Sprite* object2, int left_border, int right_border, int top_border, int bottom_border) {

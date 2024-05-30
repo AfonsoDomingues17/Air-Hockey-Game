@@ -6,6 +6,7 @@ extern uint8_t scancode;
 extern bool keyboard_error;
 extern uint8_t byte;
 extern bool mouse_error;
+extern day_time day_time_info;
 
 // Packet variables
 uint8_t packet[3];
@@ -20,6 +21,10 @@ unsigned int idle_game = 0;
 unsigned int time_remaining;
 unsigned int start_time;
 
+/* Player Points */
+extern int player_1;
+extern int player_2;
+
 /* Menu buttons */
 
 void (timer_int)() {
@@ -31,9 +36,19 @@ void (timer_int)() {
                 if (time_remaining > 0) {
                     time_remaining--; 
                     draw_frame();
+                    if (player_1 == 9) {
+                        mainState = LOST;
+                    } else if (player_2 == 9) {
+                        mainState = WIN;
+                    }
                 } else {
-                    mainState = TIE;
-                    draw_frame();
+                    if (player_1 == player_2) {
+                        mainState = TIE;
+                    } else if (player_1 > player_2) {
+                        mainState = LOST;
+                    } else if (player_1 < player_2) {
+                        mainState = WIN;
+                    }
                 }
             }
             move(Ball, Ball->xspeed, Ball->yspeed, 1);
@@ -44,8 +59,22 @@ void (timer_int)() {
     }
 }
 
-void reset_option() {
-    option = 0;
+void popOutButtons() {
+    if (leave_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
+    if (play_again_button_selected->selected && scancode == SPACE_BREAK_CODE) {
+        mainState = GAME;
+        time_remaining = 10;
+        start_time = time_count / sys_hz(); 
+        time_count = 0;
+        player_1 = 0;
+        player_2 = 0;
+        Ball->x = 550;
+        Ball->y = 410;
+        Ball->xspeed = 0;
+        Ball->yspeed = 0;
+    }
+    if (scancode == W_BREAK_CODE) option_up(buttons_winlose_unselected, buttons_winlose_selected, 2);
+    if (scancode == S_BREAK_CODE) option_down(buttons_winlose_unselected, buttons_winlose_selected, 2);
 }
 
 void (keyboard_int)() {
@@ -56,9 +85,18 @@ void (keyboard_int)() {
             if (exit_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
             if (start_button_selected->selected && scancode == SPACE_BREAK_CODE) {
                 mainState = GAME;
-                time_remaining = 5;
+                time_remaining = 200;
                 start_time = time_count / sys_hz(); 
                 time_count = 0;
+                player_1 = 0;
+                player_2 = 0;
+                Ball->x = 550;
+                Ball->y = 410;
+                Ball->xspeed = 0;
+                Ball->yspeed = 0;
+            }
+            if (rules_button_selected->selected && scancode == SPACE_BREAK_CODE) {
+                mainState = RULES;
             }
             if (scancode == S_BREAK_CODE) option_down(buttons_menu_unselected, buttons_menu_selected, 3);
             if (scancode == W_BREAK_CODE) option_up(buttons_menu_unselected, buttons_menu_selected, 3);
@@ -67,23 +105,17 @@ void (keyboard_int)() {
             if (scancode == ESC_BREAK_CODE) mainState = MAIN_MENU;
             idle_game = time_count;        
             break;
+        case RULES:
+            if (scancode == ESC_BREAK_CODE) mainState = MAIN_MENU;
+            break;
         case WIN:
-            if (leave_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
-            if (play_again_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = GAME;
-            if (scancode == W_BREAK_CODE) option_up(buttons_winlose_unselected, buttons_winlose_selected, 2);
-            if (scancode == S_BREAK_CODE) option_down(buttons_winlose_unselected, buttons_winlose_selected, 2);
+            popOutButtons();
             break;
         case LOST:
-            if (leave_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
-            if (play_again_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = GAME;
-            if (scancode == W_BREAK_CODE) option_up(buttons_winlose_unselected, buttons_winlose_selected, 2);
-            if (scancode == S_BREAK_CODE) option_down(buttons_winlose_unselected, buttons_winlose_selected, 2);
+            popOutButtons();
             break;
         case TIE:
-            if (leave_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
-            if (play_again_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = GAME;
-            if (scancode == W_BREAK_CODE) option_up(buttons_winlose_unselected, buttons_winlose_selected, 2);
-            if (scancode == S_BREAK_CODE) option_down(buttons_winlose_unselected, buttons_winlose_selected, 2);
+            popOutButtons();
             break;
         default:
             break;
@@ -140,19 +172,19 @@ void (mouse_update)(Sprite* mouse, struct packet parsing) {
     move(mouse, parsing.delta_x, parsing.delta_y, 0);
 }
 
+void (rtc_int)() {
+    rtc_update_info();
+}
+
 void (loader_sprite)() {
     mouse = create_sprite((xpm_map_t) xpm_mouse, 576, 150);
     start_button_unselected = create_sprite((xpm_map_t) play_unselected, 421, 350);
     start_button_unselected->selected = true;
     start_button_selected = create_sprite((xpm_map_t) play_selected, 421, 350);
     start_button_selected->selected = true;
-    leaderboard_button_unselected = create_sprite((xpm_map_t) leaderboard_unselected, 421, 500);
-    leaderboard_button_selected = create_sprite((xpm_map_t) leaderboard_selected, 421, 500);
-    exit_button_unselected = create_sprite((xpm_map_t) exit_unselected, 421, 650);
-    exit_button_selected = create_sprite((xpm_map_t) exit_selected, 421, 650);
     redpuck = create_sprite((xpm_map_t) red_puck, 535, 55);
     bluepuck = create_sprite((xpm_map_t) blue_puck, 535, 730);
-    Ball = create_sprite((xpm_map_t) disk, 500, 500);
+    Ball = create_sprite((xpm_map_t) disk, 550, 410);
 
     numbers[0] = create_sprite((xpm_map_t) white_zero, 0, 0);
     numbers[1] = create_sprite((xpm_map_t) white_one, 0, 0);
@@ -167,21 +199,57 @@ void (loader_sprite)() {
     time_sep = create_sprite((xpm_map_t) white_time, 115, 425);
     time_title = create_sprite((xpm_map_t) title_time, 55, 370);
 
+    points_title = create_sprite((xpm_map_t) title_points, 925, 370);
+    points_sep = create_sprite((xpm_map_t) white_points, 1015, 440);
+
+    two_points = create_sprite((xpm_map_t) time_two_points, 20+35*2, 15);
+    two_points2 = create_sprite((xpm_map_t) time_two_points, 20+35*5, 15);
+
+    day_sep = create_sprite((xpm_map_t) day_separator, 445+35*12, 25);
+    day_sep2 = create_sprite((xpm_map_t) day_separator, 445+35*15, 25);
+
+    numbers_blue[0] = create_sprite((xpm_map_t) blue_zero, 0, 425);
+    numbers_blue[1] = create_sprite((xpm_map_t) blue_one, 0, 425);
+    numbers_blue[2] = create_sprite((xpm_map_t) blue_two, 0, 425);
+    numbers_blue[3] = create_sprite((xpm_map_t) blue_three, 0, 425);
+    numbers_blue[4] = create_sprite((xpm_map_t) blue_four, 0, 425);
+    numbers_blue[5] = create_sprite((xpm_map_t) blue_five, 0, 425);
+    numbers_blue[6] = create_sprite((xpm_map_t) blue_six, 0, 425);
+    numbers_blue[7] = create_sprite((xpm_map_t) blue_seven, 0, 425);
+    numbers_blue[8] = create_sprite((xpm_map_t) blue_eight, 0, 425);
+    numbers_blue[9] = create_sprite((xpm_map_t) blue_nine, 0, 425);
+
+    numbers_red[0] = create_sprite((xpm_map_t) red_zero, 0, 425);
+    numbers_red[1] = create_sprite((xpm_map_t) red_one, 0, 425);
+    numbers_red[2] = create_sprite((xpm_map_t) red_two, 0, 425);
+    numbers_red[3] = create_sprite((xpm_map_t) red_three, 0, 425);
+    numbers_red[4] = create_sprite((xpm_map_t) red_four, 0, 425);
+    numbers_red[5] = create_sprite((xpm_map_t) red_five, 0, 425);
+    numbers_red[6] = create_sprite((xpm_map_t) red_six, 0, 425);
+    numbers_red[7] = create_sprite((xpm_map_t) red_seven, 0, 425);
+    numbers_red[8] = create_sprite((xpm_map_t) red_eight, 0, 425);
+    numbers_red[9] = create_sprite((xpm_map_t) red_nine, 0, 425);
+
     play_again_button_selected = create_sprite((xpm_map_t) play_again_selected, 450, 380);
     play_again_button_selected->selected = true;
     play_again_button_unselected = create_sprite((xpm_map_t) play_again_unselected, 450, 380);
     play_again_button_unselected->selected = true;
 
-    leave_button_selected = create_sprite((xpm_map_t) leave_selected, 495, 480);
-    leave_button_unselected = create_sprite((xpm_map_t) leave_unselected, 495, 480);
+    exit_button_unselected = create_sprite((xpm_map_t) exit_unselected, 421, 650);
+    rules_button_unselected = create_sprite((xpm_map_t) rules_unselected, 421, 500);
+    rules_button_selected = create_sprite((xpm_map_t) rules_selected, 421, 500);
+    exit_button_selected = create_sprite((xpm_map_t) exit_selected, 421, 650);
 
     buttons_menu_unselected[0] = start_button_unselected;
-    buttons_menu_unselected[1] = leaderboard_button_unselected;
+    buttons_menu_unselected[1] = rules_button_unselected;
     buttons_menu_unselected[2] = exit_button_unselected;
 
     buttons_menu_selected[0] = start_button_selected;
-    buttons_menu_selected[1] = leaderboard_button_selected;
+    buttons_menu_selected[1] = rules_button_selected;
     buttons_menu_selected[2] = exit_button_selected;
+
+    leave_button_selected = create_sprite((xpm_map_t) leave_selected, 495, 480);
+    leave_button_unselected = create_sprite((xpm_map_t) leave_unselected, 495, 480);
 
     buttons_winlose_selected[0] = play_again_button_selected;
     buttons_winlose_selected[1] = leave_button_selected;
@@ -194,18 +262,36 @@ void (unloader_sprite)() {
     delete_sprite(mouse);
     delete_sprite(start_button_unselected);
     delete_sprite(start_button_selected);
-    delete_sprite(leaderboard_button_unselected);
-    delete_sprite(leaderboard_button_selected);
+    delete_sprite(rules_button_unselected);
+    delete_sprite(rules_button_selected);
     delete_sprite(exit_button_unselected);
     delete_sprite(exit_button_selected);
     delete_sprite(redpuck);
     delete_sprite(bluepuck);
     delete_sprite(Ball);
+    for (int i = 0; i < 2; i++) {
+        delete_sprite(buttons_winlose_selected[i]);
+    }
+    for (int i = 0; i < 2; i++) {
+        delete_sprite(buttons_winlose_unselected[i]);
+    }
     for (int i = 0; i < 10; i++) {
         delete_sprite(numbers[i]);
     }
     delete_sprite(time_sep);
     delete_sprite(time_title);
+    delete_sprite(points_title);
+    delete_sprite(points_sep);
+    delete_sprite(two_points);
+    delete_sprite(two_points2);
+    delete_sprite(day_sep);
+    delete_sprite(day_sep2);
+    for (int i = 0; i < 10; i++) {
+        delete_sprite(numbers_blue[i]);
+    }
+    for (int i = 0; i < 10; i++) {
+        delete_sprite(numbers_red[i]);
+    }
 }
 
 void (option_up)(Sprite* buttons_unselected[], Sprite* buttons_selected[], int size) {

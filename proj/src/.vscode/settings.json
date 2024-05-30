@@ -22,6 +22,11 @@
     "blue_puck.h": "c",
     "exit_selected.h": "c",
     "red_puck.h": "c",
-    "mouse.h": "c"
+    "mouse.h": "c",
+    "rtc.h": "c",
+    "blue_3.h": "c",
+    "blue_9.h": "c",
+    "blue_8.h": "c",
+    "tie.h": "c"
   },
 }

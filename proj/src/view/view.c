@@ -6,6 +6,7 @@ extern unsigned v_res;
 extern uint8_t *main_buffer; //main buffer 
 extern uint8_t *secondary_buffer; //secondary buffer
 extern unsigned int vram_size; 
+extern day_time day_time_info;
 
 extern MainStateMachine mainState;
 
@@ -14,7 +15,11 @@ xpm_image_t menu_background; /* Struct with menu info like color */
 xpm_image_t youwon_popOut; /* Struct with youWON info like color */
 xpm_image_t youlost_popOut; /* Struct with youLOST info like color */
 xpm_image_t tie_popOut; /* Struct with tie info like color */
+xpm_image_t rules_background;
+
 extern unsigned int time_remaining;
+extern int player_1;
+extern int player_2;
 
 void (draw_frame)() {
   switch(mainState) {
@@ -22,10 +27,18 @@ void (draw_frame)() {
       vg_draw_background((xpm_map_t) menu, &menu_background);
       if(!start_button_unselected->selected) vg_draw_sprite(start_button_unselected);
       else vg_draw_sprite(start_button_selected);
-      if(!leaderboard_button_unselected->selected) vg_draw_sprite(leaderboard_button_unselected);
-      else vg_draw_sprite(leaderboard_button_selected);
+      if(!rules_button_unselected->selected) vg_draw_sprite(rules_button_unselected);
+      else vg_draw_sprite(rules_button_selected);
       if(!exit_button_unselected->selected) vg_draw_sprite(exit_button_unselected);
       else vg_draw_sprite(exit_button_selected);
+      vg_draw_rtc(&day_time_info, 10, 10);
+      vg_draw_sprite(two_points);
+      vg_draw_sprite(two_points2);
+      vg_draw_sprite(day_sep);
+      vg_draw_sprite(day_sep2);
+      break;
+    case RULES:
+      vg_draw_background((xpm_map_t) rules, &rules_background);
       break;
     case GAME:
       vg_draw_background((xpm_map_t) xpm_background, &game_background);
@@ -35,7 +48,10 @@ void (draw_frame)() {
       vg_draw_sprite(Ball);
       vg_draw_sprite(time_sep);
       vg_draw_sprite(time_title);
+      vg_draw_sprite(points_title);
+      vg_draw_sprite(points_sep);
       vg_draw_time(time_remaining, 35, 420);
+      vg_draw_points(player_1, player_2, 960, 425);
       break;
     case WIN:
       vg_drawn_popOut((xpm_map_t) youwon, &youwon_popOut);
@@ -125,4 +141,70 @@ void (vg_draw_time)(unsigned int time, int x, int y) {
   numbers[seconds % 10]->x = x + 4 * 40 - 15;
   numbers[seconds % 10]->y = y;
   vg_draw_sprite(numbers[seconds % 10]);
+} 
+
+void (vg_draw_points)(int player_1, int player_2, int x, int y) {
+  numbers_red[player_1]->x = x;
+  numbers_red[player_1]->y = y;
+  vg_draw_sprite(numbers_red[player_1]);
+  numbers_blue[player_2]->x = x + 105;
+  numbers_blue[player_2]->y = y;
+  vg_draw_sprite(numbers_blue[player_2]);
+}
+
+void (vg_draw_rtc)(day_time *time, int x, int y) {
+  // hours
+  numbers[time->h / 10]->x = x;
+  numbers[time->h / 10]->y = y;
+  vg_draw_sprite(numbers[time->h / 10]);
+  numbers[time->h % 10]->x = x + 35;
+  numbers[time->h % 10]->y = y;
+  vg_draw_sprite(numbers[time->h % 10]);
+
+  // minutes
+  numbers[time->m / 10]->x = x + 35 * 3;
+  numbers[time->m / 10]->y = y;
+  vg_draw_sprite(numbers[time->m / 10]);
+  numbers[time->m % 10]->x = x + 35 * 4;
+  numbers[time->m % 10]->y = y;
+  vg_draw_sprite(numbers[time->m % 10]);
+
+  // seconds
+  numbers[time->s / 10]->x = x + 35 * 6;
+  numbers[time->s / 10]->y = y;
+  vg_draw_sprite(numbers[time->s / 10]);
+  numbers[time->s % 10]->x = x + 35 * 7;
+  numbers[time->s % 10]->y = y;
+  vg_draw_sprite(numbers[time->s % 10]);
+
+  // day
+  numbers[time->dd / 10]->x = 430 + x + 35 * 10;
+  numbers[time->dd / 10]->y = y;
+  vg_draw_sprite(numbers[time->dd / 10]);
+  numbers[time->dd % 10]->x = 430 + x + 35 * 11;
+  numbers[time->dd % 10]->y = y;
+  vg_draw_sprite(numbers[time->dd % 10]);
+
+  // month
+  numbers[time->mm / 10]->x = 430 + x + 5 + 35 * 13;
+  numbers[time->mm / 10]->y = y;
+  vg_draw_sprite(numbers[time->mm / 10]);
+  numbers[time->mm % 10]->x = 430 + x + 5 +  35 * 14;
+  numbers[time->mm % 10]->y = y;
+  vg_draw_sprite(numbers[time->mm % 10]);
+
+  // year
+  numbers[2]->x = 430 + x + 5 + 35 * 16;
+  numbers[2]->y = y;
+  vg_draw_sprite(numbers[2]);
+  numbers[0]->x = 430 + x + 5 + 35 * 17;
+  numbers[0]->y = y;
+  vg_draw_sprite(numbers[0]);
+  numbers[time->yyyy / 10]->x = 430 + x + 5 + 35 * 18;
+  numbers[time->yyyy / 10]->y = y;
+  vg_draw_sprite(numbers[time->yyyy / 10]);
+  numbers[time->yyyy % 10]->x = 430 + x + 5 + 35 * 19;
+  numbers[time->yyyy % 10]->y = y;
+  vg_draw_sprite(numbers[time->yyyy % 10]);
+
 } 
