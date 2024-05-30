@@ -157,7 +157,7 @@ void (sp_int)() {
     {
     case GAME:
         sp_ih();
-        while (queue_get_size(inQueue) >= 4) {
+        if (queue_get_size(inQueue) >= 4) {
             int16_t delta_x = dequeue(inQueue);
             delta_x += (dequeue(inQueue) << 8);
             int16_t delta_y = dequeue(inQueue);
