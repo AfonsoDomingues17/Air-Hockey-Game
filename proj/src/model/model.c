@@ -175,6 +175,12 @@ void (loader_sprite)() {
     points_title = create_sprite((xpm_map_t) title_points, 925, 370);
     points_sep = create_sprite((xpm_map_t) white_points, 1015, 440);
 
+    two_points = create_sprite((xpm_map_t) time_two_points, 20+35*2, 15);
+    two_points2 = create_sprite((xpm_map_t) time_two_points, 20+35*5, 15);
+
+    day_sep = create_sprite((xpm_map_t) day_separator, 15+35*12, 20);
+    day_sep2 = create_sprite((xpm_map_t) day_separator, 15+35*15, 20);
+
     numbers_blue[0] = create_sprite((xpm_map_t) blue_zero, 0, 425);
     numbers_blue[1] = create_sprite((xpm_map_t) blue_one, 0, 425);
     numbers_blue[2] = create_sprite((xpm_map_t) blue_two, 0, 425);
@@ -236,6 +242,18 @@ void (unloader_sprite)() {
     delete_sprite(redpuck);
     delete_sprite(bluepuck);
     delete_sprite(Ball);
+    for (int i = 0; i < 3; i++) {
+        delete_sprite(buttons_menu_selected[i]);
+    }
+    for (int i = 0; i < 3; i++) {
+        delete_sprite(buttons_menu_unselected[i]);
+    }
+    for (int i = 0; i < 2; i++) {
+        delete_sprite(buttons_winlose_selected[i]);
+    }
+    for (int i = 0; i < 2; i++) {
+        delete_sprite(buttons_winlose_unselected[i]);
+    }
     for (int i = 0; i < 10; i++) {
         delete_sprite(numbers[i]);
     }
@@ -243,6 +261,10 @@ void (unloader_sprite)() {
     delete_sprite(time_title);
     delete_sprite(points_title);
     delete_sprite(points_sep);
+    delete_sprite(two_points);
+    delete_sprite(two_points2);
+    delete_sprite(day_sep);
+    delete_sprite(day_sep2);
     for (int i = 0; i < 10; i++) {
         delete_sprite(numbers_blue[i]);
     }

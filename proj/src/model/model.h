@@ -60,7 +60,8 @@
 #include "xpm/game/blue numbers/blue_7.h"
 #include "xpm/game/blue numbers/blue_8.h"
 #include "xpm/game/blue numbers/blue_9.h"
-
+#include "xpm/day_separator.h"
+#include "xpm/time_two_points.h"
 
 
 /* Interactable Objects */
@@ -75,6 +76,10 @@ Sprite *points_title;
 Sprite *numbers_red[10];
 Sprite *numbers_blue[10];
 Sprite *points_sep;
+Sprite *two_points;
+Sprite *two_points2;
+Sprite *day_sep;
+Sprite *day_sep2;
 
 /* Menu buttons */
 Sprite* exit_button_unselected;
