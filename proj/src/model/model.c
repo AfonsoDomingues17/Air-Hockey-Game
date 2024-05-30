@@ -15,6 +15,9 @@ int count = 0;
 MainStateMachine mainState = MAIN_MENU;
 int option = 0;
 
+extern Queue *inQueue;
+
+
 /* Timers */
 unsigned int idle_game = 0;
 
@@ -65,8 +68,9 @@ void (mouse_int)() {
         // Update mouse location
         mouse_update(mouse, parsing);
         if(parsing.lb){
-        move_puck_with_mouse(parsing);
-        mouse->visibility = false;
+            move_puck_with_mouse(parsing);
+            sendNewPositions();
+            mouse->visibility = false;
         }
         else mouse->visibility = true;
 
@@ -74,6 +78,21 @@ void (mouse_int)() {
         // Draw new frame
         draw_frame();
 
+    }
+}
+
+void (sp_int)() {
+    switch (mainState)
+    {
+    case GAME:
+        sp_ih();
+        redpuck->x = queue_read_int(inQueue);
+        redpuck->y = queue_read_int(inQueue);
+        draw_frame(); 
+        break;
+    default:
+        serialPort_resetFIFO();
+        break;
     }
 }
 
@@ -113,7 +132,7 @@ void (mouse_update)(Sprite* mouse, struct packet parsing) {
 
     if(new_x > 275 && new_x < 869) mouse->x = new_x;
     mouse->y = new_y;
-    
+  
 }
 
 void (move_puck_with_mouse)(struct packet parsing) {

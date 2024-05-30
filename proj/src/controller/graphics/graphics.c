@@ -55,7 +55,7 @@ int (map_phys_mem)(uint16_t mode) {
   /* Map memory */
   main_buffer = vm_map_phys(SELF, (void *)mr.mr_base, vram_size);
   if(main_buffer == MAP_FAILED)
-    panic("couldn’t map video memory");
+    panic("couldn't map video memory");
 
   secondary_buffer = (uint8_t *) malloc(vram_size);
   return 0;

@@ -22,8 +22,6 @@ void (draw_frame)() {
       else vg_draw_sprite(leaderboard_button_selected);
       if(!exit_button_unselected->selected) vg_draw_sprite(exit_button_unselected);
       else vg_draw_sprite(exit_button_selected);
-
-
       break;
     case GAME:
       vg_draw_background((xpm_map_t) xpm_background, &game_background);

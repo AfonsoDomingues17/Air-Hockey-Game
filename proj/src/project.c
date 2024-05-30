@@ -23,8 +23,11 @@
 #include "controller/graphics/graphics.h"
 #include "model/model.h"
 #include "view/view.h"
+#include "controller/serialport/serialport.h"
 
 extern MainStateMachine mainState;
+
+
 
 int main(int argc, char *argv[]) {
     lcf_set_language("EN-US");
@@ -46,10 +49,12 @@ int init() {
   if (vg_init(0x14C) == NULL) return 1;
 
   /* Subscribe interrupts */
+  if (serialPort_init() != 0) return 1;
   if (timer_subscribe_interrupt()) return 1;
   if (keyboard_subscribe_int()) return 1;
   if (mouse_enable_reporting()) return 1;
   if (mouse_subscribe_int()) return 1;
+  if (sp_subscribe_int()) return 1;
 
   /* Create Interactable Objects */
   loader_sprite();
@@ -69,6 +74,8 @@ int finalize() {
   if (keyboard_unsubscribe_int()) return 1;
   if (mouse_unsubscribe_int()) return 1;
   if (mouse_disable_reporting()) return 1;
+  if (sp_unsubscribe_int()) return 1;
+  if (serialPort_exit() != 0) return 1;
 
   /* Destroy Interactable Objects */
   unloader_sprite();
@@ -96,6 +103,7 @@ int (proj_main_loop)(int argc, char **argv) {
           if (msg.m_notify.interrupts & TIMER_MASK) timer_int();
           if (msg.m_notify.interrupts & KEYBOARD_MASK) keyboard_int();
           if (msg.m_notify.interrupts & MOUSE_MASK) mouse_int();
+          if (msg.m_notify.interrupts & SPMASK) sp_int();
           break;
         default:
           break; /* no other notifications expected: do nothing */    
