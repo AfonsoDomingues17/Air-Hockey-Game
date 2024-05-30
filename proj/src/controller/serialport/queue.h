@@ -16,5 +16,6 @@ int (dequeue)(Queue* queue);
 bool (is_empty)(Queue* queue);
 int (queue_read_int)(Queue* queue);
 int (queue_get_size)(Queue* queue);
-
+bool(queue_is_full)(Queue* queue);
+int(queue_get_capacity)(Queue* queue);
 #endif

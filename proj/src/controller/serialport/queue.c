@@ -7,9 +7,9 @@ Queue* (create_queue)(){
     if(queue == NULL){
         return NULL;
     }
-    queue->capacity = 50;
+    queue->capacity = 100;
     queue->front_index = 0;
-    queue->back_index = 49;
+    queue->back_index = 99;
     queue->size = 0;
     queue->characters = (int*) malloc(queue->capacity * sizeof(int));
     if(queue->characters == NULL){
@@ -63,4 +63,12 @@ int (queue_read_int)(Queue* queue) {
 
 int (queue_get_size)(Queue* queue) {
     return queue->size;
+}
+
+bool(queue_is_full)(Queue* queue) {
+    return queue->size == queue->capacity;
+}
+
+int(queue_get_capacity)(Queue* queue) {
+    return queue->capacity;
 }

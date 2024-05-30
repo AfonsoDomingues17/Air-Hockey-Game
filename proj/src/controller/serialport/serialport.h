@@ -5,6 +5,8 @@
 #include "queue.h"
 #include "model/model.h"
 
+#include <minix/sysutil.h>
+
 #define BASE_ADDR_COM1 0x3F8
 
 #define SPMASK BIT(4) //serial port interrupt mask
@@ -86,7 +88,7 @@ int(sp_unsubscribe_int)();
 
 void(sp_ih)();
 
-int(read_char)();
+int(read_int)();
 
 int(send_char)(uint8_t data);
 
