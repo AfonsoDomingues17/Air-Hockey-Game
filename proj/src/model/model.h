@@ -111,7 +111,7 @@ typedef enum {
     TIE,
 } MainStateMachine;
 
-void reset_option();
+void popOutButtons();
 
 void (timer_int)();
 

@@ -22,7 +22,8 @@ unsigned int time_remaining;
 unsigned int start_time;
 
 /* Player Points */
-int player_1 = 0, player_2 = 0;
+extern int player_1;
+extern int player_2;
 
 /* Menu buttons */
 
@@ -30,16 +31,25 @@ void (timer_int)() {
     timer_int_handler();
     swap_buffers();
     switch (mainState) {
-        case MAIN_MENU:
-            if (time_count % sys_hz() == 0) {
-                draw_frame();
-            }
         case GAME:
             if (time_count % sys_hz() == 0) {
                 if (time_remaining > 0) {
                     time_remaining--; 
                     draw_frame();
-                } 
+                    if (player_1 == 9) {
+                        mainState = LOST;
+                    } else if (player_2 == 9) {
+                        mainState = WIN;
+                    }
+                } else {
+                    if (player_1 == player_2) {
+                        mainState = TIE;
+                    } else if (player_1 > player_2) {
+                        mainState = LOST;
+                    } else if (player_1 < player_2) {
+                        mainState = WIN;
+                    }
+                }
             }
             move(Ball, Ball->xspeed, Ball->yspeed, 1);
             draw_frame();
@@ -49,8 +59,22 @@ void (timer_int)() {
     }
 }
 
-void reset_option() {
-    option = 0;
+void popOutButtons() {
+    if (leave_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
+    if (play_again_button_selected->selected && scancode == SPACE_BREAK_CODE) {
+        mainState = GAME;
+        time_remaining = 10;
+        start_time = time_count / sys_hz(); 
+        time_count = 0;
+        player_1 = 0;
+        player_2 = 0;
+        Ball->x = 550;
+        Ball->y = 410;
+        Ball->xspeed = 0;
+        Ball->yspeed = 0;
+    }
+    if (scancode == W_BREAK_CODE) option_up(buttons_winlose_unselected, buttons_winlose_selected, 2);
+    if (scancode == S_BREAK_CODE) option_down(buttons_winlose_unselected, buttons_winlose_selected, 2);
 }
 
 void (keyboard_int)() {
@@ -61,9 +85,15 @@ void (keyboard_int)() {
             if (exit_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
             if (start_button_selected->selected && scancode == SPACE_BREAK_CODE) {
                 mainState = GAME;
-                time_remaining = 5;
+                time_remaining = 200;
                 start_time = time_count / sys_hz(); 
                 time_count = 0;
+                player_1 = 0;
+                player_2 = 0;
+                Ball->x = 550;
+                Ball->y = 410;
+                Ball->xspeed = 0;
+                Ball->yspeed = 0;
             }
             if (scancode == S_BREAK_CODE) option_down(buttons_menu_unselected, buttons_menu_selected, 3);
             if (scancode == W_BREAK_CODE) option_up(buttons_menu_unselected, buttons_menu_selected, 3);
@@ -73,22 +103,13 @@ void (keyboard_int)() {
             idle_game = time_count;        
             break;
         case WIN:
-            if (leave_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
-            if (play_again_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = GAME;
-            if (scancode == W_BREAK_CODE) option_up(buttons_winlose_unselected, buttons_winlose_selected, 2);
-            if (scancode == S_BREAK_CODE) option_down(buttons_winlose_unselected, buttons_winlose_selected, 2);
+            popOutButtons();
             break;
         case LOST:
-            if (leave_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
-            if (play_again_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = GAME;
-            if (scancode == W_BREAK_CODE) option_up(buttons_winlose_unselected, buttons_winlose_selected, 2);
-            if (scancode == S_BREAK_CODE) option_down(buttons_winlose_unselected, buttons_winlose_selected, 2);
+            popOutButtons();
             break;
         case TIE:
-            if (leave_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
-            if (play_again_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = GAME;
-            if (scancode == W_BREAK_CODE) option_up(buttons_winlose_unselected, buttons_winlose_selected, 2);
-            if (scancode == S_BREAK_CODE) option_down(buttons_winlose_unselected, buttons_winlose_selected, 2);
+            popOutButtons();
             break;
         default:
             break;
@@ -157,7 +178,7 @@ void (loader_sprite)() {
     start_button_selected->selected = true;
     redpuck = create_sprite((xpm_map_t) red_puck, 535, 55);
     bluepuck = create_sprite((xpm_map_t) blue_puck, 535, 730);
-    Ball = create_sprite((xpm_map_t) disk, 500, 500);
+    Ball = create_sprite((xpm_map_t) disk, 550, 410);
 
     numbers[0] = create_sprite((xpm_map_t) white_zero, 0, 0);
     numbers[1] = create_sprite((xpm_map_t) white_one, 0, 0);

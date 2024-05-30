@@ -96,4 +96,10 @@ void bounce_off(Sprite* object1, Sprite* object2);
 */
 void handle_play_area_collision(Sprite* object, bool info[]);
 
+/**
+ * @brief This function detect if the ball hit some of the beacons
+ * @param object Sprite pointer to the sprite object that collided with the beacon
+*/
+bool detect_beacon_collision(Sprite* object, int new_x, int new_y);
+
 #endif
