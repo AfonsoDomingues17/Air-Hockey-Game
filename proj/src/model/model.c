@@ -35,21 +35,12 @@ void (timer_int)() {
                     time_remaining--; 
                     draw_frame();
                 } else {
-                    mainState = WIN;
+                    mainState = TIE;
                     draw_frame();
                 }
             }
             move(Ball, Ball->xspeed, Ball->yspeed, 1);
             draw_frame();
-            break;
-        case LOST:
-            if (time_count % sys_hz() == 0) idle_game++;
-            if(idle_game == 10) {
-                reset_option();
-                mainState = MAIN_MENU;
-                idle_game = 0;
-                draw_frame();
-            }
             break;
         default:
             break;
@@ -68,7 +59,7 @@ void (keyboard_int)() {
             if (exit_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
             if (start_button_selected->selected && scancode == SPACE_BREAK_CODE) {
                 mainState = GAME;
-                time_remaining = 120;
+                time_remaining = 5;
                 start_time = time_count / sys_hz(); 
                 time_count = 0;
             }
@@ -86,6 +77,12 @@ void (keyboard_int)() {
             if (scancode == S_BREAK_CODE) option_down(buttons_winlose_unselected, buttons_winlose_selected, 2);
             break;
         case LOST:
+            if (leave_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
+            if (play_again_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = GAME;
+            if (scancode == W_BREAK_CODE) option_up(buttons_winlose_unselected, buttons_winlose_selected, 2);
+            if (scancode == S_BREAK_CODE) option_down(buttons_winlose_unselected, buttons_winlose_selected, 2);
+            break;
+        case TIE:
             if (leave_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
             if (play_again_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = GAME;
             if (scancode == W_BREAK_CODE) option_up(buttons_winlose_unselected, buttons_winlose_selected, 2);

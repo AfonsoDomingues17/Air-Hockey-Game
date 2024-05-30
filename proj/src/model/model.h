@@ -102,6 +102,7 @@ typedef enum {
     STOP,
     WIN,
     LOST,
+    TIE,
 } MainStateMachine;
 
 void reset_option();
