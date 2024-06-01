@@ -2,8 +2,8 @@
 
 extern unsigned bytes_per_pixel;
 
-int player_1 = 0;
-int player_2 = 0;
+extern int player_1_score;
+extern int player_2_score;
 
 void move(Sprite* object, int16_t x, int16_t y, unsigned layer) {
   int new_x = object->x + x;
@@ -87,19 +87,6 @@ bool detect_collision(Sprite* object1, int new_x, int new_y, Sprite* object2) {
   return false;
 }
 
-bool detect_beacon_collision(Sprite* object, int new_x, int new_y) {
-  bool collided = false;
-  if (new_x >= 476 && new_x <= 676 && new_y >= 21 && new_y <= 35 ) {
-    player_2++;
-    collided = true;
-  }
-  if (new_x >= 476 && new_x <= 676 && new_y >= 793 && new_y <= 810) {
-    player_1++;
-    collided = true;
-  }
-  return collided;
-}
-
 bool pixel_detection(Sprite* object1, int new_x, int new_y, Sprite* object2, int left_border, int right_border, int top_border, int bottom_border) {
   // Loop over every pixel inside the region
   for (int x = left_border; x < right_border; x++) {
@@ -160,6 +147,19 @@ bool detect_middle_field_collision(Sprite *object, int new_x, int new_y) {
     return true;
   }
   return false;
+}
+
+bool detect_beacon_collision(Sprite* object, int new_x, int new_y) {
+  bool collided = false;
+  if (new_x >= 476 && new_x <= 676 && new_y >= 21 && new_y <= 35 ) {
+    player_2_score++;
+    collided = true;
+  }
+  if (new_x >= 476 && new_x <= 676 && new_y >= 793 && new_y <= 810) {
+    player_1_score++;
+    collided = true;
+  }
+  return collided;
 }
 
 void ball_collision(Sprite *object) {

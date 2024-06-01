@@ -13,6 +13,7 @@
 
 #include "physics.h"
 #include "sprites.h"
+
 #include "xpm/xpm_mouse.h"
 #include "xpm/play_unselected.h"
 #include "xpm/play_selected.h"
@@ -113,10 +114,14 @@ typedef enum {
     TIE,
 } MainStateMachine;
 
+/* Menu Related */
+
 /**
  * @brief Function to handle the actions of the buttons in the states win, lost, and tie.
 */
 void popOutButtons();
+
+/* Interrupt handling */
 
 /**
  * @brief Function called when the driver receives a timer interrupt
@@ -160,6 +165,10 @@ void (mouse_update)(Sprite* mouse, struct packet parsing);
  * @see timer_int_handler
 */
 void (rtc_int)();
+
+/* Auxiliary Functions */
+
+void (reset_game_state)();
 
 /* Sprite Creation */
 
