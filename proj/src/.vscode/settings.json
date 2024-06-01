@@ -27,6 +27,9 @@
     "blue_3.h": "c",
     "blue_9.h": "c",
     "blue_8.h": "c",
-    "tie.h": "c"
+    "tie.h": "c",
+    "keyboard.h": "c",
+    "lcf.h": "c",
+    "time_two_points.h": "c"
   },
 }

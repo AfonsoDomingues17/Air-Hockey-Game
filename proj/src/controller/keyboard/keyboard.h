@@ -39,12 +39,31 @@
 
 /* Keyboard driver functions */
 
-int (keyboard_get_conf)(uint8_t *st); /**< @brief Get kbc configuration byte */
+/**
+ * @brief Get kbc configuration byte
+ * 
+ * @param st A reference to the status of the keyboard.
+ * @return 0 if sucessful, 1 otherwise
+*/
+int (keyboard_get_conf)(uint8_t *st);
 
-int (keyboard_subscribe_int)(); /**< @brief Susbscribe to keyboard interrupts */
+/**
+ * @brief Susbscribe to keyboard interrupts
+ * 
+ * @return 0 if sucessful, 1 otherwise
+*/
+int (keyboard_subscribe_int)();
 
-int (keyboard_unsubscribe_int)(); /**< @brief Unsubscribe to keyboard interrupts */
+/**
+ * @brief Unsusbscribe to keyboard interrupts
+ * 
+ * @return 0 if sucessful, 1 otherwise
+*/
+int (keyboard_unsubscribe_int)(); 
 
-void (kbc_ih)(); /**< @brief Keyboard interrupt handler */
+/**
+ * @brief Keyboard interrupt handler
+*/
+void (kbc_ih)();
 
 #endif /* _LCOM_I8042_H */
