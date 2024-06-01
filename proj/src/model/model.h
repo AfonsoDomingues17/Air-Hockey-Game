@@ -13,6 +13,7 @@
 
 #include "physics.h"
 #include "sprites.h"
+
 #include "xpm/xpm_mouse.h"
 #include "xpm/play_unselected.h"
 #include "xpm/play_selected.h"
@@ -113,7 +114,7 @@ typedef enum {
     TIE,
 } MainStateMachine;
 
-void popOutButtons();
+/* Interrupt handling */
 
 void (timer_int)();
 
@@ -123,17 +124,25 @@ void (mouse_int)();
 
 void (sp_int)();
 
+void (rtc_int)();
+
 void (parse_mouse_data)();
 
 void (mouse_update)();
 
-void (rtc_int)();
+/* Auxiliary Functions */
+
+void (reset_game_state)();
 
 /* Sprite Creation */
 
 void (loader_sprite)();
 
 void (unloader_sprite)();
+
+/* Menu Related */
+
+void (popOutButtons)();
 
 void (option_up)(Sprite* buttons_unselected[], Sprite* buttons_selected[], int size);
 

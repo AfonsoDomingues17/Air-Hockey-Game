@@ -18,8 +18,8 @@ xpm_image_t tie_popOut; /* Struct with tie info like color */
 xpm_image_t rules_background;
 
 extern unsigned int time_remaining;
-extern int player_1;
-extern int player_2;
+extern int player_1_score;
+extern int player_2_score;
 
 void (draw_frame)() {
   switch(mainState) {
@@ -51,7 +51,7 @@ void (draw_frame)() {
       vg_draw_sprite(points_title);
       vg_draw_sprite(points_sep);
       vg_draw_time(time_remaining, 35, 420);
-      vg_draw_points(player_1, player_2, 960, 425);
+      vg_draw_points(player_1_score, player_2_score, 960, 425);
       break;
     case WIN:
       vg_drawn_popOut((xpm_map_t) youwon, &youwon_popOut);

@@ -82,20 +82,24 @@ DL(Divisor Latch)  register is a 16-bit register that contains the divisor for s
 Both ends must agree on the communication parameters, such as the number of bits per character, the number of stop bits, and the parity bit. These parameters are set by the LCR register
 */
 
-int(sp_subscribe_int)();
+int (sp_subscribe_int)();
 
-int(sp_unsubscribe_int)();
+int (sp_unsubscribe_int)();
 
-void(sp_ih)();
+void (sp_ih)();
 
-int(read_char)();
+int (read_char)();
 
-int(send_char)(uint8_t data);
+int (send_char)(uint8_t data);
 
-int(serialPort_init)();
+int (serialPort_init)();
 
-int(serialPort_exit)();
+int (serialPort_exit)();
 
-int(serialPort_resetFIFO)();
+int (serialPort_resetFIFO)();
 
-void(transmit_puck_change)(Sprite* bluepuck, int* previous_x, int* previous_y);
+void (transmit_puck_change)(Sprite* bluepuck, int* previous_x, int* previous_y);
+
+void (send_signal)();
+
+int (read_next_position)(int16_t* x, int16_t* y);

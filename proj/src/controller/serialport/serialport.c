@@ -9,15 +9,15 @@ extern Sprite* Ball;
 
 int sp_hook_id = 4;
 
-int(sp_subscribe_int)(){
+int (sp_subscribe_int)() {
     return sys_irqsetpolicy(SP_INTLINE, IRQ_REENABLE | IRQ_EXCLUSIVE, &sp_hook_id);
 }
 
-int(sp_unsubscribe_int)(){
+int (sp_unsubscribe_int)() {
     return sys_irqrmpolicy(&sp_hook_id);
 }
 
-void(sp_ih)(){
+void (sp_ih)() {
     uint8_t iir;
     if(util_sys_inb(BASE_ADDR_COM1 + IIR, &iir) != 0){
         return;
@@ -29,7 +29,7 @@ void(sp_ih)(){
     }
 }
 
-int(read_char)(){
+int (read_char)() {
     uint8_t status;
     uint8_t data;
     if(util_sys_inb(BASE_ADDR_COM1 + LSR, &status) != 0){
@@ -51,7 +51,7 @@ int(read_char)(){
     return 1;
 }
 
-int(send_char)(uint8_t data){
+int (send_char)(uint8_t data) {
     uint8_t status;
     int attempts = 10;
     while(attempts > 0){
@@ -72,7 +72,7 @@ int(send_char)(uint8_t data){
     return 1;
 }
 
-int(serialPort_init)(){
+int (serialPort_init)() {
     uint8_t ier; //interrupt enable register
     if(util_sys_inb(BASE_ADDR_COM1 + IER, &ier) != 0){
         return 1;
@@ -85,12 +85,12 @@ int(serialPort_init)(){
     return 0;
 }
 
-int(serialPort_exit)(){
+int (serialPort_exit)() {
     destroy_queue(inQueue);
     return 0;
 }
 
-int (serialPort_resetFIFO)(){
+int (serialPort_resetFIFO)() {
     if(sys_outb(BASE_ADDR_COM1 + FCR,FCR_ENABLE | FCR_CLEAR_RECEIVE | FCR_CLEAR_XMIT)) return 1;
     while(!is_empty(inQueue)) {
         dequeue(inQueue);
@@ -98,7 +98,7 @@ int (serialPort_resetFIFO)(){
     return 0;
 }
 
-void(transmit_puck_change)(Sprite* bluepuck, int* previous_x, int* previous_y) {
+void (transmit_puck_change)(Sprite* bluepuck, int* previous_x, int* previous_y) {
     if (bluepuck == NULL || (bluepuck->x == *previous_x && bluepuck->y == *previous_y )) return;
     int16_t delta_x = bluepuck->x - *previous_x;
     int16_t delta_y = bluepuck->y - *previous_y;
@@ -111,4 +111,23 @@ void(transmit_puck_change)(Sprite* bluepuck, int* previous_x, int* previous_y) {
     send_char(delta_y >> 8);
     *previous_x = bluepuck->x;
     *previous_y = bluepuck->y;
+}
+
+void (send_signal)() {
+    uint8_t special_char = 0xFF;
+    for (int i = 0; i < 4; i++) {
+        send_char(special_char);
+        tickdelay(1);
+    }
+}
+
+int (read_next_position)(int16_t* x, int16_t* y) {
+    if (queue_get_size(inQueue) >= 4) {
+        *x = (int16_t) dequeue(inQueue);
+        *x += (int16_t) (dequeue(inQueue) << 8);
+        *y = (int16_t) dequeue(inQueue);
+        *y += (int16_t) (dequeue(inQueue) << 8);
+        return 0;
+    }
+    return 1;
 }
