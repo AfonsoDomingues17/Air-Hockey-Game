@@ -43,7 +43,7 @@ int (read_char)() {
                 return 1;
             }
             /* Load Bearing Print */
-            //printf("Received Byte: %x\n", data);
+            printf("Received Byte: %x\n", data);
             enqueue(inQueue, data);
             return 0;
             //dar push do character para a fila porque os dados nao podem ser processados imediatamente
