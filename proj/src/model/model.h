@@ -114,21 +114,57 @@ typedef enum {
     TIE,
 } MainStateMachine;
 
+/* Menu Related */
+
+/**
+ * @brief Function to handle the actions of the buttons in the states win, lost, and tie.
+*/
+void popOutButtons();
+
 /* Interrupt handling */
 
+/**
+ * @brief Function called when the driver receives a timer interrupt
+ * @see timer_int_handler
+*/
 void (timer_int)();
 
+/**
+ * @brief Function called when the driver receives a keyboard interrupt
+ * @see kbc_ih
+*/
 void (keyboard_int)();
 
+/**
+ * @brief Function called when the driver receives a mouse interrupt
+ * @see mouse_ih
+*/
 void (mouse_int)();
 
+/**
+ * @brief Function called when the driver receives a serial line interrupt
+ * @see sp_ih
+*/
 void (sp_int)();
 
+/**
+ * @brief Extracts information of the mouse to a packet struct
+ * @param parsing Parsed packet
+*/
+void (parse_mouse_data)(struct packet* parsing);
+
+/**
+ * @brief Update the position of the mouse sprite using parsed x and y information.
+ * @param mouse Pointer to the mouse sprite.
+ * @param parsing Parsed packet containing x and y coordinates.
+*/
+void (mouse_update)(Sprite* mouse, struct packet parsing);
+
+/**
+ * @brief Function called when the driver receives a real-timer clock interrupt
+ * @see timer_int_handler
+*/
 void (rtc_int)();
-
-void (parse_mouse_data)();
-
-void (mouse_update)();
 
 /* Auxiliary Functions */
 
@@ -136,16 +172,30 @@ void (reset_game_state)();
 
 /* Sprite Creation */
 
+/**
+ * @brief Load predefined sprites.
+*/
 void (loader_sprite)();
 
+/**
+ * @brief Delete all sprites loaded
+*/
 void (unloader_sprite)();
 
-/* Menu Related */
-
-void (popOutButtons)();
-
+/**
+ * @brief When the 'W' key is pressed, change the currently selected/unselected button to false and the next button to true
+ * 
+ * @param buttons_unselected Array containing the unselected sprite buttons.
+ * @param buttons_selected Array containing the selected sprite buttons.
+*/
 void (option_up)(Sprite* buttons_unselected[], Sprite* buttons_selected[], int size);
 
+/**
+ * @brief When the 'S' key is pressed, change the currently selected/unselected button to false and the next button to true
+ * 
+ * @param buttons_unselected Array containing the unselected sprite buttons.
+ * @param buttons_selected Array containing the selected sprite buttons.
+*/
 void (option_down)(Sprite* buttons_unselected[], Sprite* buttons_selected[], int size);
 
 #endif

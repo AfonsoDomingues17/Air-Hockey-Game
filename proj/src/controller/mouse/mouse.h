@@ -7,6 +7,7 @@
 #define MOUSE_MASK BIT(3) /**< @brief Mouse interrupt mask*/
 
 /* I/O port addresses */
+
 #define KBC_OUT_BUF   0x60 /**< @brief Keyboard data register */
 #define KBC_ST_REG    0x64 /**< @brief Keyboard control register */
 #define KBC_CMD_REG    0x64 /**< @brief Keyboard control register */
@@ -54,27 +55,88 @@
 
 #define MOUSE_ACK 0xFA /**< @brief response byte from mouse that acknowledges command */
 
-
+/**
+ * @brief Get kbc configuration byte
+ * 
+ * @param st A reference to the status of the mouse.
+ * @return 0 if sucessful, 1 otherwise
+*/
 int (mouse_get_conf)(uint8_t *st);
 
+/**
+ * @brief Susbscribe to mouse interrupts
+ * 
+ * @return 0 if sucessful, 1 otherwise
+*/
 int (mouse_subscribe_int)();
 
+/**
+ * @brief Unsusbscribe to mouse interrupts
+ * 
+ * @return 0 if sucessful, 1 otherwise
+*/
 int (mouse_unsubscribe_int)();
 
+/**
+ * @brief Mouse interrupt handler
+*/
 void (mouse_ih)();
 
+/**
+ * @brief Writes a command to the KBC_CMD_REG
+ * 
+ * @param cmd The command to be written to the KBC_CMD_REG
+ * @return 0 if sucessful, 1 otherwise
+ */
 int (kbc_write_cmd)(uint8_t cmd);
 
+/**
+ * @brief Writes a command to the KBC_OUT_BUF
+ * 
+ * @param cmd The command to be written to the KBC_OUT_BUF
+ * @return 0 if sucessful, 1 otherwise
+ */
 int (kbc_write_argument)(uint8_t cmd);
 
+/**
+ * @brief Reads the response from the KBC_OUT_BUF
+ * 
+ * @param cmd A reference to store the response received from KBC_OUT_BUF
+ * @return 0 if sucessful, 1 otherwise
+ */
 int (kbc_read_return)(uint8_t* cmd);
 
+/**
+ * @brief Auxiliar function
+ * 
+ * @see kbc_write_cmd
+ * @see kbc_write_argument
+ * @see kbc_read_return
+ * @param cmd The command to be written to the KBC_OUT_BUF.
+ * @return 0 if sucessful, 1 otherwise
+ */
 int (write_mouse_cmd)(uint8_t cmd);
 
+/**
+ * @brief Attempts to enable the mouse by sending a command repeatedly in a loop.
+ * 
+ * @return 0 if sucessful, 1 otherwise
+ */
 int (mouse_enable_reporting)();
 
+/**
+ * @brief Attempts to disable the mouse by sending a command repeatedly in a loop.
+ * 
+ * @return 0 if sucessful, 1 otherwise
+*/
 int (mouse_disable_reporting)();
 
+/**
+ * @brief Extends a 9-bit signed number to a 16-bit signed integer.
+ * 
+ * @param number The 9-bit signed number to be extended.
+ * @return The 16-bit signed integer resulting from the sign extension.
+ */
 int16_t (nine_bit_sign_extension)(uint16_t number);
 
 #endif
