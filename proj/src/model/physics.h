@@ -3,6 +3,7 @@
 
 #include <lcom/lcf.h>
 #include "sprites.h"
+#include "controller/serialport/serialport.h"
 #include "controller/graphics/graphics.h"
 
 #define min(a, b) ((a) < (b) ? (a) : (b))

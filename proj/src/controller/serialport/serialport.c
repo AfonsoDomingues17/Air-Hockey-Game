@@ -116,6 +116,13 @@ void (transmit_puck_change)(Sprite* bluepuck, int* previous_x, int* previous_y) 
     *previous_y = bluepuck->y;
 }
 
+void (transmit_ball_speed)(int x_speed, int y_speed) {
+    send_signal(ball_signal);
+    printf("Sending ball speed X: %x Y: %x\n", x_speed & 0x00FF, y_speed & 0x00FF);
+    send_char(x_speed & 0x00FF);
+    send_char(y_speed & 0x00FF);
+}
+
 void (send_signal)(uint16_t signal) {
     for (int i = 0; i < 2; i++) {
         uint8_t temp = signal & 0xFF;
@@ -126,7 +133,6 @@ void (send_signal)(uint16_t signal) {
 
 int (read_next_signal)(uint16_t* character) {
     if (queue_get_size(inQueue) >= 2) {
-        printf("Queue has things\n");
         *character = dequeue(inQueue);
         *character += (dequeue(inQueue) << 8);
         return 0;

@@ -104,6 +104,8 @@ int (serialPort_resetFIFO)();
 
 void (transmit_puck_change)(Sprite* bluepuck, int* previous_x, int* previous_y);
 
+void (transmit_ball_speed)(int xspeed, int yspeed);
+
 void (send_signal)(uint16_t signal);
 
 int (read_next_signal)(uint16_t* character);

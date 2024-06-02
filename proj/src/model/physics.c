@@ -5,6 +5,8 @@ extern unsigned bytes_per_pixel;
 extern int player_1_score;
 extern int player_2_score;
 
+extern bool is_main_pc;
+
 void move(Sprite* object, int16_t x, int16_t y, unsigned layer) {
   int new_x = object->x + x;
   int new_y = object->y - y;
@@ -17,6 +19,7 @@ void move(Sprite* object, int16_t x, int16_t y, unsigned layer) {
     object->xspeed = x;
     object->yspeed = y;
     if (object == Ball) {
+      
       if (object->xspeed > max_velocity || object->xspeed < -max_velocity) {
         if (object->xspeed < 0) object->xspeed = -max_velocity;
         else object->xspeed = max_velocity;
@@ -51,14 +54,16 @@ bool detect_collision_in_layer(Sprite* object, int new_x, int new_y, unsigned la
       handle_play_area_collision(object, info);
       return true;
     };
-    if (detect_collision(object, new_x, new_y, redpuck)) {
-      bounce_off(object, redpuck);
-      return true;
+    if (is_main_pc) {
+      if (detect_collision(object, new_x, new_y, redpuck)) {
+        bounce_off(object, redpuck);
+        return true;
+      }
+      if (detect_collision(object, new_x, new_y, bluepuck)) {
+        bounce_off(object, bluepuck);
+        return true;
+      };
     }
-    if (detect_collision(object, new_x, new_y, bluepuck)) {
-      bounce_off(object, bluepuck);
-      return true;
-    };
     break;
   case 2: // Collision Layer for Pucks
     if (detect_wall_collision(object, new_x, new_y, info)) {
@@ -70,9 +75,11 @@ bool detect_collision_in_layer(Sprite* object, int new_x, int new_y, unsigned la
       else object->y = middle_field;
       return true;
     }
-    if (detect_collision(object, new_x, new_y, Ball)) {
-      ball_collision(object);
-      return true;
+    if (is_main_pc) {
+      if (detect_collision(object, new_x, new_y, Ball)) {
+        ball_collision(object);
+        return true;
+      }
     }
     break;
   default:
@@ -174,16 +181,19 @@ bool detect_beacon_collision(Sprite* object, int new_x, int new_y) {
 void ball_collision(Sprite *object) {
   Ball->xspeed = object->xspeed;
   Ball->yspeed = object->yspeed;
+  transmit_ball_speed(object->xspeed, object->yspeed);
 }
 
 void bounce_off(Sprite* object1, Sprite* object2) {
   if (object2->xspeed == 0 && object2->yspeed == 0) { // If object2 is stopped then bounce off it
     object1->xspeed *= -1;
     object1->yspeed *= -1;
+    transmit_ball_speed(object1->xspeed, object1->yspeed);
     return;
   } 
   object1->xspeed = object2->xspeed;
   object1->yspeed = object2->yspeed;
+  transmit_ball_speed(object1->xspeed, object1->yspeed);
 }
 
 void handle_play_area_collision(Sprite* object, bool info[]) {
