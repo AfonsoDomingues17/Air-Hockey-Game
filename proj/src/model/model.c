@@ -52,9 +52,9 @@ void (timer_int)() {
             if (time_count % sys_hz() == 0) {
                 if (time_remaining > 0) {
                     time_remaining--; 
-                    if (player_1_score == 9) {
+                    if (player_1_score == 3) {
                         mainState = LOST;
-                    } else if (player_2_score == 9) {
+                    } else if (player_2_score == 3) {
                         mainState = WIN;
                     }
                 } else {
