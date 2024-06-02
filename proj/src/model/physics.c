@@ -16,6 +16,16 @@ void move(Sprite* object, int16_t x, int16_t y, unsigned layer) {
     object->y = new_y;
     object->xspeed = x;
     object->yspeed = y;
+    if (object == Ball) {
+      if (object->xspeed > max_velocity || object->xspeed < -max_velocity) {
+        if (object->xspeed < 0) object->xspeed = -max_velocity;
+        else object->xspeed = max_velocity;
+      }
+      if (object->yspeed > max_velocity || object->yspeed < -max_velocity) {
+        if (object->yspeed < 0) object->yspeed = -max_velocity;
+        else object->yspeed = max_velocity;
+      }
+    }
   }
 }
 
@@ -139,14 +149,13 @@ bool detect_middle_field_collision(Sprite *object, int new_x, int new_y) {
     if (new_y < object->y) return false; // If moving up then there is no collision
     if (new_y + object->height > middle_field) { // If moving down check treshold
       return true;
-    } 
+    } else return false;
   }
   // Bellow middle Field
   if (new_y > object->y) return false; // If moving down then there is no collision
   if (new_y < middle_field) { // If moving up check treshold
     return true;
-  }
-  return false;
+  } else return false;
 }
 
 bool detect_beacon_collision(Sprite* object, int new_x, int new_y) {

@@ -11,7 +11,7 @@ Queue* (create_queue)(){
     queue->front_index = 0;
     queue->back_index = 99;
     queue->size = 0;
-    queue->characters = (int*) malloc(queue->capacity * sizeof(int));
+    queue->characters = (uint8_t*) malloc(queue->capacity * sizeof(uint8_t));
     if(queue->characters == NULL){
         free(queue);
         return NULL;
@@ -25,7 +25,7 @@ void (destroy_queue)(Queue* queue){
     free(queue);
 }
 
-void (enqueue)(Queue* queue, int character){
+void (enqueue)(Queue* queue, uint8_t character){
     if(queue->size == queue->capacity){
         return;
     }
@@ -35,7 +35,7 @@ void (enqueue)(Queue* queue, int character){
     queue->size++;
 }
 
-int (dequeue)(Queue* queue){
+uint8_t (dequeue)(Queue* queue){
     if(queue->size == 0){
         return 1;
     }
@@ -48,17 +48,6 @@ int (dequeue)(Queue* queue){
 
 bool (is_empty)(Queue* queue){
     return queue->size == 0;
-}
-
-int (queue_read_int)(Queue* queue) {
-    int res = 0;
-    for (int i = 0; i < 4; i++) {
-        int temp = dequeue(queue);
-        printf("Read Byte %x\n", temp);
-        temp <<= 8*i;
-        res += temp;
-    }
-    return res;
 }
 
 int (queue_get_size)(Queue* queue) {

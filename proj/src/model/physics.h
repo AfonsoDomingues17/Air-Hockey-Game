@@ -15,6 +15,9 @@
 #define vertical_end 843
 #define middle_field 432
 
+/* Ball Specific Limitations */
+#define max_velocity 16
+
 /* Collidable objects */
 extern Sprite* redpuck;
 extern Sprite* bluepuck;

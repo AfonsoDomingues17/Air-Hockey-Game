@@ -33,15 +33,17 @@ int (read_char)() {
     uint8_t status;
     uint8_t data;
     if(util_sys_inb(BASE_ADDR_COM1 + LSR, &status) != 0){
-        printf("status read failled\n");
+        printf("Status read failled\n");
         return 1;
     }
     if(status & LSR_REC_DATA){
         if(util_sys_inb(BASE_ADDR_COM1 + RBR, &data) == 0){
             if(status & (LSR_OVERRUN_ERR | LSR_PARITY_ERR | LSR_FRAME_ERR)){
-                printf("Ardeu"); //check if there are no errors
+                printf("An Error occured in transmission\n"); //check if there are no errors
                 return 1;
             }
+            /* Load Bearing Print */
+            printf("Received Byte: %x\n", data);
             enqueue(inQueue, data);
             return 0;
             //dar push do character para a fila porque os dados nao podem ser processados imediatamente
@@ -65,6 +67,7 @@ int (send_char)(uint8_t data) {
             if(sys_outb(BASE_ADDR_COM1 + THR, data) != 0){
                 return 1;
             }
+            printf("Sending Byte: %x\n", data);
             return 0;
         }
         attempts--;
@@ -73,6 +76,7 @@ int (send_char)(uint8_t data) {
 }
 
 int (serialPort_init)() {
+
     uint8_t ier; //interrupt enable register
     if(util_sys_inb(BASE_ADDR_COM1 + IER, &ier) != 0){
         return 1;
@@ -82,6 +86,8 @@ int (serialPort_init)() {
         return 1;
     }
     inQueue = create_queue();
+
+    serialPort_resetFIFO();
     return 0;
 }
 
@@ -103,30 +109,26 @@ void (transmit_puck_change)(Sprite* bluepuck, int* previous_x, int* previous_y) 
     int16_t delta_x = bluepuck->x - *previous_x;
     int16_t delta_y = bluepuck->y - *previous_y;
     send_char(delta_x & 0x00FF);
-    tickdelay(1);
     send_char(delta_x >> 8);
-    tickdelay(1);
     send_char(delta_y & 0x00FF);
-    tickdelay(1);
     send_char(delta_y >> 8);
     *previous_x = bluepuck->x;
     *previous_y = bluepuck->y;
 }
 
-void (send_signal)() {
-    uint8_t special_char = 0xFF;
-    for (int i = 0; i < 4; i++) {
-        send_char(special_char);
-        tickdelay(1);
+void (send_signal)(uint16_t signal) {
+    for (int i = 0; i < 2; i++) {
+        uint8_t temp = signal & 0xFF;
+        send_char(temp);
+        signal >>= 8;
     }
 }
 
-int (read_next_position)(int16_t* x, int16_t* y) {
-    if (queue_get_size(inQueue) >= 4) {
-        *x = (int16_t) dequeue(inQueue);
-        *x += (int16_t) (dequeue(inQueue) << 8);
-        *y = (int16_t) dequeue(inQueue);
-        *y += (int16_t) (dequeue(inQueue) << 8);
+int (read_next_signal)(uint16_t* character) {
+    if (queue_get_size(inQueue) >= 2) {
+        printf("Queue has things\n");
+        *character = dequeue(inQueue);
+        *character += (dequeue(inQueue) << 8);
         return 0;
     }
     return 1;

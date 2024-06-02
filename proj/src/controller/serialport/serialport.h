@@ -67,6 +67,10 @@
 #define FCR_CLEAR_XMIT BIT(2) //clears the contents of the transmitter FIFO
 #define FCR_ENABLE_64 BIT(5) //enables 64-byte FIFO
 
+/* Special Signals */
+#define signal1 0x1000
+#define ball_signal 0x2000
+
 /*
 UART REGISTERS
 
@@ -100,6 +104,6 @@ int (serialPort_resetFIFO)();
 
 void (transmit_puck_change)(Sprite* bluepuck, int* previous_x, int* previous_y);
 
-void (send_signal)();
+void (send_signal)(uint16_t signal);
 
-int (read_next_position)(int16_t* x, int16_t* y);
+int (read_next_signal)(uint16_t* character);

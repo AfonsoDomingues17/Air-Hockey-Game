@@ -34,10 +34,15 @@ int player_2_score = 0;
 void (timer_int)() {
     timer_int_handler();
     swap_buffers();
+    uint16_t temp_x = 0;
+    uint16_t temp_y = 0;
     switch (mainState) {
+        case MAIN_MENU:
+            draw_frame();
+            break;
         case GAME:
             puck_transmit++;
-            if (puck_transmit == 2) {
+            if (puck_transmit == 1) {
                 transmit_puck_change(bluepuck, &previous_x, &previous_y);
                 puck_transmit = 0;
             } 
@@ -59,11 +64,27 @@ void (timer_int)() {
                     }
                 }
             }
-            move(Ball, Ball->xspeed, Ball->yspeed, 1);
+            if (!read_next_signal(&temp_x)) {
+                if (temp_x == signal1) {
+                    mainState = MAIN_MENU;
+                    draw_frame();
+                    break;
+                }
+                if (temp_x == ball_signal) {
+                    break;
+                }
+                if (!read_next_signal(&temp_y)) {
+                    move(redpuck, -temp_x, temp_y, 2);
+                    printf("Processed X %x Y %x\n", temp_x, temp_y);
+                }
+            }
+            if (Ball->xspeed != 0 || Ball->yspeed != 0)
+                move(Ball, Ball->xspeed, Ball->yspeed, 1);
             draw_frame();
             break;
         default:
             break;
+        
     }
 }
 
@@ -74,7 +95,8 @@ void (keyboard_int)() {
         case MAIN_MENU:
             if (exit_button_selected->selected && scancode == SPACE_BREAK_CODE) mainState = STOP;
             if (start_button_selected->selected && scancode == SPACE_BREAK_CODE) {
-                send_signal();
+                serialPort_resetFIFO();
+                send_signal(signal1);
                 mainState = GAME;
                 reset_game_state();
             }
@@ -86,7 +108,8 @@ void (keyboard_int)() {
             break;
         case GAME:
             if (scancode == ESC_BREAK_CODE) {
-                send_signal();
+                serialPort_resetFIFO();
+                send_signal(signal1);
                 mainState = MAIN_MENU;
             }
             idle_game = time_count;        
@@ -131,34 +154,35 @@ void (mouse_int)() {
 }
 
 void (sp_int)() {
-    int16_t temp_x = 0;
-    int16_t temp_y = 0;
+    uint16_t temp_x = 0;
+    uint16_t temp_y = 0;
     switch (mainState)
     {
     case MAIN_MENU:
         sp_ih();
-        if (read_next_position(&temp_x, &temp_y)) break;
-        if (((temp_x & 0xFFFF) == 0xFFFF) && ((temp_y & 0xFFFF) == 0xFFFF)) {
+        if (read_next_signal(&temp_x)) break;
+        if (temp_x == signal1) {
+            serialPort_resetFIFO();
             mainState = GAME;
             reset_game_state();
         }
         break;
     case GAME:
         sp_ih();
-        if (read_next_position(&temp_x, &temp_y)) break;
-        if (((temp_x & 0xFFFF) == 0xFFFF) && ((temp_y & 0xFFFF) == 0xFFFF)) {
+        if (read_next_signal(&temp_x)) break;
+        if (temp_x == signal1) {
             mainState = MAIN_MENU;
             draw_frame();
             break;
         }
-        if ( 270 < redpuck->x - temp_x && redpuck->x - temp_x < 801) 
-            redpuck->x -= temp_x;
-        if ( 50 < redpuck->y - temp_y && redpuck->y - temp_y < 450) 
-            redpuck->y -= temp_y;
-        draw_frame();
+        if (temp_x == ball_signal) {
+            break;
+        }
+        if (read_next_signal(&temp_y)) break;
+        printf("Processed X %x Y %x\n", temp_x, temp_y);
+        move(redpuck, -temp_x, temp_y, 2);
         break;
     default:
-        serialPort_resetFIFO();
         break;
     }
 }
