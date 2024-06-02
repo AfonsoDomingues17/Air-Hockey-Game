@@ -1,0 +1,15 @@
+<map id="popOutButtons" name="popOutButtons">
+<area shape="rect" id="Node000001" title="Function to handle the actions of the buttons in the states win, lost, and tie." alt="" coords="5,81,114,108"/>
+<area shape="rect" id="Node000002" href="$model_8c.html#a9dbcae8915810600b663748db58efb29" title="When the &#39;S&#39; key is pressed, change the currently selected/unselected button to false and the next bu..." alt="" coords="186,5,279,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,78,161,42,175,35,177,40,163,46,88,83"/>
+<area shape="rect" id="Node000003" href="$model_8c.html#a04819e2cee7eaa95a55ce71475563a03" title="When the &#39;W&#39; key is pressed, change the currently selected/unselected button to false and the next bu..." alt="" coords="194,56,271,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="114,84,178,75,179,80,115,89"/>
+<area shape="rect" id="Node000004" href="$model_8c.html#ac88833aaa22012dfe7b7ffa32774c93c" title=" " alt="" coords="170,107,295,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="115,100,155,106,154,111,114,105"/>
+<area shape="rect" id="Node000005" href="$serialport_8c.html#a29aeb04007d38927a70893676a01f17a" title="Clears and enables FIFO." alt="" coords="162,157,303,184"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="88,106,163,143,177,149,175,154,161,148,85,111"/>
+<area shape="rect" id="Node000006" href="$queue_8c.html#a0c1e6cc26ccdca2f859bc20c470869f9" title="Removes data from front of queue." alt="" coords="353,132,423,159"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="303,156,337,151,338,156,304,162"/>
+<area shape="rect" id="Node000007" href="$queue_8c.html#a2d5622a97bc74d0bac07121d0ccf05ae" title="Tells caller if queue is empty or not." alt="" coords="351,183,425,209"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="304,180,336,185,335,190,303,185"/>
+</map>

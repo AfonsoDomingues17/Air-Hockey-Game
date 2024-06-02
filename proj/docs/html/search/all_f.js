@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['p_2eh_0',['p.h',['../p_8h.html',1,'']]],
+  ['packet_1',['packet',['../model_8c.html#ab234504ae156fa5b250e34cbb65a7807',1,'model.c']]],
+  ['parse_5fmouse_5fdata_2',['parse_mouse_data',['../model_8c.html#afa158f43cc73ebfd0624348ddd286ab6',1,'parse_mouse_data(struct packet *parsing):&#160;model.c'],['../model_8h.html#afa158f43cc73ebfd0624348ddd286ab6',1,'parse_mouse_data(struct packet *parsing):&#160;model.c']]],
+  ['physics_2ec_3',['physics.c',['../physics_8c.html',1,'']]],
+  ['physics_2eh_4',['physics.h',['../physics_8h.html',1,'']]],
+  ['pixel_5fdetection_5',['pixel_detection',['../physics_8c.html#a70f043e2bff948ff5ee8c17e2c7c600a',1,'pixel_detection(Sprite *object1, int new_x, int new_y, Sprite *object2, int left_border, int right_border, int top_border, int bottom_border):&#160;physics.c'],['../physics_8h.html#a70f043e2bff948ff5ee8c17e2c7c600a',1,'pixel_detection(Sprite *object1, int new_x, int new_y, Sprite *object2, int left_border, int right_border, int top_border, int bottom_border):&#160;physics.c']]],
+  ['play_5fagain_5fbutton_5fselected_6',['play_again_button_selected',['../model_8h.html#ae5f91809e7630341dace81dfc12fb0c5',1,'model.h']]],
+  ['play_5fagain_5fbutton_5funselected_7',['play_again_button_unselected',['../model_8h.html#a01d599c12b8284e1ffc2c2029487e29d',1,'model.h']]],
+  ['play_5fagain_5fselected_2eh_8',['play_again_selected.h',['../play__again__selected_8h.html',1,'']]],
+  ['play_5fagain_5funselected_2eh_9',['play_again_unselected.h',['../play__again__unselected_8h.html',1,'']]],
+  ['play_5fselected_2eh_10',['play_selected.h',['../play__selected_8h.html',1,'']]],
+  ['play_5funselected_2eh_11',['play_unselected.h',['../play__unselected_8h.html',1,'']]],
+  ['player_5f1_5fscore_12',['player_1_score',['../model_8c.html#a7ecd1f474ccba2e0c7f04558685442f6',1,'player_1_score:&#160;model.c'],['../physics_8c.html#a7ecd1f474ccba2e0c7f04558685442f6',1,'player_1_score:&#160;model.c'],['../view_8c.html#a7ecd1f474ccba2e0c7f04558685442f6',1,'player_1_score:&#160;model.c']]],
+  ['player_5f2_5fscore_13',['player_2_score',['../model_8c.html#a304525176903e154a219828b14e7c29f',1,'player_2_score:&#160;model.c'],['../physics_8c.html#a304525176903e154a219828b14e7c29f',1,'player_2_score:&#160;model.c'],['../view_8c.html#a304525176903e154a219828b14e7c29f',1,'player_2_score:&#160;model.c']]],
+  ['points_2eh_14',['points.h',['../points_8h.html',1,'']]],
+  ['points_5fsep_15',['points_sep',['../model_8h.html#a298d2e926d5f555e53ed33ffcfd9c2d3',1,'model.h']]],
+  ['points_5ftitle_16',['points_title',['../model_8h.html#ad6e4604178c993a3fe70638bc77076c2',1,'model.h']]],
+  ['popoutbuttons_17',['popOutButtons',['../model_8c.html#ac1317309723ac5ed7830d7f03383135c',1,'popOutButtons():&#160;model.c'],['../model_8h.html#ac1317309723ac5ed7830d7f03383135c',1,'popOutButtons():&#160;model.c']]],
+  ['previous_5fx_18',['previous_x',['../model_8c.html#adb1fe2478da6bf69916ffca0f10d04ba',1,'model.c']]],
+  ['previous_5fy_19',['previous_y',['../model_8c.html#a88e3619d66b4df856a7896703d1a7b83',1,'model.c']]],
+  ['proj_5fmain_5floop_20',['proj_main_loop',['../project_8c.html#af244d65e69677cf312af1950452ec256',1,'project.c']]],
+  ['project_2ec_21',['project.c',['../project_8c.html',1,'']]],
+  ['puck_5ftransmit_22',['puck_transmit',['../model_8c.html#aa5f86e967b8b1909b219c4e1b8153be3',1,'model.c']]]
+];

@@ -1,0 +1,5 @@
+<map id="detect_collision" name="detect_collision">
+<area shape="rect" id="Node000001" title="Checks collision between two objects." alt="" coords="5,5,117,32"/>
+<area shape="rect" id="Node000002" href="$physics_8c.html#a70f043e2bff948ff5ee8c17e2c7c600a" title="Returns true if the pixels inside a specific area overlapped between 2 objects." alt="" coords="165,5,273,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,16,149,16,149,21,117,21"/>
+</map>

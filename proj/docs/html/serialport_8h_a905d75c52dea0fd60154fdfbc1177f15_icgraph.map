@@ -1,0 +1,30 @@
+<map id="send_signal" name="send_signal">
+<area shape="rect" id="Node000001" title="Transmits a 2 bytes header." alt="" coords="1050,31,1140,57"/>
+<area shape="rect" id="Node000002" href="$model_8c.html#a55af6cf6aec4f5833321668f1d9e2527" title="Function called when the driver receives a keyboard interrupt." alt="" coords="561,5,657,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1034,44,657,24,657,18,1035,38"/>
+<area shape="rect" id="Node000004" href="$serialport_8c.html#ae26325fee9cd44873bedff5f306dd15b" title="Transmits 3 bytes with current speed of the ball object (the first byte sent is a header)" alt="" coords="864,56,1002,83"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1035,56,1003,61,1002,56,1034,51"/>
+<area shape="rect" id="Node000003" href="$project_8c.html#af244d65e69677cf312af1950452ec256" title=" " alt="" coords="5,132,114,159"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="546,26,371,48,266,69,163,97,121,115,85,134,82,129,118,110,161,92,265,64,371,43,546,21"/>
+<area shape="rect" id="Node000005" href="$physics_8c.html#a209790242ee738f768fc381851a650ec" title="Handles collision between puck and Ball." alt="" coords="721,56,816,83"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="849,72,817,72,817,67,849,67"/>
+<area shape="rect" id="Node000012" href="$physics_8c.html#a50d0dfa30bf423df22384371c63b3b08" title="Makes object1 bounce off object2." alt="" coords="727,107,810,133"/>
+<area shape="poly" id="edge15_Node000004_Node000012" title=" " alt="" coords="873,90,811,110,810,105,872,85"/>
+<area shape="rect" id="Node000006" href="$physics_8c.html#a488b0da29a2e654828154e4ec716cd78" title="Detects if object collided with other objects on its layer." alt="" coords="545,99,673,141"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="710,91,674,102,673,97,709,85"/>
+<area shape="rect" id="Node000007" href="$physics_8c.html#a7ac33840c7035855e18a5fafd565ba09" title="Move a sprite object." alt="" coords="445,107,497,133"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="529,123,497,123,497,117,529,117"/>
+<area shape="rect" id="Node000008" href="$model_8c.html#ae4c896cac6d43efb2e8384558e2a8389" title="Function called when the driver receives a mouse interrupt." alt="" coords="162,107,243,133"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="430,106,397,97,344,92,291,97,243,109,242,104,291,92,344,87,398,92,431,101"/>
+<area shape="rect" id="Node000009" href="$model_8c.html#adde1574ecbb89fc8d13f922f12166dbd" title="Update the position of the mouse sprite using parsed x and y information." alt="" coords="291,107,397,133"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="430,123,398,123,398,117,430,117"/>
+<area shape="rect" id="Node000010" href="$model_8c.html#a3e6a2192c999d73e01e226e9e7d83c8f" title="Function called when the driver receives a serial line interrupt." alt="" coords="316,157,372,184"/>
+<area shape="poly" id="edge11_Node000007_Node000010" title=" " alt="" coords="432,138,374,162,372,157,430,133"/>
+<area shape="rect" id="Node000011" href="$model_8c.html#a9df05b246940004343097316105b03b0" title="Function called when the driver receives a timer interrupt." alt="" coords="167,208,238,235"/>
+<area shape="poly" id="edge13_Node000007_Node000011" title=" " alt="" coords="454,148,430,175,399,198,358,214,314,223,239,226,238,221,314,217,356,209,396,194,427,171,450,144"/>
+<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="147,133,114,138,113,133,146,127"/>
+<area shape="poly" id="edge10_Node000009_Node000008" title=" " alt="" coords="275,123,244,123,244,117,275,117"/>
+<area shape="poly" id="edge12_Node000010_Node000003" title=" " alt="" coords="301,170,114,153,114,147,301,164"/>
+<area shape="poly" id="edge14_Node000011_Node000003" title=" " alt="" coords="161,202,85,162,88,157,163,198"/>
+<area shape="poly" id="edge16_Node000012_Node000006" title=" " alt="" coords="711,123,673,123,673,117,711,117"/>
+</map>

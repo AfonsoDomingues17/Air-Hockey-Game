@@ -1,0 +1,117 @@
+<map id="proj_main_loop" name="proj_main_loop">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,1272,114,1299"/>
+<area shape="rect" id="Node000002" href="$project_8c.html#a8a5d9e45fe83de57fd9597193f3b4533" title=" " alt="" coords="179,208,240,235"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,1271,201,250,207,251,65,1272"/>
+<area shape="rect" id="Node000018" href="$project_8c.html#a05848de25ac2dbec233935058a1d24b4" title=" " alt="" coords="190,664,229,691"/>
+<area shape="poly" id="edge13_Node000001_Node000018" title=" " alt="" coords="62,1271,199,705,204,706,67,1272"/>
+<area shape="rect" id="Node000044" href="$model_8c.html#a55af6cf6aec4f5833321668f1d9e2527" title="Function called when the driver receives a keyboard interrupt." alt="" coords="162,1120,257,1147"/>
+<area shape="poly" id="edge32_Node000001_Node000044" title=" " alt="" coords="72,1270,182,1156,186,1160,76,1274"/>
+<area shape="rect" id="Node000053" href="$model_8c.html#ae4c896cac6d43efb2e8384558e2a8389" title="Function called when the driver receives a mouse interrupt." alt="" coords="169,1627,250,1653"/>
+<area shape="poly" id="edge45_Node000001_Node000053" title=" " alt="" coords="69,1298,199,1611,194,1613,64,1300"/>
+<area shape="rect" id="Node000071" href="$model_8c.html#ad836d56f0358e659d8455c8fbb62477f" title="Function called when the driver receives a real&#45;timer clock interrupt." alt="" coords="181,1272,238,1299"/>
+<area shape="poly" id="edge51_Node000001_Node000071" title=" " alt="" coords="114,1283,165,1283,165,1288,114,1288"/>
+<area shape="rect" id="Node000078" href="$model_8c.html#a3e6a2192c999d73e01e226e9e7d83c8f" title="Function called when the driver receives a serial line interrupt." alt="" coords="181,1373,238,1400"/>
+<area shape="poly" id="edge53_Node000001_Node000078" title=" " alt="" coords="82,1297,177,1362,174,1367,79,1301"/>
+<area shape="rect" id="Node000084" href="$model_8c.html#a9df05b246940004343097316105b03b0" title="Function called when the driver receives a timer interrupt." alt="" coords="174,1804,245,1831"/>
+<area shape="poly" id="edge60_Node000001_Node000084" title=" " alt="" coords="67,1299,164,1665,202,1788,197,1790,159,1666,62,1300"/>
+<area shape="rect" id="Node000003" href="$keyboard_8c.html#ac95aea27a5e91b363b876fed881f368f" title="Unsusbscribe to keyboard interrupts." alt="" coords="310,107,482,133"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="222,206,257,174,304,143,317,137,320,142,306,148,261,178,226,210"/>
+<area shape="rect" id="Node000004" href="$mouse_8c.html#aacdb4f83e9e64938ed351cf8016ad2bb" title="Attempts to disable the mouse by sending a command repeatedly in a loop." alt="" coords="313,360,478,387"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="219,234,252,289,277,320,307,346,315,351,312,355,303,350,273,323,247,292,215,236"/>
+<area shape="rect" id="Node000010" href="$mouse_8c.html#a685ad2706aca36d9869a30a19b9f446a" title="Unsusbscribe to mouse interrupts." alt="" coords="317,208,475,235"/>
+<area shape="poly" id="edge5_Node000002_Node000010" title=" " alt="" coords="241,219,301,219,301,224,241,224"/>
+<area shape="rect" id="Node000011" href="$rtc_8c.html#a8ee1ffb1e38bc735ccf645370fe5b573" title="Unsusbscribe to Real&#45;Time Clock interrupts." alt="" coords="339,259,452,285"/>
+<area shape="poly" id="edge6_Node000002_Node000011" title=" " alt="" coords="241,227,330,251,328,257,240,232"/>
+<area shape="rect" id="Node000012" href="$serialport_8c.html#a5dcbe1766f33aef62ae17874467a0ff2" title="Destroys associated queue." alt="" coords="344,157,448,184"/>
+<area shape="poly" id="edge7_Node000002_Node000012" title=" " alt="" coords="240,211,328,186,330,191,241,216"/>
+<area shape="rect" id="Node000014" href="$serialport_8c.html#ad9cfa399df9032ec99f760195d457e9a" title="Unsubscribes to serial port interrupts." alt="" coords="329,5,462,32"/>
+<area shape="poly" id="edge9_Node000002_Node000014" title=" " alt="" coords="211,207,222,173,240,129,267,82,303,42,313,35,316,40,307,46,271,85,245,131,227,175,217,208"/>
+<area shape="rect" id="Node000015" href="$timer_8c.html#a9bd367b315423cb35a0a5a59438d4a15" title="Unsusbscribe to timer interrupts." alt="" coords="305,56,486,83"/>
+<area shape="poly" id="edge10_Node000002_Node000015" title=" " alt="" coords="215,206,247,151,273,119,303,93,312,87,315,92,307,97,277,123,252,154,219,209"/>
+<area shape="rect" id="Node000016" href="$model_8c.html#a838a1fbc1ea03794862269331a39b915" title="Delete all sprites loaded." alt="" coords="341,309,450,336"/>
+<area shape="poly" id="edge11_Node000002_Node000016" title=" " alt="" coords="226,233,261,264,306,295,327,304,325,309,304,300,257,268,222,237"/>
+<area shape="rect" id="Node000005" href="$mouse_8c.html#aecdd51f940be83961956458c45d902e4" title="Auxiliar function." alt="" coords="542,385,668,412"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="479,381,527,387,527,392,478,386"/>
+<area shape="rect" id="Node000013" href="$queue_8c.html#a38a7e8eeb0e1d64f7c65053980764900" title="Free allocated queue memory." alt="" coords="552,157,658,184"/>
+<area shape="poly" id="edge8_Node000012_Node000013" title=" " alt="" coords="448,168,536,168,536,173,448,173"/>
+<area shape="rect" id="Node000017" href="$sprites_8c.html#a7513e13ed0cfd0d83c0fb425ebb914e6" title="Delete a sprite object." alt="" coords="557,309,653,336"/>
+<area shape="poly" id="edge12_Node000016_Node000017" title=" " alt="" coords="451,320,542,320,542,325,451,325"/>
+<area shape="rect" id="Node000019" href="$view_8c.html#a8f7acda4de2ff9ede5fca68d2db09959" title="Draws the current frame based on the state of the main state." alt="" coords="352,1373,439,1400"/>
+<area shape="poly" id="edge14_Node000018_Node000019" title=" " alt="" coords="215,691,253,1012,281,1202,295,1271,307,1309,331,1339,359,1363,356,1367,327,1343,303,1312,290,1272,276,1203,248,1013,209,691"/>
+<area shape="rect" id="Node000028" href="$keyboard_8c.html#a4ac76b0a9a73670254d5fd4c520e458f" title="Susbscribe to keyboard interrupts." alt="" coords="317,715,475,741"/>
+<area shape="poly" id="edge21_Node000018_Node000028" title=" " alt="" coords="230,680,330,707,328,713,228,685"/>
+<area shape="rect" id="Node000029" href="$model_8c.html#a9059fb6c7cf6671d1eae4cf377331a10" title="Load predefined sprites." alt="" coords="348,765,443,792"/>
+<area shape="poly" id="edge22_Node000018_Node000029" title=" " alt="" coords="226,689,261,720,306,751,334,762,332,767,304,756,257,724,222,693"/>
+<area shape="rect" id="Node000031" href="$mouse_8c.html#ab31f656136c4dfbbd57fb72edbfde1e9" title="Attempts to enable the mouse by sending a command repeatedly in a loop." alt="" coords="315,411,477,437"/>
+<area shape="poly" id="edge23_Node000018_Node000031" title=" " alt="" coords="210,663,217,621,233,563,261,501,280,472,303,447,308,444,311,448,307,451,284,476,265,504,238,565,222,623,215,664"/>
+<area shape="rect" id="Node000032" href="$mouse_8c.html#a99506573209b197b84ee22a228b89fbd" title="Susbscribe to mouse interrupts." alt="" coords="324,461,468,488"/>
+<area shape="poly" id="edge25_Node000018_Node000032" title=" " alt="" coords="211,663,222,629,240,585,267,538,303,498,309,494,312,498,307,502,271,541,245,587,227,631,217,664"/>
+<area shape="rect" id="Node000033" href="$rtc_8c.html#ad541628ec8bd836bbd3b2eefd316069b" title="Susbscribe to Real&#45;Time Clock interrupts." alt="" coords="346,512,445,539"/>
+<area shape="poly" id="edge26_Node000018_Node000033" title=" " alt="" coords="215,662,247,607,273,575,304,548,330,535,332,540,306,553,277,579,252,610,219,665"/>
+<area shape="rect" id="Node000034" href="$serialport_8c.html#ae921a93c49a8221ba5d28d57874ff57d" title="Enables reception of data, clears and enables FIFO and creates associated queue." alt="" coords="346,816,446,843"/>
+<area shape="poly" id="edge27_Node000018_Node000034" title=" " alt="" coords="219,690,252,745,277,776,306,802,332,815,329,819,304,806,273,779,247,748,215,692"/>
+<area shape="rect" id="Node000039" href="$serialport_8c.html#a3f915f264c3f82e6f56ff49abd30092d" title="Subscribes to serial port interrupts." alt="" coords="336,563,455,589"/>
+<area shape="poly" id="edge29_Node000018_Node000039" title=" " alt="" coords="222,662,257,630,304,599,320,592,322,596,306,604,261,634,226,666"/>
+<area shape="rect" id="Node000040" href="$timer_8c.html#acde435b094d4859a62daaa2e9362d36a" title="Susbscribe to timer interrupts." alt="" coords="312,613,479,640"/>
+<area shape="poly" id="edge30_Node000018_Node000040" title=" " alt="" coords="228,670,328,642,330,647,230,675"/>
+<area shape="rect" id="Node000041" href="$graphics_8c.html#acc11b311c479b1904fd45e8c6da5fcc3" title="Initialize static global variables, initialize graphical mode and perform memory mapping." alt="" coords="367,664,424,691"/>
+<area shape="poly" id="edge31_Node000018_Node000041" title=" " alt="" coords="229,675,352,675,352,680,229,680"/>
+<area shape="rect" id="Node000020" href="$view_8c.html#a2859457f43a05fd7af0a05adf119b0e7" title="Draws a given .xpm file as the background image." alt="" coords="534,1399,676,1425"/>
+<area shape="poly" id="edge15_Node000019_Node000020" title=" " alt="" coords="440,1389,519,1399,519,1404,439,1395"/>
+<area shape="rect" id="Node000021" href="$view_8c.html#adbe8e1a44e223d8497d3a173f0af67b5" title="Draws the specified time at the given coordinates." alt="" coords="550,1449,660,1476"/>
+<area shape="poly" id="edge16_Node000019_Node000021" title=" " alt="" coords="441,1394,487,1410,535,1435,549,1441,547,1446,533,1440,485,1414,439,1399"/>
+<area shape="rect" id="Node000022" href="$graphics_8c.html#a161510d02bf05c90075c0705badce6ab" title="Draws an Sprite object." alt="" coords="724,1348,830,1375"/>
+<area shape="poly" id="edge20_Node000019_Node000022" title=" " alt="" coords="436,1370,485,1352,509,1341,534,1333,605,1326,676,1333,717,1341,716,1346,675,1339,605,1331,535,1339,511,1346,487,1357,438,1375"/>
+<area shape="rect" id="Node000023" href="$view_8c.html#a757461f80ba3b2a18004200b43e7edbe" title="Draws the real&#45;timer clock time at the given coordinates." alt="" coords="560,1348,650,1375"/>
+<area shape="poly" id="edge18_Node000019_Node000023" title=" " alt="" coords="439,1379,544,1366,545,1371,440,1384"/>
+<area shape="poly" id="edge17_Node000021_Node000022" title=" " alt="" coords="649,1446,674,1435,713,1410,747,1383,750,1387,717,1414,677,1440,652,1451"/>
+<area shape="poly" id="edge19_Node000023_Node000022" title=" " alt="" coords="650,1359,708,1359,708,1364,650,1364"/>
+<area shape="poly" id="edge24_Node000031_Node000005" title=" " alt="" coords="477,411,526,405,527,411,478,417"/>
+<area shape="rect" id="Node000036" href="$serialport_8c.html#a29aeb04007d38927a70893676a01f17a" title="Clears and enables FIFO." alt="" coords="534,981,676,1008"/>
+<area shape="poly" id="edge28_Node000034_Node000036" title=" " alt="" coords="448,840,488,859,519,884,547,913,589,967,584,970,543,916,515,888,485,864,445,844"/>
+<area shape="poly" id="edge33_Node000044_Node000019" title=" " alt="" coords="218,1146,251,1219,277,1265,307,1309,335,1338,364,1362,360,1366,331,1342,303,1312,272,1268,246,1222,214,1148"/>
+<area shape="poly" id="edge44_Node000044_Node000036" title=" " alt="" coords="214,1118,226,1093,245,1061,271,1029,304,1004,357,984,413,975,468,973,519,977,519,982,468,978,413,980,358,989,306,1009,275,1033,249,1064,231,1095,219,1121"/>
+<area shape="rect" id="Node000045" href="$keyboard_8c.html#ab9e6ed7960d60aa4834f2038247d4536" title="Keyboard interrupt handler." alt="" coords="366,1019,425,1045"/>
+<area shape="poly" id="edge34_Node000044_Node000045" title=" " alt="" coords="225,1117,260,1090,304,1062,350,1042,352,1047,306,1066,263,1094,228,1122"/>
+<area shape="rect" id="Node000047" href="$model_8c.html#a9dbcae8915810600b663748db58efb29" title="When the &#39;S&#39; key is pressed, change the currently selected/unselected button to false and the next bu..." alt="" coords="558,1083,652,1109"/>
+<area shape="poly" id="edge35_Node000044_Node000047" title=" " alt="" coords="209,1120,214,1076,228,1015,241,984,257,953,277,926,303,903,351,878,374,871,396,869,418,871,440,878,488,903,502,915,511,928,519,956,523,986,537,1019,557,1046,579,1070,575,1073,553,1049,532,1021,518,987,514,957,507,931,498,919,485,908,438,883,417,877,396,874,375,876,353,883,307,908,281,929,261,956,245,986,234,1017,219,1077,214,1120"/>
+<area shape="rect" id="Node000048" href="$model_8c.html#a04819e2cee7eaa95a55ce71475563a03" title="When the &#39;W&#39; key is pressed, change the currently selected/unselected button to false and the next bu..." alt="" coords="566,1159,644,1185"/>
+<area shape="poly" id="edge36_Node000044_Node000048" title=" " alt="" coords="255,1145,305,1156,437,1168,551,1170,551,1176,437,1174,305,1161,254,1150"/>
+<area shape="rect" id="Node000049" href="$model_8c.html#ac1317309723ac5ed7830d7f03383135c" title="Function to handle the actions of the buttons in the states win, lost, and tie." alt="" coords="342,1120,450,1147"/>
+<area shape="poly" id="edge37_Node000044_Node000049" title=" " alt="" coords="257,1131,326,1131,326,1136,257,1136"/>
+<area shape="rect" id="Node000050" href="$model_8c.html#ac88833aaa22012dfe7b7ffa32774c93c" title=" " alt="" coords="542,1221,668,1248"/>
+<area shape="poly" id="edge42_Node000044_Node000050" title=" " alt="" coords="236,1145,269,1161,306,1176,421,1206,527,1223,526,1229,420,1211,304,1181,267,1166,234,1150"/>
+<area shape="rect" id="Node000051" href="$serialport_8c.html#a905d75c52dea0fd60154fdfbc1177f15" title="Transmits a 2 bytes header." alt="" coords="351,917,441,944"/>
+<area shape="poly" id="edge43_Node000044_Node000051" title=" " alt="" coords="212,1119,223,1087,242,1045,268,1000,303,961,334,942,337,947,307,965,272,1003,246,1047,228,1089,217,1121"/>
+<area shape="poly" id="edge41_Node000049_Node000036" title=" " alt="" coords="446,1117,485,1099,538,1059,580,1018,584,1021,542,1063,488,1104,448,1122"/>
+<area shape="poly" id="edge38_Node000049_Node000047" title=" " alt="" coords="450,1121,543,1104,544,1110,451,1126"/>
+<area shape="poly" id="edge39_Node000049_Node000048" title=" " alt="" coords="451,1141,552,1160,551,1165,450,1146"/>
+<area shape="poly" id="edge40_Node000049_Node000050" title=" " alt="" coords="426,1145,563,1212,561,1217,424,1150"/>
+<area shape="rect" id="Node000054" href="$mouse_8c.html#a834b6d7efe311484d6da234db333cb97" title="Mouse interrupt handler." alt="" coords="357,1627,434,1653"/>
+<area shape="poly" id="edge46_Node000053_Node000054" title=" " alt="" coords="251,1637,341,1637,341,1643,251,1643"/>
+<area shape="rect" id="Node000056" href="$model_8c.html#adde1574ecbb89fc8d13f922f12166dbd" title="Update the position of the mouse sprite using parsed x and y information." alt="" coords="343,1677,449,1704"/>
+<area shape="poly" id="edge47_Node000053_Node000056" title=" " alt="" coords="251,1648,330,1670,328,1675,250,1654"/>
+<area shape="rect" id="Node000057" href="$physics_8c.html#a7ac33840c7035855e18a5fafd565ba09" title="Move a sprite object." alt="" coords="579,1627,631,1653"/>
+<area shape="poly" id="edge49_Node000053_Node000057" title=" " alt="" coords="250,1624,305,1612,396,1605,487,1612,565,1627,564,1632,486,1617,396,1610,305,1617,251,1629"/>
+<area shape="rect" id="Node000069" href="$model_8c.html#afa158f43cc73ebfd0624348ddd286ab6" title="Extracts information of the mouse to a packet struct." alt="" coords="330,1728,461,1755"/>
+<area shape="poly" id="edge50_Node000053_Node000069" title=" " alt="" coords="226,1652,261,1683,306,1714,320,1720,317,1725,304,1718,257,1687,222,1656"/>
+<area shape="poly" id="edge48_Node000056_Node000057" title=" " alt="" coords="449,1675,564,1647,565,1652,450,1680"/>
+<area shape="rect" id="Node000072" href="$rtc_8c.html#aedb2e201a1b9cf3e51050a54bfa400e2" title="Populate all fields of the day_time struct." alt="" coords="341,1272,450,1299"/>
+<area shape="poly" id="edge52_Node000071_Node000072" title=" " alt="" coords="239,1283,326,1283,326,1288,239,1288"/>
+<area shape="poly" id="edge54_Node000078_Node000019" title=" " alt="" coords="238,1384,337,1384,337,1389,238,1389"/>
+<area shape="poly" id="edge58_Node000078_Node000036" title=" " alt="" coords="219,1371,237,1344,255,1310,264,1280,268,1252,267,1202,268,1179,273,1155,284,1131,303,1106,325,1088,346,1077,367,1071,388,1069,433,1067,458,1063,485,1055,567,1014,570,1019,487,1060,459,1069,434,1073,388,1074,368,1076,348,1081,328,1092,307,1110,288,1134,278,1157,274,1179,273,1202,273,1252,269,1281,259,1312,242,1346,223,1374"/>
+<area shape="poly" id="edge57_Node000078_Node000050" title=" " alt="" coords="237,1377,485,1308,532,1283,572,1256,575,1260,535,1287,487,1313,239,1382"/>
+<area shape="poly" id="edge55_Node000078_Node000057" title=" " alt="" coords="220,1399,253,1453,278,1484,306,1511,411,1558,566,1622,564,1627,409,1562,304,1516,274,1487,249,1456,215,1402"/>
+<area shape="rect" id="Node000079" href="$serialport_8c.html#aabe5645e9e3cc6c7ea27a90779ab1e4a" title="Reads the next 2 bytes of the queue if they are available." alt="" coords="336,1475,455,1501"/>
+<area shape="poly" id="edge56_Node000078_Node000079" title=" " alt="" coords="226,1398,261,1430,306,1460,322,1468,320,1472,304,1465,257,1434,222,1402"/>
+<area shape="rect" id="Node000081" href="$serialport_8c.html#af6cc263493df7caac7bd7d0be6b50635" title="Reads every character currently available in the UART FIFO." alt="" coords="370,1424,422,1451"/>
+<area shape="poly" id="edge59_Node000078_Node000081" title=" " alt="" coords="239,1392,355,1424,354,1429,237,1397"/>
+<area shape="poly" id="edge61_Node000084_Node000019" title=" " alt="" coords="213,1803,232,1743,254,1665,261,1626,263,1591,260,1529,260,1500,266,1471,280,1441,303,1410,318,1398,336,1391,338,1395,321,1403,307,1414,284,1444,271,1472,266,1500,265,1529,268,1591,266,1626,260,1666,237,1745,218,1804"/>
+<area shape="poly" id="edge62_Node000084_Node000057" title=" " alt="" coords="246,1815,295,1813,357,1805,423,1790,485,1764,516,1743,544,1717,585,1665,589,1668,548,1720,519,1747,488,1769,424,1795,358,1811,296,1818,246,1820"/>
+<area shape="rect" id="Node000085" href="$view_8c.html#a0d157d997329169f936545f9985e334b" title="Swap the contents of the main buffer with the secondary buffer." alt="" coords="348,1829,444,1856"/>
+<area shape="poly" id="edge63_Node000084_Node000085" title=" " alt="" coords="246,1820,332,1831,332,1837,245,1825"/>
+<area shape="rect" id="Node000086" href="$timer_8c.html#a10fc9c867b15c7da6649311c9987cd17" title="Timer interrupt handler." alt="" coords="336,1880,456,1907"/>
+<area shape="poly" id="edge64_Node000084_Node000086" title=" " alt="" coords="234,1829,306,1866,324,1872,322,1877,304,1870,232,1834"/>
+<area shape="rect" id="Node000087" href="$serialport_8c.html#a30790fb5b1c1da21786179413757982f" title="Transmits 4 bytes with info on the displacement of a puck." alt="" coords="320,1931,472,1957"/>
+<area shape="poly" id="edge65_Node000084_Node000087" title=" " alt="" coords="222,1829,256,1873,280,1896,306,1916,316,1922,314,1927,304,1921,276,1900,252,1876,218,1833"/>
+</map>

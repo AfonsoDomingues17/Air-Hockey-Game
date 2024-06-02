@@ -1,0 +1,11 @@
+<map id="src/controller/graphics/graphics.c" name="src/controller/graphics/graphics.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,155,48"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="53,245,131,272"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,49,69,96,69,132,73,169,86,230,81,231,67,169,63,133,64,96,72,48"/>
+<area shape="rect" id="Node000003" href="$graphics_8h.html" title=" " alt="" coords="79,96,161,123"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="93,47,109,81,105,83,88,50"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="120,124,100,230,95,229,115,123"/>
+<area shape="rect" id="Node000004" href="$sprites_8h.html" title=" " alt="" coords="129,171,263,197"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="135,121,174,158,170,162,131,125"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="179,200,124,238,121,234,176,196"/>
+</map>

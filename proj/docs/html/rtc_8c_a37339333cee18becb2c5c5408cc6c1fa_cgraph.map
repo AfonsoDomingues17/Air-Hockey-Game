@@ -1,0 +1,12 @@
+<map id="rtc_read_convert" name="rtc_read_convert">
+<area shape="rect" id="Node000001" title="Reads data from a specific register of the Real&#45;Time Clock (RTC) and converts it into information." alt="" coords="5,56,122,83"/>
+<area shape="rect" id="Node000002" href="$rtc_8c.html#ad1de59648e78bafc21da393cfdaa179c" title="Converts a Binary&#45;Coded Decimal (BCD) number into a binary number." alt="" coords="170,5,296,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,53,171,34,172,39,112,58"/>
+<area shape="rect" id="Node000003" href="$rtc_8c.html#ac642aa715016e4b0df0beec1e9a409e4" title="Get Real&#45;Time Clock configuration byte." alt="" coords="344,81,446,108"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="122,71,329,87,328,92,122,76"/>
+<area shape="rect" id="Node000005" href="$rtc_8c.html#a097e6f148c2c02b0c89f5d0a510602f5" title="Verify if the Real&#45;Time Clock status is in binary mode." alt="" coords="187,107,279,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="112,81,173,99,171,104,110,86"/>
+<area shape="rect" id="Node000004" href="$utils_8c.html#a2b56f50ba159e9d5115ed1a75eff15d9" title=" " alt="" coords="494,81,585,108"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="447,92,479,92,479,97,447,97"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="279,110,328,102,329,108,280,115"/>
+</map>

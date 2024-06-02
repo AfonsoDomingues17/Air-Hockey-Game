@@ -1,0 +1,36 @@
+<map id="mouse_update" name="mouse_update">
+<area shape="rect" id="Node000001" title="Update the position of the mouse sprite using parsed x and y information." alt="" coords="5,157,112,184"/>
+<area shape="rect" id="Node000002" href="$physics_8c.html#a7ac33840c7035855e18a5fafd565ba09" title="Move a sprite object." alt="" coords="160,157,211,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,168,144,168,144,173,112,173"/>
+<area shape="rect" id="Node000003" href="$physics_8c.html#a488b0da29a2e654828154e4ec716cd78" title="Detects if object collided with other objects on its layer." alt="" coords="259,149,387,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="211,168,243,168,243,173,211,173"/>
+<area shape="rect" id="Node000004" href="$physics_8c.html#a209790242ee738f768fc381851a650ec" title="Handles collision between puck and Ball." alt="" coords="476,56,571,83"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="350,147,388,119,434,92,460,82,462,87,436,97,391,123,353,151"/>
+<area shape="rect" id="Node000010" href="$physics_8c.html#a50d0dfa30bf423df22384371c63b3b08" title="Makes object1 bounce off object2." alt="" coords="482,5,565,32"/>
+<area shape="poly" id="edge10_Node000003_Node000010" title=" " alt="" coords="336,147,375,94,403,66,434,42,466,27,468,32,437,46,406,70,379,98,340,151"/>
+<area shape="rect" id="Node000011" href="$physics_8c.html#a663922472bfad9a831a25f433d81e2fd" title="Checks collision between two objects." alt="" coords="468,107,579,133"/>
+<area shape="poly" id="edge13_Node000003_Node000011" title=" " alt="" coords="387,152,453,135,454,140,388,157"/>
+<area shape="rect" id="Node000013" href="$physics_8c.html#af1ee2764322e8647375911f720d50748" title="This function detect if the ball hit some of the goal posts." alt="" coords="452,157,595,184"/>
+<area shape="poly" id="edge15_Node000003_Node000013" title=" " alt="" coords="388,168,437,168,437,173,388,173"/>
+<area shape="rect" id="Node000014" href="$physics_8c.html#a8ce6f5080baf6b3035b8ae54edbbc2e6" title="Checks if item collided with the middle of the field." alt="" coords="457,208,590,251"/>
+<area shape="poly" id="edge16_Node000003_Node000014" title=" " alt="" coords="388,187,443,203,442,208,387,192"/>
+<area shape="rect" id="Node000015" href="$physics_8c.html#a052fcd24001cf361d530c7342ed92b01" title="Checks collision between object and wall." alt="" coords="453,275,594,301"/>
+<area shape="poly" id="edge17_Node000003_Node000015" title=" " alt="" coords="347,191,387,226,437,260,449,266,447,271,434,265,384,231,344,195"/>
+<area shape="rect" id="Node000016" href="$physics_8c.html#ab8bff77ed7b5e053a7c714340d08ec17" title="This function dictates how an object that hit a wall should behave." alt="" coords="435,325,612,352"/>
+<area shape="poly" id="edge18_Node000003_Node000016" title=" " alt="" coords="338,191,377,251,404,284,437,311,445,316,442,321,434,315,401,287,372,254,333,194"/>
+<area shape="rect" id="Node000005" href="$physics_8c.html#ac616de951faf023315aaace09359b835" title="This function makes sure the Ball speed components are bellow the max_speed." alt="" coords="669,56,788,83"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="572,67,653,67,653,72,572,72"/>
+<area shape="rect" id="Node000006" href="$serialport_8c.html#ae26325fee9cd44873bedff5f306dd15b" title="Transmits 3 bytes with current speed of the ball object (the first byte sent is a header)" alt="" coords="660,5,797,32"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="571,55,656,34,657,39,572,60"/>
+<area shape="rect" id="Node000007" href="$serialport_8c.html#a64d15f0866ad6bb4d73316fa3ff6976c" title="Send a character to the transmission FIFO." alt="" coords="983,5,1065,32"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="798,16,968,16,968,21,798,21"/>
+<area shape="rect" id="Node000009" href="$serialport_8c.html#a905d75c52dea0fd60154fdfbc1177f15" title="Transmits a 2 bytes header." alt="" coords="845,31,935,57"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="798,27,830,32,829,37,797,32"/>
+<area shape="rect" id="Node000008" href="$utils_8c.html#a2b56f50ba159e9d5115ed1a75eff15d9" title=" " alt="" coords="1113,5,1203,32"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="1065,16,1097,16,1097,21,1065,21"/>
+<area shape="poly" id="edge9_Node000009_Node000007" title=" " alt="" coords="935,33,967,27,968,32,936,38"/>
+<area shape="poly" id="edge11_Node000010_Node000005" title=" " alt="" coords="566,26,657,49,656,54,565,32"/>
+<area shape="poly" id="edge12_Node000010_Node000006" title=" " alt="" coords="566,16,644,16,644,21,566,21"/>
+<area shape="rect" id="Node000012" href="$physics_8c.html#a70f043e2bff948ff5ee8c17e2c7c600a" title="Returns true if the pixels inside a specific area overlapped between 2 objects." alt="" coords="674,107,783,133"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="580,117,659,117,659,123,580,123"/>
+</map>

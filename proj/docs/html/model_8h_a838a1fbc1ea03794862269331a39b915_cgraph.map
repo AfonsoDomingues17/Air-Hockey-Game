@@ -1,0 +1,5 @@
+<map id="unloader_sprite" name="unloader_sprite">
+<area shape="rect" id="Node000001" title="Delete all sprites loaded." alt="" coords="5,5,115,32"/>
+<area shape="rect" id="Node000002" href="$sprites_8c.html#a7513e13ed0cfd0d83c0fb425ebb914e6" title="Delete a sprite object." alt="" coords="163,5,258,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,16,147,16,147,21,115,21"/>
+</map>

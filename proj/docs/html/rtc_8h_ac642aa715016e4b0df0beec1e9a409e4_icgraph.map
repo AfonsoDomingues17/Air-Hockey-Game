@@ -1,0 +1,17 @@
+<map id="rtc_get_config" name="rtc_get_config">
+<area shape="rect" id="Node000001" title="Get Real&#45;Time Clock configuration byte." alt="" coords="729,21,831,48"/>
+<area shape="rect" id="Node000002" href="$rtc_8c.html#a37339333cee18becb2c5c5408cc6c1fa" title="Reads data from a specific register of the Real&#45;Time Clock (RTC) and converts it into information." alt="" coords="424,21,541,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="720,19,681,12,635,8,589,12,531,23,530,18,588,6,635,3,681,6,721,14"/>
+<area shape="rect" id="Node000006" href="$rtc_8c.html#a097e6f148c2c02b0c89f5d0a510602f5" title="Verify if the Real&#45;Time Clock status is in binary mode." alt="" coords="589,21,681,48"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="713,37,681,37,681,32,713,32"/>
+<area shape="rect" id="Node000007" href="$rtc_8c.html#aac1b5f22ad08f329d674b7087bcc45e9" title="Verify if the Real&#45;Time Clock is currently updating." alt="" coords="429,72,536,98"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="716,55,681,62,536,83,536,78,681,57,715,50"/>
+<area shape="rect" id="Node000003" href="$rtc_8c.html#aedb2e201a1b9cf3e51050a54bfa400e2" title="Populate all fields of the day_time struct." alt="" coords="267,46,376,73"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="409,49,377,54,376,49,409,43"/>
+<area shape="rect" id="Node000004" href="$model_8c.html#ad836d56f0358e659d8455c8fbb62477f" title="Function called when the driver receives a real&#45;timer clock interrupt." alt="" coords="162,46,219,73"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="251,62,220,62,220,57,251,57"/>
+<area shape="rect" id="Node000005" href="$project_8c.html#af244d65e69677cf312af1950452ec256" title=" " alt="" coords="5,46,114,73"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="146,62,114,62,114,57,146,57"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="573,37,541,37,541,32,573,32"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="414,77,376,71,377,66,414,72"/>
+</map>

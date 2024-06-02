@@ -1,0 +1,7 @@
+<map id="swap_buffers" name="swap_buffers">
+<area shape="rect" id="Node000001" title="Swap the contents of the main buffer with the secondary buffer." alt="" coords="281,5,377,32"/>
+<area shape="rect" id="Node000002" href="$model_8c.html#a9df05b246940004343097316105b03b0" title="Function called when the driver receives a timer interrupt." alt="" coords="162,5,233,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="265,21,233,21,233,16,265,16"/>
+<area shape="rect" id="Node000003" href="$project_8c.html#af244d65e69677cf312af1950452ec256" title=" " alt="" coords="5,5,114,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="146,21,114,21,114,16,146,16"/>
+</map>

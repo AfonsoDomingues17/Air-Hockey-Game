@@ -1,0 +1,7 @@
+<map id="verify_updating" name="verify_updating">
+<area shape="rect" id="Node000001" title="Verify if the Real&#45;Time Clock is currently updating." alt="" coords="5,5,112,32"/>
+<area shape="rect" id="Node000002" href="$rtc_8c.html#ac642aa715016e4b0df0beec1e9a409e4" title="Get Real&#45;Time Clock configuration byte." alt="" coords="160,5,262,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,16,144,16,144,21,112,21"/>
+<area shape="rect" id="Node000003" href="$utils_8c.html#a2b56f50ba159e9d5115ed1a75eff15d9" title=" " alt="" coords="310,5,400,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="263,16,295,16,295,21,263,21"/>
+</map>

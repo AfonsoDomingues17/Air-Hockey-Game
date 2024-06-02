@@ -1,0 +1,7 @@
+<map id="serialPort_resetFIFO" name="serialPort_resetFIFO">
+<area shape="rect" id="Node000001" title="Clears and enables FIFO." alt="" coords="5,31,147,57"/>
+<area shape="rect" id="Node000002" href="$queue_8c.html#a0c1e6cc26ccdca2f859bc20c470869f9" title="Removes data from front of queue." alt="" coords="197,5,267,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,30,181,24,182,29,148,35"/>
+<area shape="rect" id="Node000003" href="$queue_8c.html#a2d5622a97bc74d0bac07121d0ccf05ae" title="Tells caller if queue is empty or not." alt="" coords="195,56,269,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="148,53,180,58,179,63,147,58"/>
+</map>

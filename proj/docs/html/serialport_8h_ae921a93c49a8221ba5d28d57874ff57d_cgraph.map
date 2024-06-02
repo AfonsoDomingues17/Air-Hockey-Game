@@ -1,0 +1,13 @@
+<map id="serialPort_init" name="serialPort_init">
+<area shape="rect" id="Node000001" title="Enables reception of data, clears and enables FIFO and creates associated queue." alt="" coords="5,56,106,83"/>
+<area shape="rect" id="Node000002" href="$queue_8c.html#ab2665c051fb2db3b58a79e73a5416825" title="Allocate memory for queue and initialize variables." alt="" coords="175,5,274,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,53,162,35,163,40,103,58"/>
+<area shape="rect" id="Node000003" href="$serialport_8c.html#a29aeb04007d38927a70893676a01f17a" title="Clears and enables FIFO." alt="" coords="154,56,295,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="106,67,138,67,138,72,106,72"/>
+<area shape="rect" id="Node000006" href="$utils_8c.html#a2b56f50ba159e9d5115ed1a75eff15d9" title=" " alt="" coords="179,107,270,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="103,81,165,100,164,105,102,86"/>
+<area shape="rect" id="Node000004" href="$queue_8c.html#a0c1e6cc26ccdca2f859bc20c470869f9" title="Removes data from front of queue." alt="" coords="345,31,415,57"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="295,55,329,50,330,55,296,60"/>
+<area shape="rect" id="Node000005" href="$queue_8c.html#a2d5622a97bc74d0bac07121d0ccf05ae" title="Tells caller if queue is empty or not." alt="" coords="343,81,417,108"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="296,78,328,84,327,89,295,84"/>
+</map>

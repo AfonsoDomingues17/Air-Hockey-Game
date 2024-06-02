@@ -1,0 +1,7 @@
+<map id="send_signal" name="send_signal">
+<area shape="rect" id="Node000001" title="Transmits a 2 bytes header." alt="" coords="5,5,96,32"/>
+<area shape="rect" id="Node000002" href="$serialport_8c.html#a64d15f0866ad6bb4d73316fa3ff6976c" title="Send a character to the transmission FIFO." alt="" coords="144,5,225,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,16,128,16,128,21,96,21"/>
+<area shape="rect" id="Node000003" href="$utils_8c.html#a2b56f50ba159e9d5115ed1a75eff15d9" title=" " alt="" coords="273,5,363,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="225,16,258,16,258,21,225,21"/>
+</map>

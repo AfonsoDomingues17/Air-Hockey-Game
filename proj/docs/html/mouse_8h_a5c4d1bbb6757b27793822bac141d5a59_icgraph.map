@@ -1,0 +1,16 @@
+<map id="kbc_write_argument" name="kbc_write_argument">
+<area shape="rect" id="Node000001" title="Writes a command to the KBC_OUT_BUF." alt="" coords="659,31,796,57"/>
+<area shape="rect" id="Node000002" href="$mouse_8c.html#aecdd51f940be83961956458c45d902e4" title="Auxiliar function." alt="" coords="484,31,611,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="643,47,611,47,611,41,643,41"/>
+<area shape="rect" id="Node000003" href="$mouse_8c.html#aacdb4f83e9e64938ed351cf8016ad2bb" title="Attempts to disable the mouse by sending a command repeatedly in a loop." alt="" coords="271,5,436,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="469,36,437,32,437,27,469,31"/>
+<area shape="rect" id="Node000006" href="$mouse_8c.html#ab31f656136c4dfbbd57fb72edbfde1e9" title="Attempts to enable the mouse by sending a command repeatedly in a loop." alt="" coords="273,56,435,83"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="469,57,436,61,435,56,469,52"/>
+<area shape="rect" id="Node000004" href="$project_8c.html#a8a5d9e45fe83de57fd9597193f3b4533" title=" " alt="" coords="162,5,223,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="255,21,224,21,224,16,255,16"/>
+<area shape="rect" id="Node000005" href="$project_8c.html#af244d65e69677cf312af1950452ec256" title=" " alt="" coords="5,31,114,57"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="147,30,115,36,114,31,146,25"/>
+<area shape="rect" id="Node000007" href="$project_8c.html#a05848de25ac2dbec233935058a1d24b4" title=" " alt="" coords="173,56,212,83"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="257,72,212,72,212,67,257,67"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="158,66,114,57,115,52,159,60"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="get_color_component" name="get_color_component">
+<area shape="rect" id="Node000001" title="Retrieves a color component from a given color value using a specified bitmask." alt="" coords="5,5,151,32"/>
+<area shape="rect" id="Node000002" href="$graphics_8c.html#af764f03ba94772aac8794bef95902f37" title="Returns a bitmask indicating the position of a red, green, or blue component within a pixel." alt="" coords="199,5,295,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,16,183,16,183,21,151,21"/>
+</map>

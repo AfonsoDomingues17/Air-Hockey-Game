@@ -1,0 +1,5 @@
+<map id="vg_draw_rtc" name="vg_draw_rtc">
+<area shape="rect" id="Node000001" title="Draws the real&#45;timer clock time at the given coordinates." alt="" coords="5,5,95,32"/>
+<area shape="rect" id="Node000002" href="$graphics_8c.html#a161510d02bf05c90075c0705badce6ab" title="Draws an Sprite object." alt="" coords="143,5,249,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,16,127,16,127,21,95,21"/>
+</map>

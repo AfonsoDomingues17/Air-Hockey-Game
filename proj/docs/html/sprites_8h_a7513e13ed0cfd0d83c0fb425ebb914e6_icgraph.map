@@ -1,0 +1,9 @@
+<map id="delete_sprite" name="delete_sprite">
+<area shape="rect" id="Node000001" title="Delete a sprite object." alt="" coords="428,5,524,32"/>
+<area shape="rect" id="Node000002" href="$model_8c.html#a838a1fbc1ea03794862269331a39b915" title="Delete all sprites loaded." alt="" coords="271,5,380,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="413,21,381,21,381,16,413,16"/>
+<area shape="rect" id="Node000003" href="$project_8c.html#a8a5d9e45fe83de57fd9597193f3b4533" title=" " alt="" coords="162,5,223,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="255,21,224,21,224,16,255,16"/>
+<area shape="rect" id="Node000004" href="$project_8c.html#af244d65e69677cf312af1950452ec256" title=" " alt="" coords="5,5,114,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="146,21,114,21,114,16,146,16"/>
+</map>
