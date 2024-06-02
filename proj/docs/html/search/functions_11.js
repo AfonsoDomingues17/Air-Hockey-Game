@@ -1,0 +1,11 @@
+var searchData=
+[
+  ['timer_5fget_5fconf_0',['timer_get_conf',['../timer_8c.html#afafc1891c876602d55b894103b1841a7',1,'timer_get_conf(uint8_t timer, uint8_t *st):&#160;timer.c'],['../timer_8h.html#afafc1891c876602d55b894103b1841a7',1,'timer_get_conf(uint8_t timer, uint8_t *st):&#160;timer.c']]],
+  ['timer_5fint_1',['timer_int',['../model_8c.html#a9df05b246940004343097316105b03b0',1,'timer_int():&#160;model.c'],['../model_8h.html#a9df05b246940004343097316105b03b0',1,'timer_int():&#160;model.c']]],
+  ['timer_5fint_5fhandler_2',['timer_int_handler',['../timer_8c.html#a10fc9c867b15c7da6649311c9987cd17',1,'timer_int_handler():&#160;timer.c'],['../timer_8h.html#a10fc9c867b15c7da6649311c9987cd17',1,'timer_int_handler():&#160;timer.c']]],
+  ['timer_5fset_5ffrequency_3',['timer_set_frequency',['../timer_8c.html#aca1506be74dfc71c6f90772ca269c619',1,'timer_set_frequency(uint8_t timer, uint32_t freq):&#160;timer.c'],['../timer_8h.html#aca1506be74dfc71c6f90772ca269c619',1,'timer_set_frequency(uint8_t timer, uint32_t freq):&#160;timer.c']]],
+  ['timer_5fsubscribe_5finterrupt_4',['timer_subscribe_interrupt',['../timer_8c.html#acde435b094d4859a62daaa2e9362d36a',1,'timer_subscribe_interrupt():&#160;timer.c'],['../timer_8h.html#acde435b094d4859a62daaa2e9362d36a',1,'timer_subscribe_interrupt():&#160;timer.c']]],
+  ['timer_5funsubscribe_5finterrupt_5',['timer_unsubscribe_interrupt',['../timer_8c.html#a9bd367b315423cb35a0a5a59438d4a15',1,'timer_unsubscribe_interrupt():&#160;timer.c'],['../timer_8h.html#a9bd367b315423cb35a0a5a59438d4a15',1,'timer_unsubscribe_interrupt():&#160;timer.c']]],
+  ['transmit_5fball_5fspeed_6',['transmit_ball_speed',['../serialport_8c.html#ae26325fee9cd44873bedff5f306dd15b',1,'transmit_ball_speed(int x_speed, int y_speed):&#160;serialport.c'],['../serialport_8h.html#ab0feb7ea55bef08d4f3c1a1148b26281',1,'transmit_ball_speed(int xspeed, int yspeed):&#160;serialport.c']]],
+  ['transmit_5fpuck_5fchange_7',['transmit_puck_change',['../serialport_8c.html#a30790fb5b1c1da21786179413757982f',1,'transmit_puck_change(Sprite *bluepuck, int *previous_x, int *previous_y):&#160;serialport.c'],['../serialport_8h.html#a30790fb5b1c1da21786179413757982f',1,'transmit_puck_change(Sprite *bluepuck, int *previous_x, int *previous_y):&#160;serialport.c']]]
+];

@@ -1,0 +1,22 @@
+<map id="pixel_detection" name="pixel_detection">
+<area shape="rect" id="Node000001" title="Returns true if the pixels inside a specific area overlapped between 2 objects." alt="" coords="880,51,989,77"/>
+<area shape="rect" id="Node000002" href="$physics_8c.html#a663922472bfad9a831a25f433d81e2fd" title="Checks collision between two objects." alt="" coords="721,51,832,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="865,67,833,67,833,61,865,61"/>
+<area shape="rect" id="Node000003" href="$physics_8c.html#a488b0da29a2e654828154e4ec716cd78" title="Detects if object collided with other objects on its layer." alt="" coords="545,43,673,85"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="705,67,673,67,673,61,705,61"/>
+<area shape="rect" id="Node000004" href="$physics_8c.html#a7ac33840c7035855e18a5fafd565ba09" title="Move a sprite object." alt="" coords="445,51,497,77"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="529,67,497,67,497,61,529,61"/>
+<area shape="rect" id="Node000005" href="$model_8c.html#ae4c896cac6d43efb2e8384558e2a8389" title="Function called when the driver receives a mouse interrupt." alt="" coords="162,25,243,52"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="442,42,421,27,397,16,356,9,314,10,275,18,241,27,239,22,273,12,313,5,356,3,398,11,424,22,446,38"/>
+<area shape="rect" id="Node000007" href="$model_8c.html#adde1574ecbb89fc8d13f922f12166dbd" title="Update the position of the mouse sprite using parsed x and y information." alt="" coords="291,25,397,52"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="430,58,397,52,398,47,431,53"/>
+<area shape="rect" id="Node000008" href="$model_8c.html#a3e6a2192c999d73e01e226e9e7d83c8f" title="Function called when the driver receives a serial line interrupt." alt="" coords="316,76,372,103"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="431,74,373,86,372,81,430,69"/>
+<area shape="rect" id="Node000009" href="$model_8c.html#a9df05b246940004343097316105b03b0" title="Function called when the driver receives a timer interrupt." alt="" coords="167,127,238,153"/>
+<area shape="poly" id="edge10_Node000004_Node000009" title=" " alt="" coords="445,89,423,104,398,117,356,130,313,137,239,143,238,138,313,132,355,124,396,112,420,100,442,85"/>
+<area shape="rect" id="Node000006" href="$project_8c.html#af244d65e69677cf312af1950452ec256" title=" " alt="" coords="5,76,114,103"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="149,60,100,78,98,73,147,55"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="275,41,244,41,244,36,275,36"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="301,92,114,92,114,87,301,87"/>
+<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="151,125,99,106,100,101,153,120"/>
+</map>

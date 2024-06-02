@@ -1,0 +1,8 @@
+<map id="src/controller/serialport/queue.c" name="src/controller/serialport/queue.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,159,48"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="43,171,121,197"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,49,76,83,75,123,79,155,74,156,70,123,71,83,75,48"/>
+<area shape="rect" id="Node000003" href="$queue_8h.html" title=" " alt="" coords="84,96,152,123"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="94,48,109,81,104,83,89,50"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="114,124,97,158,93,155,109,122"/>
+</map>

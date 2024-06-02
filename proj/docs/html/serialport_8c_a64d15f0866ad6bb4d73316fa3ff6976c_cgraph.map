@@ -1,0 +1,5 @@
+<map id="send_char" name="send_char">
+<area shape="rect" id="Node000001" title="Send a character to the transmission FIFO." alt="" coords="5,5,87,32"/>
+<area shape="rect" id="Node000002" href="$utils_8c.html#a2b56f50ba159e9d5115ed1a75eff15d9" title=" " alt="" coords="135,5,225,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,16,119,16,119,21,87,21"/>
+</map>

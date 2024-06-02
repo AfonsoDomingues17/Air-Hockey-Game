@@ -1,0 +1,5 @@
+<map id="vg_draw_time" name="vg_draw_time">
+<area shape="rect" id="Node000001" title="Draws the specified time at the given coordinates." alt="" coords="5,5,105,32"/>
+<area shape="rect" id="Node000002" href="$graphics_8c.html#a161510d02bf05c90075c0705badce6ab" title="Draws an Sprite object." alt="" coords="153,5,259,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,16,137,16,137,21,105,21"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="nine_bit_sign_extension" name="nine_bit_sign_extension">
+<area shape="rect" id="Node000001" title="Extends a 9&#45;bit signed number to a 16&#45;bit signed integer." alt="" coords="470,5,631,32"/>
+<area shape="rect" id="Node000002" href="$model_8c.html#afa158f43cc73ebfd0624348ddd286ab6" title="Extracts information of the mouse to a packet struct." alt="" coords="291,5,422,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="455,21,423,21,423,16,455,16"/>
+<area shape="rect" id="Node000003" href="$model_8c.html#ae4c896cac6d43efb2e8384558e2a8389" title="Function called when the driver receives a mouse interrupt." alt="" coords="162,5,243,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="276,21,244,21,244,16,276,16"/>
+<area shape="rect" id="Node000004" href="$project_8c.html#af244d65e69677cf312af1950452ec256" title=" " alt="" coords="5,5,114,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="146,21,114,21,114,16,146,16"/>
+</map>

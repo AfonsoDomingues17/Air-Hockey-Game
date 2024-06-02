@@ -1,0 +1,10 @@
+<map id="transmit_ball_speed" name="transmit_ball_speed">
+<area shape="rect" id="Node000001" title="Transmits 3 bytes with current speed of the ball object (the first byte sent is a header)" alt="" coords="5,5,143,32"/>
+<area shape="rect" id="Node000002" href="$serialport_8c.html#a64d15f0866ad6bb4d73316fa3ff6976c" title="Send a character to the transmission FIFO." alt="" coords="329,5,410,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,16,314,16,314,21,143,21"/>
+<area shape="rect" id="Node000004" href="$serialport_8c.html#a905d75c52dea0fd60154fdfbc1177f15" title="Transmits a 2 bytes header." alt="" coords="191,31,281,57"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="144,27,176,32,175,37,143,32"/>
+<area shape="rect" id="Node000003" href="$utils_8c.html#a2b56f50ba159e9d5115ed1a75eff15d9" title=" " alt="" coords="458,5,549,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="411,16,443,16,443,21,411,21"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="281,33,313,27,314,32,282,38"/>
+</map>

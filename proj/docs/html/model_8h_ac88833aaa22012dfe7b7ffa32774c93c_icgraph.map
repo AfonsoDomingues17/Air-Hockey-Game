@@ -1,0 +1,13 @@
+<map id="reset_game_state" name="reset_game_state">
+<area shape="rect" id="Node000001" title=" " alt="" coords="461,22,587,49"/>
+<area shape="rect" id="Node000002" href="$model_8c.html#a55af6cf6aec4f5833321668f1d9e2527" title="Function called when the driver receives a keyboard interrupt." alt="" coords="162,22,257,49"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="459,21,413,12,359,8,305,12,253,24,252,19,305,7,359,3,414,7,460,15"/>
+<area shape="rect" id="Node000004" href="$model_8c.html#ac1317309723ac5ed7830d7f03383135c" title="Function to handle the actions of the buttons in the states win, lost, and tie." alt="" coords="305,22,413,49"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="446,38,414,38,414,33,446,33"/>
+<area shape="rect" id="Node000005" href="$model_8c.html#a3e6a2192c999d73e01e226e9e7d83c8f" title="Function called when the driver receives a serial line interrupt." alt="" coords="181,73,238,99"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="454,55,414,63,317,77,238,86,237,81,316,72,413,58,453,50"/>
+<area shape="rect" id="Node000003" href="$project_8c.html#af244d65e69677cf312af1950452ec256" title=" " alt="" coords="5,47,114,74"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="147,48,114,54,114,49,146,43"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="290,38,257,38,257,33,290,33"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="165,81,114,72,115,67,166,76"/>
+</map>

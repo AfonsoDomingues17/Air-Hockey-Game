@@ -1,0 +1,9 @@
+<map id="queue_get_size" name="queue_get_size">
+<area shape="rect" id="Node000001" title="Tells caller how many items the queue has." alt="" coords="433,5,546,32"/>
+<area shape="rect" id="Node000002" href="$serialport_8c.html#aabe5645e9e3cc6c7ea27a90779ab1e4a" title="Reads the next 2 bytes of the queue if they are available." alt="" coords="266,5,385,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="417,21,386,21,386,16,417,16"/>
+<area shape="rect" id="Node000003" href="$model_8c.html#a3e6a2192c999d73e01e226e9e7d83c8f" title="Function called when the driver receives a serial line interrupt." alt="" coords="162,5,218,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="250,21,218,21,218,16,250,16"/>
+<area shape="rect" id="Node000004" href="$project_8c.html#af244d65e69677cf312af1950452ec256" title=" " alt="" coords="5,5,114,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="146,21,114,21,114,16,146,16"/>
+</map>

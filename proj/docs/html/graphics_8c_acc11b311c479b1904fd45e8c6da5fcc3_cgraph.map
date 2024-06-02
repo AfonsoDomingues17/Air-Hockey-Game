@@ -1,0 +1,7 @@
+<map id="vg_init" name="vg_init">
+<area shape="rect" id="Node000001" title="Initialize static global variables, initialize graphical mode and perform memory mapping." alt="" coords="5,31,63,57"/>
+<area shape="rect" id="Node000002" href="$graphics_8c.html#ad18684c32a6c2af59a7759a8804ce27a" title="Sets a given graphic mode." alt="" coords="111,5,245,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="63,36,95,31,95,36,64,42"/>
+<area shape="rect" id="Node000003" href="$graphics_8c.html#ac68cfd8245597989e25aac77a7eef6b5" title="Perform the mapping of physical memory for video access." alt="" coords="119,56,237,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="64,46,104,54,103,59,63,52"/>
+</map>

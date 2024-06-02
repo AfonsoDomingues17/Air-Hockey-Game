@@ -1,0 +1,31 @@
+<map id="src/controller/graphics/graphics.h" name="src/controller/graphics/graphics.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="397,5,547,48"/>
+<area shape="rect" id="Node000002" href="$graphics_8c.html" title=" " alt="" coords="5,96,155,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="383,51,155,102,154,97,382,46"/>
+<area shape="rect" id="Node000003" href="$model_8h.html" title=" " alt="" coords="408,104,536,131"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="475,64,475,104,469,104,469,64"/>
+<area shape="rect" id="Node000006" href="$physics_8h.html" title=" " alt="" coords="148,285,287,312"/>
+<area shape="poly" id="edge16_Node000001_Node000006" title=" " alt="" coords="405,57,361,80,315,109,272,145,237,188,226,213,220,240,219,285,214,285,215,239,221,211,232,185,268,141,312,105,359,75,403,53"/>
+<area shape="rect" id="Node000008" href="$project_8c.html" title=" " alt="" coords="541,285,635,312"/>
+<area shape="poly" id="edge17_Node000001_Node000008" title=" " alt="" coords="524,54,559,78,594,108,627,144,652,186,657,208,652,230,631,263,607,287,603,283,627,260,647,228,652,208,647,188,623,147,591,112,555,82,521,59"/>
+<area shape="rect" id="Node000010" href="$view_8h.html" title=" " alt="" coords="712,195,819,221"/>
+<area shape="poly" id="edge18_Node000001_Node000010" title=" " alt="" coords="563,38,630,59,664,74,695,94,719,118,739,145,763,193,758,196,734,148,715,121,692,98,662,79,629,64,561,44"/>
+<area shape="rect" id="Node000004" href="$serialport_8h.html" title=" " alt="" coords="281,187,434,229"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="438,142,378,188,375,184,435,138"/>
+<area shape="poly" id="edge11_Node000003_Node000008" title=" " alt="" coords="476,146,482,187,489,208,500,228,530,260,564,283,561,287,526,264,495,231,484,210,477,188,470,147"/>
+<area shape="rect" id="Node000009" href="$model_8c.html" title=" " alt="" coords="509,195,638,221"/>
+<area shape="poly" id="edge10_Node000003_Node000009" title=" " alt="" coords="499,139,561,192,557,196,496,143"/>
+<area shape="poly" id="edge12_Node000003_Node000010" title=" " alt="" coords="523,133,718,192,716,197,521,138"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="402,175,460,129,464,133,406,180"/>
+<area shape="rect" id="Node000005" href="$serialport_8c.html" title=" " alt="" coords="310,277,463,320"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="371,243,382,276,377,278,366,245"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="313,240,239,287,236,282,310,236"/>
+<area shape="poly" id="edge9_Node000004_Node000008" title=" " alt="" coords="426,233,556,282,554,287,425,238"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="221,269,237,226,249,204,266,185,299,162,335,144,407,124,408,129,337,149,301,166,270,189,254,207,241,228,226,271"/>
+<area shape="rect" id="Node000007" href="$physics_8c.html" title=" " alt="" coords="148,368,287,395"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="220,328,220,368,215,368,215,328"/>
+<area shape="poly" id="edge13_Node000010_Node000003" title=" " alt="" coords="715,192,520,134,521,129,716,187"/>
+<area shape="poly" id="edge14_Node000010_Node000008" title=" " alt="" coords="727,231,615,287,612,282,725,226"/>
+<area shape="rect" id="Node000011" href="$view_8c.html" title=" " alt="" coords="712,285,819,312"/>
+<area shape="poly" id="edge15_Node000010_Node000011" title=" " alt="" coords="768,237,768,285,763,285,763,237"/>
+</map>

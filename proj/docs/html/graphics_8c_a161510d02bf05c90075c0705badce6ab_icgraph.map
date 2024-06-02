@@ -1,0 +1,27 @@
+<map id="vg_draw_sprite" name="vg_draw_sprite">
+<area shape="rect" id="Node000001" title="Draws an Sprite object." alt="" coords="598,81,704,108"/>
+<area shape="rect" id="Node000002" href="$view_8c.html#a8f7acda4de2ff9ede5fca68d2db09959" title="Draws the current frame based on the state of the main state." alt="" coords="305,81,392,108"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="615,75,584,59,549,47,495,38,441,47,402,63,370,83,367,79,399,58,440,41,495,32,550,41,586,54,618,71"/>
+<area shape="rect" id="Node000008" href="$view_8c.html#adbe8e1a44e223d8497d3a173f0af67b5" title="Draws the specified time at the given coordinates." alt="" coords="440,56,550,83"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="582,86,550,81,550,76,583,81"/>
+<area shape="rect" id="Node000009" href="$view_8c.html#a757461f80ba3b2a18004200b43e7edbe" title="Draws the real&#45;timer clock time at the given coordinates." alt="" coords="450,107,540,133"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="583,108,541,115,540,110,582,103"/>
+<area shape="rect" id="Node000010" href="$view_8c.html#ac069eea5e40b675045e54b60ffcab22f" title="Draws the specified time at the given coordinates." alt="" coords="445,157,545,184"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="610,118,551,148,527,159,525,154,548,143,608,113"/>
+<area shape="rect" id="Node000003" href="$project_8c.html#a05848de25ac2dbec233935058a1d24b4" title=" " alt="" coords="190,5,229,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="308,76,256,46,228,31,230,26,258,42,311,71"/>
+<area shape="rect" id="Node000005" href="$model_8c.html#a55af6cf6aec4f5833321668f1d9e2527" title="Function called when the driver receives a keyboard interrupt." alt="" coords="162,56,257,83"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="289,87,257,81,258,75,290,81"/>
+<area shape="rect" id="Node000006" href="$model_8c.html#a3e6a2192c999d73e01e226e9e7d83c8f" title="Function called when the driver receives a serial line interrupt." alt="" coords="181,107,238,133"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="290,108,238,118,237,112,289,103"/>
+<area shape="rect" id="Node000007" href="$model_8c.html#a9df05b246940004343097316105b03b0" title="Function called when the driver receives a timer interrupt." alt="" coords="174,157,245,184"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="311,118,258,148,237,159,235,154,256,143,308,114"/>
+<area shape="rect" id="Node000004" href="$project_8c.html#af244d65e69677cf312af1950452ec256" title=" " alt="" coords="5,81,114,108"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="178,37,89,83,86,79,175,33"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="147,83,114,88,114,83,146,77"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="165,115,114,106,115,101,166,110"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="166,152,86,111,89,106,169,147"/>
+<area shape="poly" id="edge11_Node000008_Node000002" title=" " alt="" coords="425,84,393,90,393,84,424,79"/>
+<area shape="poly" id="edge13_Node000009_Node000002" title=" " alt="" coords="434,112,392,105,393,100,435,107"/>
+<area shape="poly" id="edge15_Node000010_Node000002" title=" " alt="" coords="449,153,439,148,373,111,375,106,442,143,451,148"/>
+</map>

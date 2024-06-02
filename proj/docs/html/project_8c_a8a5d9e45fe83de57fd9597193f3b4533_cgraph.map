@@ -1,0 +1,35 @@
+<map id="finalize" name="finalize">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,183,67,209"/>
+<area shape="rect" id="Node000002" href="$keyboard_8c.html#ac95aea27a5e91b363b876fed881f368f" title="Unsusbscribe to keyboard interrupts." alt="" coords="119,5,292,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="38,182,46,153,61,115,83,76,113,42,119,38,122,42,116,46,87,79,66,117,51,154,43,183"/>
+<area shape="rect" id="Node000003" href="$mouse_8c.html#aacdb4f83e9e64938ed351cf8016ad2bb" title="Attempts to disable the mouse by sending a command repeatedly in a loop." alt="" coords="123,56,288,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="42,181,69,137,89,113,113,93,122,87,125,92,116,97,93,117,73,140,46,184"/>
+<area shape="rect" id="Node000009" href="$mouse_8c.html#a685ad2706aca36d9869a30a19b9f446a" title="Unsusbscribe to mouse interrupts." alt="" coords="126,107,285,133"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="53,180,81,161,114,143,129,136,131,141,116,148,84,166,56,184"/>
+<area shape="rect" id="Node000010" href="$rtc_8c.html#a8ee1ffb1e38bc735ccf645370fe5b573" title="Unsusbscribe to Real&#45;Time Clock interrupts." alt="" coords="149,157,262,184"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="67,189,133,179,134,184,68,194"/>
+<area shape="rect" id="Node000011" href="$serialport_8c.html#a5dcbe1766f33aef62ae17874467a0ff2" title="Destroys associated queue." alt="" coords="153,208,258,235"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="68,198,138,209,138,214,67,203"/>
+<area shape="rect" id="Node000013" href="$serialport_8c.html#ad9cfa399df9032ec99f760195d457e9a" title="Unsubscribes to serial port interrupts." alt="" coords="139,259,272,285"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="56,208,84,226,116,244,131,251,129,256,114,249,81,231,53,212"/>
+<area shape="rect" id="Node000014" href="$timer_8c.html#a9bd367b315423cb35a0a5a59438d4a15" title="Unsusbscribe to timer interrupts." alt="" coords="115,309,296,336"/>
+<area shape="poly" id="edge15_Node000001_Node000014" title=" " alt="" coords="46,208,73,252,93,275,116,295,125,300,122,305,113,299,89,279,69,255,42,211"/>
+<area shape="rect" id="Node000015" href="$model_8c.html#a838a1fbc1ea03794862269331a39b915" title="Delete all sprites loaded." alt="" coords="151,360,260,387"/>
+<area shape="poly" id="edge16_Node000001_Node000015" title=" " alt="" coords="43,209,51,238,66,275,87,313,116,346,138,358,135,363,113,350,83,316,61,277,46,239,38,210"/>
+<area shape="rect" id="Node000004" href="$mouse_8c.html#aecdd51f940be83961956458c45d902e4" title="Auxiliar function." alt="" coords="344,56,470,83"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="288,67,328,67,328,72,288,72"/>
+<area shape="rect" id="Node000005" href="$mouse_8c.html#a99b53b1b8d7add376816a7374cecc60a" title="Reads the response from the KBC_OUT_BUF." alt="" coords="530,5,644,32"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="457,53,522,34,523,39,458,58"/>
+<area shape="rect" id="Node000007" href="$mouse_8c.html#a5c4d1bbb6757b27793822bac141d5a59" title="Writes a command to the KBC_OUT_BUF." alt="" coords="518,56,656,83"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="471,67,503,67,503,72,471,72"/>
+<area shape="rect" id="Node000008" href="$mouse_8c.html#aa1dcd642657d7da0376e36cda809b0e3" title="Writes a command to the KBC_CMD_REG." alt="" coords="533,107,641,133"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="458,81,523,99,522,105,457,86"/>
+<area shape="rect" id="Node000006" href="$utils_8c.html#a2b56f50ba159e9d5115ed1a75eff15d9" title=" " alt="" coords="704,56,794,83"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="633,30,690,48,688,53,631,35"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="656,67,688,67,688,72,656,72"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="631,103,688,85,690,90,633,109"/>
+<area shape="rect" id="Node000012" href="$queue_8c.html#a38a7e8eeb0e1d64f7c65053980764900" title="Free allocated queue memory." alt="" coords="354,208,460,235"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="258,219,339,219,339,224,258,224"/>
+<area shape="rect" id="Node000016" href="$sprites_8c.html#a7513e13ed0cfd0d83c0fb425ebb914e6" title="Delete a sprite object." alt="" coords="360,360,455,387"/>
+<area shape="poly" id="edge17_Node000015_Node000016" title=" " alt="" coords="261,371,344,371,344,376,261,376"/>
+</map>

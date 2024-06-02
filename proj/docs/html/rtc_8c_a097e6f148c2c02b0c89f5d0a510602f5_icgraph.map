@@ -1,0 +1,11 @@
+<map id="verify_binary" name="verify_binary">
+<area shape="rect" id="Node000001" title="Verify if the Real&#45;Time Clock status is in binary mode." alt="" coords="589,5,681,32"/>
+<area shape="rect" id="Node000002" href="$rtc_8c.html#a37339333cee18becb2c5c5408cc6c1fa" title="Reads data from a specific register of the Real&#45;Time Clock (RTC) and converts it into information." alt="" coords="424,5,541,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="573,21,541,21,541,16,573,16"/>
+<area shape="rect" id="Node000003" href="$rtc_8c.html#aedb2e201a1b9cf3e51050a54bfa400e2" title="Populate all fields of the day_time struct." alt="" coords="267,5,376,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="409,21,377,21,377,16,409,16"/>
+<area shape="rect" id="Node000004" href="$model_8c.html#ad836d56f0358e659d8455c8fbb62477f" title="Function called when the driver receives a real&#45;timer clock interrupt." alt="" coords="162,5,219,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="251,21,220,21,220,16,251,16"/>
+<area shape="rect" id="Node000005" href="$project_8c.html#af244d65e69677cf312af1950452ec256" title=" " alt="" coords="5,5,114,32"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="146,21,114,21,114,16,146,16"/>
+</map>

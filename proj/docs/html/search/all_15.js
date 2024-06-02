@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['v_2eh_0',['v.h',['../v_8h.html',1,'']]],
+  ['v_5fres_1',['v_res',['../view_8c.html#a5bda1b499253a8fbf3cab646f8760391',1,'view.c']]],
+  ['vbe_5fcall_2',['VBE_CALL',['../graphics_8h.html#aaa7fbe1e02a424af8eb9efc320d936c0',1,'graphics.h']]],
+  ['vbe_5fint_3',['VBE_INT',['../graphics_8h.html#a0ab1b58dbc6c6d4c63156c11f0a4d854',1,'graphics.h']]],
+  ['verify_5fbinary_4',['verify_binary',['../rtc_8c.html#a097e6f148c2c02b0c89f5d0a510602f5',1,'verify_binary():&#160;rtc.c'],['../rtc_8h.html#a097e6f148c2c02b0c89f5d0a510602f5',1,'verify_binary():&#160;rtc.c']]],
+  ['verify_5fupdating_5',['verify_updating',['../rtc_8c.html#aac1b5f22ad08f329d674b7087bcc45e9',1,'verify_updating():&#160;rtc.c'],['../rtc_8h.html#aac1b5f22ad08f329d674b7087bcc45e9',1,'verify_updating():&#160;rtc.c']]],
+  ['vertical_5fend_6',['vertical_end',['../physics_8h.html#a7495f44f930a3941f362d8404d3ef73b',1,'physics.h']]],
+  ['vertical_5fstart_7',['vertical_start',['../physics_8h.html#adfc37eff4a9edcaca61104aa584c2c4b',1,'physics.h']]],
+  ['vg_5fdraw_5fbackground_8',['vg_draw_background',['../view_8c.html#a2859457f43a05fd7af0a05adf119b0e7',1,'vg_draw_background(xpm_map_t xpm, xpm_image_t *img):&#160;view.c'],['../view_8h.html#a2859457f43a05fd7af0a05adf119b0e7',1,'vg_draw_background(xpm_map_t xpm, xpm_image_t *img):&#160;view.c']]],
+  ['vg_5fdraw_5fhline_9',['vg_draw_hline',['../graphics_8c.html#adb08b276272848bc7f3bccc0f5e770c8',1,'vg_draw_hline(uint16_t x, uint16_t y, uint16_t len, uint32_t color):&#160;graphics.c'],['../graphics_8h.html#adb08b276272848bc7f3bccc0f5e770c8',1,'vg_draw_hline(uint16_t x, uint16_t y, uint16_t len, uint32_t color):&#160;graphics.c']]],
+  ['vg_5fdraw_5fpoints_10',['vg_draw_points',['../view_8c.html#adbe8e1a44e223d8497d3a173f0af67b5',1,'vg_draw_points(int player_1, int player_2, int x, int y):&#160;view.c'],['../view_8h.html#adbe8e1a44e223d8497d3a173f0af67b5',1,'vg_draw_points(int player_1, int player_2, int x, int y):&#160;view.c']]],
+  ['vg_5fdraw_5frtc_11',['vg_draw_rtc',['../view_8c.html#a757461f80ba3b2a18004200b43e7edbe',1,'vg_draw_rtc(day_time *time, int x, int y):&#160;view.c'],['../view_8h.html#a757461f80ba3b2a18004200b43e7edbe',1,'vg_draw_rtc(day_time *time, int x, int y):&#160;view.c']]],
+  ['vg_5fdraw_5fsprite_12',['vg_draw_sprite',['../graphics_8c.html#a161510d02bf05c90075c0705badce6ab',1,'vg_draw_sprite(Sprite *sprite):&#160;graphics.c'],['../graphics_8h.html#a161510d02bf05c90075c0705badce6ab',1,'vg_draw_sprite(Sprite *sprite):&#160;graphics.c']]],
+  ['vg_5fdraw_5ftime_13',['vg_draw_time',['../view_8c.html#ac069eea5e40b675045e54b60ffcab22f',1,'vg_draw_time(unsigned int time, int x, int y):&#160;view.c'],['../view_8h.html#ac069eea5e40b675045e54b60ffcab22f',1,'vg_draw_time(unsigned int time, int x, int y):&#160;view.c']]],
+  ['vg_5fdraw_5fxpm_14',['vg_draw_xpm',['../graphics_8c.html#af9979d37c4242c6c107dfdaa4dd89c8f',1,'vg_draw_xpm(xpm_map_t xpm, uint16_t x, uint16_t y):&#160;graphics.c'],['../graphics_8h.html#af9979d37c4242c6c107dfdaa4dd89c8f',1,'vg_draw_xpm(xpm_map_t xpm, uint16_t x, uint16_t y):&#160;graphics.c']]],
+  ['vg_5fdrawn_5fpopout_15',['vg_drawn_popOut',['../view_8c.html#a3c07e7c1c7fe0418db839da4cef907ed',1,'vg_drawn_popOut(xpm_map_t xpm, xpm_image_t *img):&#160;view.c'],['../view_8h.html#a3c07e7c1c7fe0418db839da4cef907ed',1,'vg_drawn_popOut(xpm_map_t xpm, xpm_image_t *img):&#160;view.c']]],
+  ['vg_5finit_16',['vg_init',['../graphics_8c.html#acc11b311c479b1904fd45e8c6da5fcc3',1,'vg_init(uint16_t mode):&#160;graphics.c'],['../graphics_8h.html#acc11b311c479b1904fd45e8c6da5fcc3',1,'vg_init(uint16_t mode):&#160;graphics.c']]],
+  ['video_5fcard_5fint_17',['VIDEO_CARD_INT',['../graphics_8h.html#a781328e90ef1d3099118b7a31a18c1cb',1,'graphics.h']]],
+  ['view_2ec_18',['view.c',['../view_8c.html',1,'']]],
+  ['view_2eh_19',['view.h',['../view_8h.html',1,'']]],
+  ['visibility_20',['visibility',['../struct_sprite.html#abd1c52b9a33ff88bffef300ac838844e',1,'Sprite']]],
+  ['vram_5fsize_21',['vram_size',['../graphics_8c.html#a17b12b87c65aaa04215d9bdb7e9e84dd',1,'vram_size:&#160;graphics.c'],['../view_8c.html#a17b12b87c65aaa04215d9bdb7e9e84dd',1,'vram_size:&#160;graphics.c']]]
+];

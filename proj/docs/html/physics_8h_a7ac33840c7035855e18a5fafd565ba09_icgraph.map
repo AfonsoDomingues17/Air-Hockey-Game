@@ -1,0 +1,16 @@
+<map id="move" name="move">
+<area shape="rect" id="Node000001" title="Move a sprite object." alt="" coords="445,51,497,77"/>
+<area shape="rect" id="Node000002" href="$model_8c.html#ae4c896cac6d43efb2e8384558e2a8389" title="Function called when the driver receives a mouse interrupt." alt="" coords="162,25,243,52"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="442,42,421,27,397,16,356,9,314,10,275,18,241,27,239,22,273,12,313,5,356,3,398,11,424,22,446,38"/>
+<area shape="rect" id="Node000004" href="$model_8c.html#adde1574ecbb89fc8d13f922f12166dbd" title="Update the position of the mouse sprite using parsed x and y information." alt="" coords="291,25,397,52"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="430,58,397,52,398,47,431,53"/>
+<area shape="rect" id="Node000005" href="$model_8c.html#a3e6a2192c999d73e01e226e9e7d83c8f" title="Function called when the driver receives a serial line interrupt." alt="" coords="174,76,231,103"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="430,70,231,89,231,84,430,65"/>
+<area shape="rect" id="Node000006" href="$model_8c.html#a9df05b246940004343097316105b03b0" title="Function called when the driver receives a timer interrupt." alt="" coords="309,127,380,153"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="435,88,370,128,367,124,432,84"/>
+<area shape="rect" id="Node000003" href="$project_8c.html#af244d65e69677cf312af1950452ec256" title=" " alt="" coords="5,76,114,103"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="149,60,100,78,98,73,147,55"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="275,41,244,41,244,36,275,36"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="159,92,114,92,114,87,159,87"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="292,137,161,117,111,106,112,101,162,112,293,132"/>
+</map>

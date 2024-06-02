@@ -1,0 +1,5 @@
+<map id="loader_sprite" name="loader_sprite">
+<area shape="rect" id="Node000001" title="Load predefined sprites." alt="" coords="5,5,101,32"/>
+<area shape="rect" id="Node000002" href="$sprites_8c.html#abfa3f5e07cf276e0fd70cc89597d5d5f" title="Create a sprite object." alt="" coords="149,5,245,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,16,133,16,133,21,101,21"/>
+</map>

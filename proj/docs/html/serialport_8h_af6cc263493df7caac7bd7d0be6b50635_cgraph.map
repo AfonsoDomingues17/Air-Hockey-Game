@@ -1,0 +1,10 @@
+<map id="sp_ih" name="sp_ih">
+<area shape="rect" id="Node000001" title="Reads every character currently available in the UART FIFO." alt="" coords="5,31,58,57"/>
+<area shape="rect" id="Node000002" href="$serialport_8c.html#ad253b4791128254e78fa90f001947540" title="Reads the character in the front of the Receiving FIFO and places it in the queue." alt="" coords="106,5,184,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="57,36,90,28,91,33,59,41"/>
+<area shape="rect" id="Node000004" href="$utils_8c.html#a2b56f50ba159e9d5115ed1a75eff15d9" title=" " alt="" coords="232,56,322,83"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="58,44,217,61,216,66,58,49"/>
+<area shape="rect" id="Node000003" href="$queue_8c.html#a5b528d8e9fb07cf254e06b98a0aa70f5" title="Add uint8_t value to end of queue." alt="" coords="242,5,312,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="184,16,226,16,226,21,184,21"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="183,30,227,47,225,52,181,35"/>
+</map>

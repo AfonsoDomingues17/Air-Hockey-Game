@@ -1,0 +1,7 @@
+<map id="read_next_signal" name="read_next_signal">
+<area shape="rect" id="Node000001" title="Reads the next 2 bytes of the queue if they are available." alt="" coords="5,31,125,57"/>
+<area shape="rect" id="Node000002" href="$queue_8c.html#a0c1e6cc26ccdca2f859bc20c470869f9" title="Removes data from front of queue." alt="" coords="194,5,264,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,32,178,24,179,29,125,37"/>
+<area shape="rect" id="Node000003" href="$queue_8c.html#ab7b612b42bcd021bb97d7b781e1e4a8f" title="Tells caller how many items the queue has." alt="" coords="173,56,285,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="125,51,158,56,157,61,125,56"/>
+</map>

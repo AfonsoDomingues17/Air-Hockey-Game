@@ -1,0 +1,27 @@
+var view_8c =
+[
+    [ "draw_frame", "view_8c.html#a8f7acda4de2ff9ede5fca68d2db09959", null ],
+    [ "swap_buffers", "view_8c.html#a0d157d997329169f936545f9985e334b", null ],
+    [ "vg_draw_background", "view_8c.html#a2859457f43a05fd7af0a05adf119b0e7", null ],
+    [ "vg_draw_points", "view_8c.html#adbe8e1a44e223d8497d3a173f0af67b5", null ],
+    [ "vg_draw_rtc", "view_8c.html#a757461f80ba3b2a18004200b43e7edbe", null ],
+    [ "vg_draw_time", "view_8c.html#ac069eea5e40b675045e54b60ffcab22f", null ],
+    [ "vg_drawn_popOut", "view_8c.html#a3c07e7c1c7fe0418db839da4cef907ed", null ],
+    [ "bytes_per_pixel", "view_8c.html#a144d9a9cabab9de0142a6baee835ca6b", null ],
+    [ "day_time_info", "view_8c.html#ad666afdddec8704f0103a75f45b784d4", null ],
+    [ "game_background", "view_8c.html#a383f7d2de87f4e43a2c0625320f812c5", null ],
+    [ "h_res", "view_8c.html#a43e7e5a0a8f9069e6413b2066ca52f3e", null ],
+    [ "main_buffer", "view_8c.html#afc037c7d7b7267a3184bf0bebbb713c3", null ],
+    [ "mainState", "view_8c.html#ad5ca3cfc7b15f52493911db9623a49d0", null ],
+    [ "menu_background", "view_8c.html#ad65f6c91b1d54541a2513f63f30791d7", null ],
+    [ "player_1_score", "view_8c.html#a7ecd1f474ccba2e0c7f04558685442f6", null ],
+    [ "player_2_score", "view_8c.html#a304525176903e154a219828b14e7c29f", null ],
+    [ "rules_background", "view_8c.html#aab83d964b22eea9a70592af4e15e3b7f", null ],
+    [ "secondary_buffer", "view_8c.html#a43dc91610ded6ffc6bb43792e46c8ae0", null ],
+    [ "tie_popOut", "view_8c.html#a39e6fd8b55dc39a8d3e9f15115ab5a0b", null ],
+    [ "time_remaining", "view_8c.html#ac6a58aa65452e6cd9041e6d7ed457f81", null ],
+    [ "v_res", "view_8c.html#a5bda1b499253a8fbf3cab646f8760391", null ],
+    [ "vram_size", "view_8c.html#a17b12b87c65aaa04215d9bdb7e9e84dd", null ],
+    [ "youlost_popOut", "view_8c.html#a503ba0394cf0930c465cb6e9f49e5900", null ],
+    [ "youwon_popOut", "view_8c.html#a661884e24669a014c0c63559eddab803", null ]
+];

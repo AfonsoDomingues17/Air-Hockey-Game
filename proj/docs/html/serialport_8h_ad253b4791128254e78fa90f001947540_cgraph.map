@@ -1,0 +1,7 @@
+<map id="read_char" name="read_char">
+<area shape="rect" id="Node000001" title="Reads the character in the front of the Receiving FIFO and places it in the queue." alt="" coords="5,31,84,57"/>
+<area shape="rect" id="Node000002" href="$queue_8c.html#a5b528d8e9fb07cf254e06b98a0aa70f5" title="Add uint8_t value to end of queue." alt="" coords="142,5,212,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,34,126,26,127,31,85,39"/>
+<area shape="rect" id="Node000003" href="$utils_8c.html#a2b56f50ba159e9d5115ed1a75eff15d9" title=" " alt="" coords="132,56,222,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="85,49,117,55,116,60,84,54"/>
+</map>

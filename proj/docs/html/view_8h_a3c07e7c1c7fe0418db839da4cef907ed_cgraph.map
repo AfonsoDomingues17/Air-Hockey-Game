@@ -1,0 +1,7 @@
+<map id="vg_drawn_popOut" name="vg_drawn_popOut">
+<area shape="rect" id="Node000001" title="Draws a given .xpm file in the middle of the screen." alt="" coords="5,31,129,57"/>
+<area shape="rect" id="Node000002" href="$graphics_8c.html#ac19350f0662b5c8fbb1a41e051411014" title="Gets horizontal resolution of the screen." alt="" coords="177,5,255,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="129,31,161,25,162,30,130,36"/>
+<area shape="rect" id="Node000003" href="$graphics_8c.html#ab226d056720011120b05e68e5f4d4449" title="Gets vertical resolution of the screen." alt="" coords="178,56,254,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="130,52,163,58,162,63,129,57"/>
+</map>
