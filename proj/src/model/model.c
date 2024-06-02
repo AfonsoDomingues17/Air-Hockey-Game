@@ -45,7 +45,7 @@ void (timer_int)() {
             break;
         case GAME:
             puck_transmit++;
-            if (puck_transmit == 1) {
+            if (puck_transmit == 2) {
                 transmit_puck_change(bluepuck, &previous_x, &previous_y);
                 puck_transmit = 0;
             } 
@@ -86,6 +86,7 @@ void (keyboard_int)() {
             if (start_button_selected->selected && scancode == SPACE_BREAK_CODE) {
                 serialPort_resetFIFO();
                 send_signal(signal1);
+                is_main_pc = true;
                 mainState = GAME;
                 reset_game_state();
             }
@@ -147,6 +148,7 @@ void (mouse_int)() {
 void (sp_int)() {
     uint16_t temp_x = 0;
     uint16_t temp_y = 0;
+    int8_t aux = 0;
     switch (mainState)
     {
     case MAIN_MENU:
@@ -178,7 +180,8 @@ void (sp_int)() {
                 is_stored_x = true;
                 break;
             }
-            Ball->xspeed = -(temp_y & 0x00FF);
+            aux = (temp_y & 0x00FF);
+            Ball->xspeed = -aux;
             Ball->yspeed = -(int8_t)(temp_y >> 8);
             break;
         }

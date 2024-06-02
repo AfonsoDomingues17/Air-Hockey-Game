@@ -43,7 +43,7 @@ int (read_char)() {
                 return 1;
             }
             /* Load Bearing Print */
-            printf("Received Byte: %x\n", data);
+            //printf("Received Byte: %x\n", data);
             enqueue(inQueue, data);
             return 0;
             //dar push do character para a fila porque os dados nao podem ser processados imediatamente
@@ -117,9 +117,10 @@ void (transmit_puck_change)(Sprite* bluepuck, int* previous_x, int* previous_y) 
 }
 
 void (transmit_ball_speed)(int x_speed, int y_speed) {
+    uint8_t temp_x = x_speed, temp_y = y_speed;
     send_signal(ball_signal);
-    send_char(x_speed & 0x00FF);
-    send_char(y_speed & 0x00FF);
+    send_char(temp_x);
+    send_char(temp_y);
 }
 
 void (send_signal)(uint16_t signal) {

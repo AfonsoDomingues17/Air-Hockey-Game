@@ -18,17 +18,6 @@ void move(Sprite* object, int16_t x, int16_t y, unsigned layer) {
     object->y = new_y;
     object->xspeed = x;
     object->yspeed = y;
-    if (object == Ball) {
-      
-      if (object->xspeed > max_velocity || object->xspeed < -max_velocity) {
-        if (object->xspeed < 0) object->xspeed = -max_velocity;
-        else object->xspeed = max_velocity;
-      }
-      if (object->yspeed > max_velocity || object->yspeed < -max_velocity) {
-        if (object->yspeed < 0) object->yspeed = -max_velocity;
-        else object->yspeed = max_velocity;
-      }
-    }
   }
 }
 
@@ -43,7 +32,7 @@ bool detect_collision_in_layer(Sprite* object, int new_x, int new_y, unsigned la
     } 
     break;
   case 1: // Collision Layer for Ball object
-    if (detect_beacon_collision(object, new_x, new_y)) {
+    if (detect_goal_collision(object, new_x, new_y)) {
       object->x = 550;
       object->y = 410;
       object->xspeed = 0;
@@ -165,7 +154,7 @@ bool detect_middle_field_collision(Sprite *object, int new_x, int new_y) {
   } else return false;
 }
 
-bool detect_beacon_collision(Sprite* object, int new_x, int new_y) {
+bool detect_goal_collision(Sprite* object, int new_x, int new_y) {
   bool collided = false;
   if (new_x >= left_post && new_x <= right_post && 
       new_x + object->width >= left_post && new_x + object->width <= right_post && 
@@ -185,7 +174,8 @@ bool detect_beacon_collision(Sprite* object, int new_x, int new_y) {
 void ball_collision(Sprite *object) {
   Ball->xspeed = object->xspeed;
   Ball->yspeed = object->yspeed;
-  transmit_ball_speed(object->xspeed, object->yspeed);
+  normalize_speed(Ball);
+  transmit_ball_speed(Ball->xspeed, Ball->yspeed);
 }
 
 void bounce_off(Sprite* object1, Sprite* object2) {
@@ -197,7 +187,10 @@ void bounce_off(Sprite* object1, Sprite* object2) {
   } 
   object1->xspeed = object2->xspeed;
   object1->yspeed = object2->yspeed;
-  transmit_ball_speed(object1->xspeed, object1->yspeed);
+  if (object1 == Ball) {
+    normalize_speed(object1);
+    transmit_ball_speed(object1->xspeed, object1->yspeed);
+  }
 }
 
 void handle_play_area_collision(Sprite* object, bool info[]) {
@@ -212,4 +205,11 @@ void handle_play_area_collision(Sprite* object, bool info[]) {
     if (info[2]) object->y = vertical_end - object->height;
     if (info[3]) object->x = horizontal_start;
   }
+}
+
+void normalize_speed(Sprite* object) {
+  if (object->xspeed > max_velocity) object->xspeed = max_velocity;
+  if (object->xspeed < -max_velocity) object->xspeed = -max_velocity;
+  if (object->yspeed > max_velocity) object->yspeed = max_velocity;
+  if (object->yspeed < -max_velocity) object->yspeed = -max_velocity;
 }
