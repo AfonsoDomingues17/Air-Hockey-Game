@@ -18,8 +18,8 @@ int option = 0;
 
 /* Serial Port Related Variables*/
 extern Queue *inQueue;
-int previous_x = 535;
-int previous_y = 730;
+int previous_x = 0;
+int previous_y = 0;
 
 /* Timers */
 unsigned int idle_game = 0;
@@ -137,8 +137,10 @@ void (mouse_int)() {
         if(parsing.lb){
             move(bluepuck, parsing.delta_x, parsing.delta_y, 2);
             mouse->visibility = false;
+        } else {
+            mouse->visibility = true;
+            bluepuck->xspeed = 0; bluepuck->yspeed = 0;
         }
-        else mouse->visibility = true;
     }
 }
 
@@ -178,8 +180,6 @@ void (sp_int)() {
             }
             Ball->xspeed = -(temp_y & 0x00FF);
             Ball->yspeed = -(int8_t)(temp_y >> 8);
-            printf("Received Ball speed X: %x Y: %x\n", Ball->xspeed, Ball->yspeed);
-            printf("In decimal %d %d\n", Ball->xspeed, Ball->yspeed);
             break;
         }
         if (read_next_signal(&temp_y)) {
@@ -244,6 +244,8 @@ void (reset_game_state)() {
     redpuck->yspeed = 0;
     redpuck->x = 535;
     redpuck->y = 55;
+    previous_x = 535;
+    previous_y = 730;
 }
 
 void (loader_sprite)() {

@@ -16,6 +16,10 @@
 #define vertical_end 843
 #define middle_field 432
 
+/* Goal are collision */
+#define left_post 476
+#define right_post 676
+
 /* Ball Specific Limitations */
 #define max_velocity 16
 

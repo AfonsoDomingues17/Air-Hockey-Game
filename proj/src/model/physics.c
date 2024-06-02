@@ -167,11 +167,15 @@ bool detect_middle_field_collision(Sprite *object, int new_x, int new_y) {
 
 bool detect_beacon_collision(Sprite* object, int new_x, int new_y) {
   bool collided = false;
-  if (new_x >= 476 && new_x <= 676 && new_y >= 21 && new_y <= 35 ) {
+  if (new_x >= left_post && new_x <= right_post && 
+      new_x + object->width >= left_post && new_x + object->width <= right_post && 
+      new_y <= vertical_start) {
     player_2_score++;
     collided = true;
   }
-  if (new_x >= 476 && new_x <= 676 && new_y >= 793 && new_y <= 810) {
+  if (new_x >= left_post && new_x <= right_post && 
+      new_x + object->width >= left_post && new_x + object->width <= right_post && 
+      new_y + object->height >= vertical_end) {
     player_1_score++;
     collided = true;
   }
