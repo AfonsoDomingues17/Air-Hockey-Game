@@ -86,26 +86,91 @@ DL(Divisor Latch)  register is a 16-bit register that contains the divisor for s
 Both ends must agree on the communication parameters, such as the number of bits per character, the number of stop bits, and the parity bit. These parameters are set by the LCR register
 */
 
+/**
+ * @brief Subscribes to serial port interrupts
+ * 
+ * @return 1 if an error occurred and 0 if it did not.
+*/
 int (sp_subscribe_int)();
 
+/**
+ * @brief Unsubscribes to serial port interrupts
+ * 
+ * @return 1 if an error occurred and 0 if it did not.
+*/
 int (sp_unsubscribe_int)();
 
+/**
+ * @brief Reads every character currently available in the UART FIFO
+*/
 void (sp_ih)();
 
+/**
+ * @brief Reads the character in the front of the Receiving FIFO and places it in the queue.
+ * 
+ * @return 1 if an error occurred and 0 if it did not.
+*/
 int (read_char)();
 
+/**
+ * @brief Send a character to the transmission FIFO
+ * 
+ * @param data Data to be sent
+ * 
+ * @return 1 if an error occurred and 0 if it did not.
+*/
 int (send_char)(uint8_t data);
 
+/**
+ * @brief Enables reception of data, clears and enables FIFO and creates associated queue
+ * 
+ * @return 1 if an error occurred and 0 if it did not.
+*/
 int (serialPort_init)();
 
+/**
+ * @brief Destroys associated queue
+ * 
+ * @return 1 if an error occurred and 0 if it did not.
+*/
 int (serialPort_exit)();
 
+/**
+ * @brief Clears and enables FIFO
+ * 
+ * @return 1 if an error occurred and 0 if it did not.
+*/
 int (serialPort_resetFIFO)();
 
+/**
+ * @brief Transmits 4 bytes with info on the displacement of a puck
+ * 
+ * @param bluepuck Sprite pointer to the sprite object whose displacement is being sent
+ * @param previous_x X position of the sprite that was sent in the last transmission
+ * @param previous_y Y position of the sprite that was sent in the last transmission
+*/
 void (transmit_puck_change)(Sprite* bluepuck, int* previous_x, int* previous_y);
 
+/**
+ * @brief Transmits 3 bytes with current speed of the ball object (the first byte sent is a header)
+ * 
+ * @param xspeed X speed of the ball to be sent
+ * @param xspeed Y speed of the ball to be sent
+*/
 void (transmit_ball_speed)(int xspeed, int yspeed);
 
+/**
+ * @brief Transmits a 2 bytes header
+ * 
+ * @param signal The signal to be sent
+*/
 void (send_signal)(uint16_t signal);
 
+/**
+ * @brief Reads the next 2 bytes of the queue if they are available
+ * 
+ * @param character This parameter will hold the data if it is indeed read
+ * 
+ * @return 1 if there is data to read or 0 if there is not
+*/
 int (read_next_signal)(uint16_t* character);
